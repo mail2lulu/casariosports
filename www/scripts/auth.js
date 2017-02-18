@@ -82,13 +82,13 @@ friendlyPix.Auth = class {
         this.signedInUserAvatar.css('background-image', '');
         firebaseUi.start('#firebaseui-auth-container', uiConfig);
       } else {
-        this.signedOutOnlyElements.hide();
-        this.signedInOnlyElements.show();
+        // this.signedOutOnlyElements.hide();
+        // this.signedInOnlyElements.show();
         this.userId = user.uid;
         this.signedInUserAvatar.css('background-image',
             `url("${user.photoURL || '/images/silhouette.jpg'}")`);
-        this.signedInUsername.text(user.displayName || 'Anonymous');
-        this.usernameLink.attr('href', `/user/${user.uid}`);
+        // this.signedInUsername.text(user.displayName || 'Anonymous');
+        // this.usernameLink.attr('href', `/user/${user.uid}`);
         friendlyPix.firebase.saveUserData(user.photoURL, user.displayName);
       }
     });
