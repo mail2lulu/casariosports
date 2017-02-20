@@ -57,7 +57,7 @@ friendlyPix.Router = class {
         page('*', () => page('/'));
 
         // Start routing.
-        page();
+        //page();
       });
     });
   }

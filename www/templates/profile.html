@@ -2,8 +2,8 @@
     <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="true">
         <div class="hero slide-up" style="background-image: url('img/profile-1.jpg');">
             <div class="content">
-                <div class="avatar" style="background-image: url('img/daenerys-1.jpg');"></div>
-                <h3><a class="light">Kiran</a></h3>
+                <div class="avatar" ng-style="{'background-image': 'url(' + appConfig.user.photoURL + ')'}"></div>
+                <h3><a class="light">{{appConfig.user.displayName}}</a></h3>
                 <h4>Always in Camera</h4>
             </div>
         </div>

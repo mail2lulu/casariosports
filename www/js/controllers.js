@@ -87,12 +87,59 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
+.controller('LoginCtrl', function($rootScope,$scope, $state, $timeout, $stateParams, ionicMaterialInk) {
+    $rootScope.appConfig = myAppConfig;
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
+
+         // firebaseUi.start('#firebaseui-auth-container', uiConfig);
     }, 0);
     ionicMaterialInk.displayEffect();
+
+    var provider = new firebase.auth.GoogleAuthProvider();
+   
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+         console.log("inside auth changed firebase user :: ", user)
+         myAppConfig.user = user;
+        $state.go('app.profile');
+      }else{
+        console.log("inside auth changed firebase user :: ", user)
+      }
+    });
+
+    $scope.googleLogin = function(){
+        /** TODO: check if logged in in background */
+
+       // googleLogin
+       firebase.auth().signInWithPopup(provider).then(function(result) {
+            console.log("inside auth firebase")
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          myAppConfig.user = user;
+            console.log("inside auth firebaseuser.photoURL, user.displayName ",user.photoURL, user.displayName)
+
+           crsapp.firebase.saveUserData(user.photoURL, user.displayName);
+
+          // ...
+        }).catch(function(error) {
+            console.log("inside auth error")
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+        });
+
+    }//eo fun
+
 })
 
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {

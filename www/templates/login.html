@@ -8,27 +8,25 @@
         </div>
 
         <!-- Splash screen -->
-<section id="page-splash">
-  <h3 class="fp-logo"><i class="material-icons">photo</i> Friendly Pix</h3>
-  <div class="fp-caption">The friendliest way to share your pics</div>
-  <div class="fp-signed-out-only fp-initially-hidden">
-    <div id="firebaseui-auth-container" class="fp-signed-out-only fp-initially-hidden"></div>
-    <a class="fp-skip" ui-sref="app.profile">skip sign in</a>
-  </div>
-</section>
 
-        <div class="list">
+    <!-- <div id="firebaseui-auth-container"></div> -->
+    <a class="fp-skip" ui-sref="app.profile">skip sign in</a>
+
+
+       <!--  <div class="list">
             <ion-md-input placeholder="Username" highlight-color="balanced" type="text"></ion-md-input>
             <ion-md-input placeholder="Password" highlight-color="energized" type="password"></ion-md-input>
         </div>
         <div class="padding">
             <button ui-sref="app.profile" class="button button-full button-assertive ink">Login</button>
             <a class="fp-sign-out mdl-navigation__link fp-signed-in-only"><i class="material-icons">exit_to_app</i> Sign Out</a>
-        </div>
+        </div> -->
+        <!-- <div id="firebaseui-auth-container"></div> -->
         <div class="button-bar social-login">
-            <button class="button button-small button-border icon-left ion-social-google button-assertive-900">Google+</button>
-            <button class="button button-small button-border icon-left ion-social-twitter button-calm-900">Twitter</button>
-            <button class="button button-small button-border icon-left ion-social-facebook button-positive-900">Facebook</button>
+       
+            <button ng-click="googleLogin()" class="button button-small button-border icon-left ion-social-google button-assertive-900">Google+</button>
+           <!--  <button class="button button-small button-border icon-left ion-social-twitter button-calm-900">Twitter</button>
+            <button class="button button-small button-border icon-left ion-social-facebook button-positive-900">Facebook</button> -->
         </div>
     </ion-content>
 </ion-view>
