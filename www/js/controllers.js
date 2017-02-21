@@ -87,58 +87,43 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('LoginCtrl', function($rootScope,$scope, $state, $timeout, $stateParams, ionicMaterialInk) {
-    $rootScope.appConfig = myAppConfig;
+.controller('LoginCtrl', function($rootScope, $scope, $state, $timeout, $stateParams, ionicMaterialInk) {
+
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
-
-         // firebaseUi.start('#firebaseui-auth-container', uiConfig);
     }, 0);
     ionicMaterialInk.displayEffect();
 
-    var provider = new firebase.auth.GoogleAuthProvider();
-   
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-         console.log("inside auth changed firebase user :: ", user)
-         myAppConfig.user = user;
-        $state.go('app.profile');
-      }else{
-        console.log("inside auth changed firebase user :: ", user)
-      }
-    });
+    $scope.googleLogin = function() {
+            /** TODO: check if logged in in background */
 
-    $scope.googleLogin = function(){
-        /** TODO: check if logged in in background */
+            // googleLogin
+            firebase.auth().signInWithPopup(myAppConfig.provider).then(function(result) {
+                console.log("inside auth firebase")
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                myAppConfig.user = user;
+                console.log("inside auth firebaseuser.photoURL, user.displayName ", user.photoURL, user.displayName)
 
-       // googleLogin
-       firebase.auth().signInWithPopup(provider).then(function(result) {
-            console.log("inside auth firebase")
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          var token = result.credential.accessToken;
-          // The signed-in user info.
-          var user = result.user;
-          myAppConfig.user = user;
-            console.log("inside auth firebaseuser.photoURL, user.displayName ",user.photoURL, user.displayName)
+                crsapp.firebase.saveUserData(user.photoURL, user.displayName);
 
-           crsapp.firebase.saveUserData(user.photoURL, user.displayName);
+                // ...
+            }).catch(function(error) {
+                console.log("inside auth error")
+                    // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            });
 
-          // ...
-        }).catch(function(error) {
-            console.log("inside auth error")
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-        });
-
-    }//eo fun
+        } //eo fun
 
 })
 
@@ -162,29 +147,121 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-    // Set Header
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
+        // Set Header
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = false;
+        $scope.$parent.setExpanded(false);
+        $scope.$parent.setHeaderFab(false);
 
-    // Set Motion
-    $timeout(function() {
-        ionicMaterialMotion.slideUp({
-            selector: '.slide-up'
+        // Set Motion
+        $timeout(function() {
+            ionicMaterialMotion.slideUp({
+                selector: '.slide-up'
+            });
+        }, 300);
+
+        $timeout(function() {
+            ionicMaterialMotion.fadeSlideInRight({
+                startVelocity: 3000
+            });
+        }, 700);
+
+        // Set Ink
+        ionicMaterialInk.displayEffect();
+    })
+    .controller('FormCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+
+        $('.toggle').on('click', function() {
+            $('.container').stop().addClass('active');
         });
-    }, 300);
 
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideInRight({
-            startVelocity: 3000
+        $('.close').on('click', function() {
+            $('.container').stop().removeClass('active');
         });
-    }, 700);
 
-    // Set Ink
-    ionicMaterialInk.displayEffect();
-})
+        // Set Header
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = false;
+        $scope.$parent.setExpanded(false);
+        $scope.$parent.setHeaderFab(false);
+
+        $timeout(function() {
+            $scope.$parent.hideHeader();
+
+        }, 0);
+
+        // Set Motion
+        $timeout(function() {
+            ionicMaterialMotion.slideUp({
+                selector: '.slide-up'
+            });
+        }, 300);
+
+        $timeout(function() {
+            ionicMaterialMotion.fadeSlideInRight({
+                startVelocity: 3000
+            });
+        }, 700);
+
+        // Set Ink
+        ionicMaterialInk.displayEffect();
+
+
+        $scope.logUserData = function(callee) {
+            console.log("log User Data callee :: ", callee);
+            /** BO User details track */
+            var dateObj = getDateFolder("", "logUserData");
+            myAppConfig.dateFolder = dateObj.dateStr | "";
+            $scope.formData.callee = callee | "no";
+            $scope.formData.timeStamp = dateObj.timeStamp | "";
+            $scope.formData.dateStr = dateObj.dateStr | "";
+            $scope.formData.mobile = $scope.formData.mobile | 0;
+            $scope.formData.flat = $scope.formData.flat | 0;
+            $scope.formData.wing = $scope.formData.wing | 0;
+            $scope.formData.cluster = $scope.formData.cluster | "";
+
+            var res = crsapp.firebase.logMyUserData(callee, myAppConfig.dateFolder, $scope.formData).then(ref => {
+                if (ref.ref.key) {
+                    console.log('if ref.ref.key:', ref.ref.key);
+                } else {
+                    console.log('dddelse ref:', ref);
+                }
+            });
+            /** EO User details track */
+        }
+
+        $scope.formData = myAppConfig.formData;
+        console.log("$scope.formData :: ", $scope.formData);
+        $scope.saveForm = function(form) {
+            console.log('form.$valid:', form.$valid);
+
+            this.formData.callee = "saveForm";
+            var dateObj = getDateFolder("", "saveForm");
+            myAppConfig.dateFolder = dateObj.dateStr;
+            this.formData.timeStamp = dateObj.timeStamp;
+            if (form.$valid) {
+                //is a valid form
+                this.formData.isSubmitted = true;
+                $scope.isSubmitted = true;
+
+                var res2 = crsapp.firebase.saveUserFormData($scope.formData).then(ref => {
+                    if (ref.ref.key) {
+                        console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
+
+                    } else {
+                        console.log('ddd saveUserFormData else ref:', ref);
+                    }
+
+                    $scope.logUserData("successform")
+                        //go to profile after form filled
+                    $state.go('app.profile');
+                })
+            } else {
+                $scope.logUserData("tryform")
+            }
+        };
+    })
 
 .controller('ActivityCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
     $scope.$parent.showHeader();

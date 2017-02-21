@@ -350,6 +350,15 @@ crsapp.Firebase = class {
   }
 
   /**
+   * Saves a log.
+   */
+  logMyUserData(logFolder,dateFolder,updateData) {
+    console.log("logggg")
+      let ref = this.database.ref(`${logFolder}/${dateFolder}`);
+      return ref.push(updateData)        
+  }
+
+  /**
    * Saves or updates public user data in Firebase (such as image URL, display name...).
    */
   saveUserData(imageUrl, displayName) {
@@ -374,6 +383,12 @@ crsapp.Firebase = class {
       }
     };
     return this.database.ref(`people/${this.auth.currentUser.uid}`).update(updateData);
+  }
+/**
+   * Saves or updates public user data in Firebase (such as image URL, display name...).
+   */
+  saveUserFormData(formData) {    
+    return this.database.ref(`people/${this.auth.currentUser.uid}`).update(formData);
   }
 
   /**

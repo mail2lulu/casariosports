@@ -1,16 +1,31 @@
 // Ionic Starter App
-var myAppConfig={
-    user:{
-        displayName:"Anonymous"
+var myAppConfig = {
+        user: {
+            displayName: "Anonymous"
+        },
+        formData: {
+            cluster: "",
+            flat: "",
+            wing: "",
+            smartcard: "",
+            mobile: "",
+            fullname: "",
+            sportsname: "",
+            email: "",
+            callee: "",
+            timeStamp: "",
+            dateStr: "",
+            isSubmitted: false
+        },
+        provider: ""
     }
-}
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
+    // angular.module is a global place for creating, registering and retrieving Angular modules
+    // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+    // the 2nd parameter is an array of 'requires'
+    // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'ionMdInput'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, $state) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -21,6 +36,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+
+        /** Check for user */
+        myAppConfig.provider = new firebase.auth.GoogleAuthProvider();
+        $rootScope.appConfig = myAppConfig;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in.
+                console.log("inside auth changed firebase user :: ", user)
+                myAppConfig.user = user;
+                myAppConfig.formData.email = user.email;
+                myAppConfig.formData.fullname = user.displayName;
+                //todo: get if form is not filled 
+                $state.go('app.form');
+            } else {
+                console.log("inside auth changed firebase user :: ", user)
+                $state.go('app.login');
+            }
+        });
     });
 })
 
@@ -50,8 +83,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
             },
             'fabContent': {
                 template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
+                controller: function($timeout) {
+                    $timeout(function() {
                         document.getElementById('fab-activity').classList.toggle('on');
                     }, 200);
                 }
@@ -68,8 +101,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
             },
             'fabContent': {
                 template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
+                controller: function($timeout) {
+                    $timeout(function() {
                         document.getElementById('fab-friends').classList.toggle('on');
                     }, 900);
                 }
@@ -86,8 +119,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
             },
             'fabContent': {
                 template: '<button id="fab-gallery" class="button button-fab button-fab-top-right expanded button-energized-900 drop"><i class="icon ion-heart"></i></button>',
-                controller: function ($timeout) {
-                    $timeout(function () {
+                controller: function($timeout) {
+                    $timeout(function() {
                         document.getElementById('fab-gallery').classList.toggle('on');
                     }, 600);
                 }
@@ -109,24 +142,34 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     })
 
     .state('app.profile', {
-        url: '/profile',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/profile.html',
-                controller: 'ProfileCtrl'
-            },
-            'fabContent': {
-                template: '<button id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i></button>',
-                controller: function ($timeout) {
-                    /*$timeout(function () {
-                        document.getElementById('fab-profile').classList.toggle('on');
-                    }, 800);*/
+            url: '/profile',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/profile.html',
+                    controller: 'ProfileCtrl'
+                },
+                'fabContent': {
+                    template: '',
+                    controller: function($timeout) {}
                 }
             }
-        }
-    })
-    ;
+        })
+        .state('app.form', {
+            url: '/form',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/form.html',
+                    controller: 'FormCtrl'
+                },
+                'fabContent': {
+                    template: '',
+                    controller: function($timeout) {
+
+                    }
+                }
+            }
+        });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/login');
+    //$urlRouterProvider.otherwise('/app/login');
 });

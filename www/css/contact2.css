@@ -1,0 +1,60 @@
+ #content {
+     /*background: #e0edf6 url(../img/contact/content-bg.jpg) top center;*/
+     /*background:#e0edf6 url(../img/contact/stock-photo--image-of-female-college-student-using-smart-phone-in-classroom-522486784.jpg) top center;*/
+     /*background:#e0edf6 url(../img/contact/Contact_01.jpg) top center;*/
+     color: #506675;
+ }
+ /* @group Form */
+ 
+ #form {
+     padding-bottom: 45px;
+     padding-top: 15px;
+ }
+ 
+ #form form {}
+ 
+ #form ul {
+     margin: 0;
+     padding: 0;
+     list-style: none;
+     color: #7b7b79;
+ }
+ 
+ #form li {
+     /*position: absolute;*/
+     /*margin: 0 5px;*/
+ }
+ 
+ #form li div {
+     /*clear: both;*/
+ }
+ 
+ #form label {
+     font-weight: bold;
+     display: block;
+     /*margin-bottom: 5px;*/
+     /*width: 260px;*/
+     margin: 0px 0px 5px 10px;
+     float: left;
+     line-height: 2.5;
+ }
+ 
+ #form input {
+     padding: 4px;
+     width: 50%;
+     border: none;
+     /*background: #fff url("../img/contact/form-fieldbg.png") repeat-x top left;*/
+     /*height: 30px;*/
+     margin: 0px 80px;
+ }
+ 
+ #form-message textarea {
+     width: 95%;
+     height: 90px;
+     margin: 10px;
+     padding: 10px;
+     border: 1px solid #c6c6c4;
+     /* background: #fff url(../img/contact/form-fieldbg.png) repeat-x top left; */
+     font-size: 10pt;
+ }
+ /* @end

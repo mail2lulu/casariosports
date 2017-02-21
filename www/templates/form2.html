@@ -1,0 +1,90 @@
+<ion-view view-title="About You">
+    <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="true">
+        <div class="hero slide-up" style="background-image: url('img/profile-1.jpg');">
+            <div class="content">
+                <div class="avatar" ng-style="{'background-image': 'url(' + appConfig.user.photoURL + ')'}"></div>
+                <h3><a class="light">{{appConfig.user.displayName}}</a></h3>
+                <h4>Always in Camera</h4>
+            </div>
+        </div>
+        <script id="error-list.html" type="text/ng-template">
+            <div class="error" ng-message="required">
+                <i class="ion-information-circled"></i> This field is required!
+            </div>
+            <div class="error" ng-message="minlength">
+                <i class="ion-information-circled"></i> Minimum length of this field is 5 characters!
+            </div>
+            <div class="error" ng-message="maxlength">
+                <i class="ion-information-circled"></i> Maximum length of this field is 20 characters!
+            </div>
+        </script>
+        <div class="clearfix">
+            <div id="content-inner">
+                <!--  <div id="video-container" class="landing-background grid_8">
+                    <video preload="" muted="" autoplay="" loop="">
+                        <source src="/videos/scene1_background.webm" type="video/webm">
+                        <source src="/videos/scene1_background.mp4" type="video/mp4">
+                    </video>
+                </div>       -->
+                <div class="container_12 clearfix">
+                    <div class="grid_8" id="form">
+                        <form name="myForm" ng-submit="saveForm(myForm)" novalidate>
+                            <ul>
+                                <li id="form-fullname">
+                                    <div>Name:</div>
+                                    <div ng-class="{ 'has-errors' : myForm.fullname.$invalid, 'no-errors' : myForm.fullname.$valid}">
+                                        <input type="text" name="fullname" placeholder="What can we call you?" ng-model="formData.fullname" ng-minlength="5" ng-maxlength="20" required>
+                                    </div>
+                                </li>
+                                <li id="form-email">
+                                    <div>Email:</div>
+                                    <div ng-class="{ 'has-errors' : myForm.email.$invalid, 'no-errors' : myForm.email.$valid}">
+                                        <input type="email" name="email" placeholder="email" ng-model="formData.email" required>
+                                    </div>
+                                </li>
+                                <li id="form-mobile">
+                                    <div>Mobile:</div>
+                                    <div ng-class="{ 'has-errors' : myForm.mobile.$invalid, 'no-errors' : myForm.mobile.$valid}">
+                                        <input type="number" name="mobile" placeholder="Where can we call you?" ng-model="formData.mobile" ng-minlength="10" ng-maxlength="10" required>
+                                    </div>
+                                </li>
+                                <li id="form-cluster">
+                                    <div>Cluster:</div>
+                                    <div ng-class="{ 'has-errors' : myForm.cluster.$invalid, 'no-errors' : myForm.cluster.$valid}">
+                                        <input type="text" name="cluster" placeholder="cluster" ng-model="formData.cluster" ng-minlength="4" ng-maxlength="19" required>
+                                    </div>
+                                </li>
+                                <li id="form-wing">
+                                    <div ng-class="{ 'has-errors' : myForm.wing.$invalid, 'no-errors' : myForm.wing.$valid}">
+                                        <input type="text" name="wing" placeholder="wing" ng-model="formData.wing" ng-minlength="1" ng-maxlength="1" required>
+                                    </div>
+                                </li>
+                                <li id="form-flat">
+                                    <div ng-class="{ 'has-errors' : myForm.flat.$invalid, 'no-errors' : myForm.flat.$valid}">
+                                        <input type="number" name="flat" placeholder="flat" ng-model="formData.flat" ng-minlength="3" ng-maxlength="4" required>
+                                    </div>
+                                </li>
+                                <li id="form-message">
+                                    <!-- <div>Have your say:</div> -->
+                                    <textarea ng-model="formData.message" name="message" rows="10" placeholder="About you"></textarea>
+                                </li>
+                                <li id="form-buttons">
+                                    <button type="submit" class="button icon-right ion-chevron-right button-assertive">Send</button>
+                                </li>
+                                <li id="form-error">
+                                    <div ng-bind-html="formData.formError">Error</div>
+                                    <div class="error-container" ng-show="myForm.fullname.$invalid && !myForm.fullname.$pristine" ng-messages="myForm.fullname.$error">
+                                        <div ng-messages-include="error-list.html"></div>
+                                    </div>
+                                    <div class="error-container" ng-show="myForm.mobile.$invalid && !myForm.mobile.$pristine" ng-messages="myForm.mobile.$error">
+                                        <div ng-messages-include="error-list.html"></div>
+                                    </div>
+                                    <!-- <div ng-bind-html="appLink">s n</div> -->
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </ion-content>
+</ion-view>
