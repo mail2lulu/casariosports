@@ -6,50 +6,81 @@
 
             https://codepen.io/Iulius90/pen/QwaOwL
             -->
-            <!-- <div class="card"></div> -->
+            <div class="hero slide-up" style="background-image: url('img/profile-1.jpg');">
+                <div class="content">
+                    <div class="avatar" ng-style="{'background-image': 'url(' + appConfig.user.photoURL + ')'}"></div>
+                    <h3><a class="light">{{appConfig.user.displayName}}</a></h3>
+                    <h4>Always in Camera</h4>
+                </div>
+            </div>
+            <script id="error-list.html" type="text/ng-template">
+                <div class="error" ng-message="required">
+                    <i class="ion-information-circled"></i> This field is required!
+                </div>
+                <div class="error" ng-message="minlength">
+                    <i class="ion-information-circled"></i> Minimum length of this field is 5 characters!
+                </div>
+                <div class="error" ng-message="maxlength">
+                    <i class="ion-information-circled"></i> Maximum length of this field is 20 characters!
+                </div>
+            </script>
             <div class="card ">
-                <!-- <div class="toggle"></div> -->
-                <h1 class="title">Register     <!-- <div class="close"></div> -->  </h1>
-                <form>
-                    <div class="input-container">
-                        <input type="#{type}" id="#{label}" required="required" />
-                        <label for="#{label}">Username</label>
-                        <div class="bar"></div>
+                <!-- <h1 class="title">Register</h1> -->
+                <form name="myForm" ng-submit="saveForm(myForm)" novalidate>
+                    <div class="mdl-card__supporting-text mdl-color-text--grey-600" id="messagesDiv">
+                        <input type="file" id="file" name="file" />
+                        <div class="input-container">
+                            <img style="max-height: 100px;" id="smartCardImg" src="{{formData.smartcard}}">
+                            <div ng-class="{ 'has-errors' : myForm.smartcard.$invalid, 'no-errors' : myForm.smartcard.$valid}">
+                                <input type="text" name="smartcard" ng-model="formData.smartcard" ng-minlength="50" required>
+                                <label for="smartcard">Upload smart card</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="input-container">
-                        <input type="#{type}" id="#{label}" required="required" />
-                        <label for="#{label}">Password</label>
-                        <div class="bar"></div>
+                        <div ng-class="{ 'has-errors' : myForm.fullname.$invalid, 'no-errors' : myForm.fullname.$valid}">
+                            <input type="text" name="fullname" ng-model="formData.fullname" ng-minlength="5" ng-maxlength="20" required>
+                            <label for="fullname">Name</label>
+                        </div>
                     </div>
                     <div class="input-container">
-                        <input type="#{type}" id="#{label}" required="required" />
-                        <label for="#{label}">Repeat Password</label>
-                        <div class="bar"></div>
+                        <div ng-class="{ 'has-errors' : myForm.email.$invalid, 'no-errors' : myForm.email.$valid}">
+                            <input type="email" name="email" ng-model="formData.email" required>
+                            <label for="email">email</label>
+                        </div>
                     </div>
                     <div class="input-container">
-                        <input type="#{type}" id="#{label}" required="required" />
-                        <label for="#{label}">Repeat Password</label>
-                        <div class="bar"></div>
+                        <div ng-class="{ 'has-errors' : myForm.mobile.$invalid, 'no-errors' : myForm.mobile.$valid}">
+                            <input type="number" name="mobile" ng-model="formData.mobile" ng-minlength="10" ng-maxlength="10" required>
+                            <label for="mobile">mobile</label>
+                        </div>
                     </div>
                     <div class="input-container">
-                        <input type="#{type}" id="#{label}" required="required" />
-                        <label for="#{label}">Username</label>
-                        <div class="bar"></div>
+                        <div ng-class="{ 'has-errors' : myForm.cluster.$invalid, 'no-errors' : myForm.cluster.$valid}">
+                            <input type="text" name="cluster" ng-model="formData.cluster" ng-minlength="4" ng-maxlength="20" required>
+                            <label for="cluster">cluster</label>
+                        </div>
                     </div>
                     <div class="input-container">
-                        <input type="#{type}" id="#{label}" required="required" />
-                        <label for="#{label}">Password</label>
-                        <div class="bar"></div>
+                        <div ng-class="{ 'has-errors' : myForm.wing.$invalid, 'no-errors' : myForm.wing.$valid}">
+                            <input type="text" name="wing" ng-model="formData.wing" ng-minlength="1" ng-maxlength="1" required>
+                            <label for="wing">wing</label>
+                        </div>
                     </div>
                     <div class="input-container">
-                        <input type="#{type}" id="#{label}" required="required" />
-                        <label for="#{label}">Repeat Password</label>
-                        <div class="bar"></div>
+                        <div ng-class="{ 'has-errors' : myForm.flat.$invalid, 'no-errors' : myForm.flat.$valid}">
+                            <input type="text" name="flat" ng-model="formData.flat" ng-minlength="3" ng-maxlength="4" required>
+                            <label for="flat">flat</label>
+                        </div>
                     </div>
-                    <div class="input-container">
-                        <input type="#{type}" id="#{label}" required="required" />
-                        <label for="#{label}">Repeat Password</label>
-                        <div class="bar"></div>
+                    <div id="form-error">
+                        <ul>
+                            <li ng-repeat="(key, errors) in myForm.$error track by $index"> <strong>{{ key }}</strong> errors
+                                <ul>
+                                    <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                     <div class="button-container">
                         <button><span>Next</span></button>

@@ -1,4 +1,12 @@
 // Ionic Starter App
+
+/**
+All Friend list
+Captain option by creating events
+Send email
+create teams
+*/
+
 var myAppConfig = {
         user: {
             displayName: "Anonymous"
@@ -12,10 +20,8 @@ var myAppConfig = {
             fullname: "",
             sportsname: "",
             email: "",
-            callee: "",
             timeStamp: "",
             dateStr: "",
-            isSubmitted: false
         },
         provider: ""
     }

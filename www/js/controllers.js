@@ -21,6 +21,16 @@ angular.module('starter.controllers', [])
     // Layout Methods
     ////////////////////////////////////////
 
+    $scope.logout = function() {
+        console.log("inside logout")
+        firebase.auth().signOut().then(function() {
+            console.log("inside logout successful");
+            // Sign-out successful.
+        }, function(error) {
+            // An error happened.
+            console.log("inside logout error")
+        });
+    }
     $scope.hideNavBar = function() {
         document.getElementsByTagName('ion-nav-bar')[0].style.display = 'none';
     };
@@ -147,121 +157,157 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-        // Set Header
-        $scope.$parent.showHeader();
-        $scope.$parent.clearFabs();
-        $scope.isExpanded = false;
-        $scope.$parent.setExpanded(false);
-        $scope.$parent.setHeaderFab(false);
+    // Set Header
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
 
-        // Set Motion
-        $timeout(function() {
-            ionicMaterialMotion.slideUp({
-                selector: '.slide-up'
-            });
-        }, 300);
-
-        $timeout(function() {
-            ionicMaterialMotion.fadeSlideInRight({
-                startVelocity: 3000
-            });
-        }, 700);
-
-        // Set Ink
-        ionicMaterialInk.displayEffect();
-    })
-    .controller('FormCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-
-        $('.toggle').on('click', function() {
-            $('.container').stop().addClass('active');
+    // Set Motion
+    $timeout(function() {
+        ionicMaterialMotion.slideUp({
+            selector: '.slide-up'
         });
+    }, 300);
 
-        $('.close').on('click', function() {
-            $('.container').stop().removeClass('active');
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideInRight({
+            startVelocity: 3000
         });
+    }, 700);
 
-        // Set Header
-        $scope.$parent.clearFabs();
-        $scope.isExpanded = false;
-        $scope.$parent.setExpanded(false);
-        $scope.$parent.setHeaderFab(false);
+    // Set Ink
+    ionicMaterialInk.displayEffect();
+})
 
-        $timeout(function() {
-            $scope.$parent.hideHeader();
+.controller('FormCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
 
-        }, 0);
+    $('.toggle').on('click', function() {
+        $('.container').stop().addClass('active');
+    });
 
-        // Set Motion
-        $timeout(function() {
-            ionicMaterialMotion.slideUp({
-                selector: '.slide-up'
-            });
-        }, 300);
+    $('.close').on('click', function() {
+        $('.container').stop().removeClass('active');
+    });
 
-        $timeout(function() {
-            ionicMaterialMotion.fadeSlideInRight({
-                startVelocity: 3000
-            });
-        }, 700);
+    // Set Header
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
 
-        // Set Ink
-        ionicMaterialInk.displayEffect();
+    $timeout(function() {
+        $scope.$parent.hideHeader();
+
+    }, 0);
+
+    // Set Motion
+    $timeout(function() {
+        ionicMaterialMotion.slideUp({
+            selector: '.slide-up'
+        });
+    }, 300);
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideInRight({
+            startVelocity: 3000
+        });
+    }, 700);
+
+    // Set Ink
+    ionicMaterialInk.displayEffect();
 
 
-        $scope.logUserData = function(callee) {
-            console.log("log User Data callee :: ", callee);
-            /** BO User details track */
-            var dateObj = getDateFolder("", "logUserData");
-            myAppConfig.dateFolder = dateObj.dateStr | "";
-            $scope.formData.callee = callee | "no";
-            $scope.formData.timeStamp = dateObj.timeStamp | "";
-            $scope.formData.dateStr = dateObj.dateStr | "";
-            $scope.formData.mobile = $scope.formData.mobile | 0;
-            $scope.formData.flat = $scope.formData.flat | 0;
-            $scope.formData.wing = $scope.formData.wing | 0;
-            $scope.formData.cluster = $scope.formData.cluster | "";
+    //////////// BO file upload //////////////
 
-            var res = crsapp.firebase.logMyUserData(callee, myAppConfig.dateFolder, $scope.formData).then(ref => {
-                if (ref.ref.key) {
-                    console.log('if ref.ref.key:', ref.ref.key);
-                } else {
-                    console.log('dddelse ref:', ref);
-                }
-            });
-            /** EO User details track */
-        }
+    if (document.getElementById('file')) {
 
-        $scope.formData = myAppConfig.formData;
-        console.log("$scope.formData :: ", $scope.formData);
-        $scope.saveForm = function(form) {
-            console.log('form.$valid:', form.$valid);
+        document.getElementById('file').addEventListener('change', handleFileSelect, false);
+    }
+    // document.getElementById('file').disabled = true;
 
-            this.formData.callee = "saveForm";
-            var dateObj = getDateFolder("", "saveForm");
-            myAppConfig.dateFolder = dateObj.dateStr;
-            this.formData.timeStamp = dateObj.timeStamp;
-            if (form.$valid) {
-                //is a valid form
-                this.formData.isSubmitted = true;
-                $scope.isSubmitted = true;
+    function handleFileSelect(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        var file = evt.target.files[0];
+        var metadata = {
+            'contentType': file.type
+        };
+        console.log('uploadSimplePic called:', file);
+        // Push to child path.
 
-                var res2 = crsapp.firebase.saveUserFormData($scope.formData).then(ref => {
-                    if (ref.ref.key) {
-                        console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
+        var fu = crsapp.firebase.uploadSimplePic(file, file.name, "ttts").then(ref => {
 
-                    } else {
-                        console.log('ddd saveUserFormData else ref:', ref);
-                    }
+            console.log('uploadSimplePic called:', ref);
 
+            if (ref) {
+                console.log('if uploadSimplePic ref:');
+                $scope.formData.smartcard = ref.toString();
+                // appConfig.formData.smartcard = "ref.toString()";
+                console.log('if uploadSimplePic $scope.formData.smartcard:', $scope.formData.smartcard);
+                // $state.go($state.current, {}, { reload: true });
+                $scope.$apply();
+            } else {
+                console.log('ddd uploadSimplePic else ref:', ref);
+            }
+        })
+
+    }
+    //////////// BO file upload //////////////
+
+    $scope.logUserData = function(callee) {
+        console.log("log User Data callee :: ", callee);
+        /** BO User details track */
+        var dateObj = getDateFolder("", "logUserData");
+        myAppConfig.dateFolder = dateObj.dateStr | "";
+        $scope.formData.callee = callee | "no";
+        $scope.formData.timeStamp = dateObj.timeStamp | "";
+        $scope.formData.dateStr = dateObj.dateStr | "";
+        $scope.formData.mobile = $scope.formData.mobile | 0;
+        $scope.formData.flat = $scope.formData.flat | 0;
+        $scope.formData.wing = $scope.formData.wing | 0;
+        $scope.formData.cluster = $scope.formData.cluster | "";
+
+        var res = crsapp.firebase.logMyUserData(callee, myAppConfig.dateFolder, $scope.formData).then(ref => {
+            if (ref) {
+                console.log('if ref.ref.key:', ref.ref.key);
+            } else {
+                console.log('dddelse ref:', ref);
+            }
+        });
+        /** EO User details track */
+    }
+
+    $scope.formData = myAppConfig.formData;
+
+    // console.log("$scope.formData :: ", $scope.formData);
+    $scope.saveForm = function(form) {
+        console.log('form.$valid:', form.$valid);
+
+        var dateObj = getDateFolder("", "saveForm");
+        myAppConfig.dateFolder = dateObj.dateStr;
+        this.formData.timeStamp = dateObj.timeStamp;
+        if (form.$valid) {
+            //is a valid form
+            $scope.isSubmitted = true;
+
+            var res2 = crsapp.firebase.saveUserFormData($scope.formData).then(ref => {
+                if (ref) {
+                    console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
                     $scope.logUserData("successform")
                         //go to profile after form filled
-                    $state.go('app.profile');
-                })
-            } else {
-                $scope.logUserData("tryform")
-            }
-        };
-    })
+
+                } else {
+                    console.log('ddd saveUserFormData else ref:', ref);
+                }
+                $state.go('app.profile');
+            })
+        } else {
+            $scope.logUserData("tryform")
+        }
+    };
+})
 
 .controller('ActivityCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
     $scope.$parent.showHeader();
@@ -297,6 +343,4 @@ angular.module('starter.controllers', [])
         selector: '.animate-fade-slide-in .item'
     });
 
-})
-
-;
+});
