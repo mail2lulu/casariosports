@@ -18,26 +18,16 @@
                 <i class="icon ion-images"></i> Photos
             </a>
         </div>
-        <h4 class="content padding double-padding-x">Following</h4>
+        <h4 class="content padding double-padding-x">Hello</h4>
         <div class="list animate-fade-slide-in-right">
-            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-                <img src="img/jon-snow.jpg">
-                <h2>Kaushal</h2>
-                <p>My bat My ball</p>
+            <a xng-repeat="userInfo in appConfig.userInfo" ui-sref="app.friends" class="item item-avatar item-icon-right">
+                <img src="{{appConfig.userInfo.profile_picture.toString()}}">
+                <h2>{{appConfig.userInfo.full_name}}</h2>
+                <p>{{appConfig.userInfo.mobile}}</p>
+                <p ng-hide="appConfig.userInfo.mobile">{{appConfig.message.formFill}}</p>
                 <i class="icon ion-chatbubble muted"></i>
             </a>
-            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-                <img src="img/sansa-1.jpg">
-                <h2>Ajit</h2>
-                <p>&amp; Haaa <strike>batting</strike></p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
-            <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-                <img src="img/tyrion-1.jpg">
-                <h2>Sachin</h2>
-                <p>The thristy Opener</p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
+           
         </div>
     </ion-content>
 </ion-view>

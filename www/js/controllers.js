@@ -3,7 +3,7 @@
 
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+.controller('AppCtrl', function($scope, $state, $ionicModal, $ionicPopover, $timeout) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -25,10 +25,12 @@ angular.module('starter.controllers', [])
         console.log("inside logout")
         firebase.auth().signOut().then(function() {
             console.log("inside logout successful");
+            $state.go('app.login');
             // Sign-out successful.
         }, function(error) {
             // An error happened.
             console.log("inside logout error")
+            $state.go('app.login');
         });
     }
     $scope.hideNavBar = function() {
@@ -179,6 +181,21 @@ angular.module('starter.controllers', [])
 
     // Set Ink
     ionicMaterialInk.displayEffect();
+
+    console.log('getUsers users emailVerified:', myAppConfig.user.emailVerified);
+    if (myAppConfig.user.emailVerified) {
+        var fu = crsapp.firebase.getUsers().then(usersData => {
+            const users = usersData.val();
+            console.log('getUsers users:', users);
+            if (!users) {
+                return;
+            }
+            myAppConfig.users = users;
+
+
+        })
+    }
+
 })
 
 .controller('FormCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {

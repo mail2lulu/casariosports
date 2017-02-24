@@ -22,6 +22,7 @@
     <script src="/libs/page/page.js"></script>
     <!-- jQuery -->
     <script src="/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/libs/angular-ios9-uiwebview.patch.js"></script>
     <!-- Latinize -->
     <script src="/libs/latinize/latinize.js"></script>
     <!-- SweetAlert -->
@@ -42,10 +43,10 @@
     <script type="text/javascript">
     // FirebaseUI config.
     var uiConfig = {
-        'signInFlow': 'popup',
-        'signInOptions': [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID
-            // firebase.auth.FacebookAuthProvider.PROVIDER_ID
+        signInFlow: navigator.userAgent.match('CriOS') ? 'redirect' : 'popup',
+        signInOptions: [
+            firebase.auth.EmailAuthProvider.PROVIDER_ID,
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         ]
     };
     </script>

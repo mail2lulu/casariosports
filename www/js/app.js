@@ -11,6 +11,10 @@ var myAppConfig = {
         user: {
             displayName: "Anonymous"
         },
+        message: {
+            formFill: ""
+        },
+
         formData: {
             cluster: "",
             flat: "",
@@ -29,7 +33,7 @@ var myAppConfig = {
     // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
     // the 2nd parameter is an array of 'requires'
     // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'ionMdInput'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'ionMdInput', 'ngIOS9UIWebViewPatch'])
 
 .run(function($ionicPlatform, $rootScope, $state) {
     $ionicPlatform.ready(function() {
@@ -54,7 +58,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 myAppConfig.formData.email = user.email;
                 myAppConfig.formData.fullname = user.displayName;
                 //todo: get if form is not filled 
-                $state.go('app.form');
+
+
+                crsapp.firebase.loadUserProfile(user.uid).then(snapshot => {
+                    const userInfo = snapshot.val();
+                    if (userInfo) {
+                         myAppConfig.userInfo = userInfo;
+                         myAppConfig.message.formFill = "Please fill the form";
+                        if (userInfo.mobile) {
+                            $state.go('app.profile');
+                        } else {
+                            $state.go('app.form');
+                        }
+                    } else {
+                        $state.go('app.form');
+                    }
+                });
+
+
             } else {
                 console.log("inside auth changed firebase user :: ", user)
                 $state.go('app.login');

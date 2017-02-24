@@ -86,8 +86,40 @@ crsapp.Firebase = class {
      * `null` if there is no next page.
      */
     getComments(postId) {
-        return this._getPaginatedFeed(`/comments/${postId}`,
-            crsapp.Firebase.COMMENTS_PAGE_SIZE, null, false);
+            return this._getPaginatedFeed(`/comments/${postId}`,
+                crsapp.Firebase.COMMENTS_PAGE_SIZE, null, false);
+        }
+        /** get users list */
+
+    getUsers() {
+        const userRef = this.database.ref(`/people`);
+        return userRef.once('value', peopleData => {
+            // Start listening the followed user's posts to populate the home feed.
+            const people = peopleData.val();
+            if (!people) {
+                return;
+            }
+            const updateOperations = Object.keys(people).map(userId => {
+                const user = people[userId];
+                console.log('updateOperations user:', user);
+                return user
+            });
+            console.log('userRef updateOperations:', updateOperations);
+            return Promise.all(updateOperations);
+        });
+    }
+    getUserFormStatus(uid) {
+        const userRef = this.database.ref(`/people/${uid}`);
+        return userRef.once('value', peopleData => {
+            // Start listening the followed user's posts to populate the home feed.
+            const people = peopleData.val();
+            if (!people) {
+                return;
+            }
+            
+            console.log('userRef people:', people);
+            return Promise.all(people);
+        });
     }
 
     /**
