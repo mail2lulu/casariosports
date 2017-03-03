@@ -32,7 +32,7 @@
                         <div class="input-container">
                             <img style="max-height: 100px;" id="smartCardImg" src="{{formData.smartcard}}">
                             <div ng-class="{ 'has-errors' : myForm.smartcard.$invalid, 'no-errors' : myForm.smartcard.$valid}">
-                                <input type="text" name="smartcard" ng-model="formData.smartcard" ng-minlength="50" required>
+                                <input disabled="true" type="text" name="smartcard" ng-model="formData.smartcard" ng-minlength="50" required>
                                 <label for="smartcard">Upload smart card</label>
                             </div>
                         </div>
