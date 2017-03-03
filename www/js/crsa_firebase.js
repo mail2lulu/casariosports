@@ -100,6 +100,7 @@ crsapp.Firebase = class {
                 return;
             }
             const updateOperations = Object.keys(people).map(userId => {
+                people[userId].userId = userId;
                 const user = people[userId];
                 console.log('updateOperations user:', user);
                 return user
@@ -421,6 +422,10 @@ crsapp.Firebase = class {
          */
     saveUserFormData(formData) {
         return this.database.ref(`people/${this.auth.currentUser.uid}`).update(formData);
+    }
+
+    updateUserData(formData, uid) {
+        return this.database.ref(`people/${uid}`).update(formData);
     }
 
     /**

@@ -213,9 +213,9 @@ angular.module('starter.controllers', [])
 
 .controller('AdminCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
     console.log("inside admin page");
-            $scope.allUsers = [1,2,3];
-            $scope.canPlay = false;
-            $scope.paid = false;
+    $scope.allUsers = [];
+    $scope.canPlay = false;
+    $scope.paid = false;
     if (myAppConfig.user.emailVerified) {
         console.log("verified:: ", myAppConfig.user.emailVerified)
         var fu = crsapp.firebase.getUsers().then(usersData => {
@@ -233,6 +233,38 @@ angular.module('starter.controllers', [])
     }
 
     console.log("$scope.airplaneMode", $scope.airplaneMode);
+    $scope.playChange = function(myUser, uid, status) {
+        console.log("paidChange ", myUser);
+        myUser.playStatus = status;
+        var userData = {
+            playStatus: myUser.playStatus
+        }
+
+        var res2 = crsapp.firebase.updateUserData(userData, uid).then(ref => {
+            if (ref) {
+                console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
+            } else {
+                console.log('ddd saveUserFormData else ref:', ref);
+            }
+        })
+    }
+    $scope.paidChange = function(myUser, uid, status) {
+        console.log("paidChange ", myUser);
+        myUser.paymentStatus = status;
+        var userData = {
+            paymentStatus: myUser.paymentStatus
+        }
+
+        var res2 = crsapp.firebase.updateUserData(userData, uid).then(ref => {
+            if (ref) {
+                console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
+            } else {
+                console.log('ddd saveUserFormData else ref:', ref);
+            }
+        })
+
+
+    }
 })
 
 .controller('FormCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {

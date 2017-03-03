@@ -17,6 +17,9 @@
             <a ui-sref="app.gallery" class="tab-item">
                 <i class="icon ion-images"></i> Photos
             </a>
+            <a ui-sref="app.admin" class="tab-item" ng-if="appConfig.userInfo.userType == 'superadmin'">
+                <i class="icon ion-key"></i> Admin
+            </a>
         </div>
         <h4 class="content padding double-padding-x">Hello</h4>
         <div class="list animate-fade-slide-in-right">
