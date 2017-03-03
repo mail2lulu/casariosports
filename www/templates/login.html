@@ -1,19 +1,15 @@
 <ion-view view-title="Login" align-title="left">
-    <ion-content style="background: url(img/login-1.jpg) center; background-size: cover;">
+    <ion-content style="background: urlx(img/login-1.jpg) center; background-size: cover;">
         <div class="hero no-header flat">
             <div class="content">
                 <div class="app-icon"></div>
-                <h1>Casa Rio Sports</h1>
+                <h1>{{appConfig.vars.appName}}</h1>
             </div>
         </div>
-
         <!-- Splash screen -->
-
-    <!-- <div id="firebaseui-auth-container"></div> -->
-    <!-- <a class="fp-skip" ui-sref="app.profile">skip sign in</a> -->
-
-
-       <!--  <div class="list">
+        <!-- <div id="firebaseui-auth-container"></div> -->
+        <!-- <a class="fp-skip" ui-sref="app.profile">skip sign in</a> -->
+        <!--  <div class="list">
             <ion-md-input placeholder="Username" highlight-color="balanced" type="text"></ion-md-input>
             <ion-md-input placeholder="Password" highlight-color="energized" type="password"></ion-md-input>
         </div>
@@ -23,9 +19,8 @@
         </div> -->
         <!-- <div id="firebaseui-auth-container"></div> -->
         <div class="button-bar social-login">
-       
-            <button ng-click="googleLogin()" class="button button-small button-border icon-left ion-social-google button-assertive-900">Google+</button>
-           <!--  <button class="button button-small button-border icon-left ion-social-twitter button-calm-900">Twitter</button>
+            <button ng-click="googleLogin()" class="button button-small button-border icon-left ion-social-google button-assertive-900">Google</button>
+            <!--  <button class="button button-small button-border icon-left ion-social-twitter button-calm-900">Twitter</button>
             <button class="button button-small button-border icon-left ion-social-facebook button-positive-900">Facebook</button> -->
         </div>
     </ion-content>

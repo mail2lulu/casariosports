@@ -8,7 +8,9 @@ create teams
 */
 
 var myAppConfig = {
-        user: {
+        vars: {
+            appName: "App Name"
+        },user: {
             displayName: "Anonymous"
         },
         message: {
@@ -26,6 +28,8 @@ var myAppConfig = {
             email: "",
             timeStamp: "",
             dateStr: "",
+            isTeamOwner: null,
+            ownership: null
         },
         provider: ""
     }
@@ -53,13 +57,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 // User is signed in.
-                console.log("inside auth changed firebase user :: ", user)
+                console.log("if inside auth changed firebase user :: ", user)
                 myAppConfig.user = user;
                 myAppConfig.formData.email = user.email;
                 myAppConfig.formData.fullname = user.displayName;
                 //todo: get if form is not filled 
-
-
                 crsapp.firebase.loadUserProfile(user.uid).then(snapshot => {
                     const userInfo = snapshot.val();
                     if (userInfo) {
@@ -74,11 +76,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                         $state.go('app.form');
                     }
                 });
-
-
             } else {
-                console.log("inside auth changed firebase user :: ", user)
-                $state.go('app.login');
+                console.log("else inside auth changed firebase user :: ", user)
+                // $state.go('app.login');
+                $state.go('app.form');
             }
         });
     });

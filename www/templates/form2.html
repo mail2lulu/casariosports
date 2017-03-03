@@ -48,6 +48,12 @@
                                         <input type="number" name="mobile" placeholder="Where can we call you?" ng-model="formData.mobile" ng-minlength="10" ng-maxlength="10" required>
                                     </div>
                                 </li>
+                                <li id="form-ownership">
+                                    <div>Ownership:</div>
+                                    <div ng-class="{ 'has-errors' : myForm.ownership.$invalid, 'no-errors' : myForm.ownership.$valid}">
+                                        <input type="number" name="ownership" placeholder="Where can we call you?" ng-model="formData.ownership" ng-minlength="10" ng-maxlength="10" required>
+                                    </div>
+                                </li>
                                 <li id="form-cluster">
                                     <div>Cluster:</div>
                                     <div ng-class="{ 'has-errors' : myForm.cluster.$invalid, 'no-errors' : myForm.cluster.$valid}">
@@ -65,7 +71,6 @@
                                     </div>
                                 </li>
                                 <li id="form-message">
-                                    <!-- <div>Have your say:</div> -->
                                     <textarea ng-model="formData.message" name="message" rows="10" placeholder="About you"></textarea>
                                 </li>
                                 <li id="form-buttons">
@@ -79,7 +84,6 @@
                                     <div class="error-container" ng-show="myForm.mobile.$invalid && !myForm.mobile.$pristine" ng-messages="myForm.mobile.$error">
                                         <div ng-messages-include="error-list.html"></div>
                                     </div>
-                                    <!-- <div ng-bind-html="appLink">s n</div> -->
                                 </li>
                             </ul>
                         </form>

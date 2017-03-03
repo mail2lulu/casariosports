@@ -61,8 +61,36 @@ body {
 
 
 /*** form styling **/
+.card .list .input-container:first-child {
+    /* margin-bottom: 0px; */
+    /*background-color: aquamarine;*/
+    padding-top: 29px;
+}
+.item-radio {
+    /*padding-top:  10px;*/
+}
+.card .input-container label {
+    width: 100%;
+}
 
+.button-bar {
+    box-shadow: none;
+    width: 50%;
+}
 
+.button-bar > .button{
+    border: 1px solid #cfcfcf;
+    height: 25px;
+    line-height: 25px;
+    min-height: 20px;
+}
+
+.button-bar > .button:last-child {
+  border-radius: 0px 20px 20px 0px !important;
+}
+.button-bar > .button:first-child {
+    border-radius: 20px 0px 0px 20px !important;
+}
 /* Pen Title */
 
 .pen-title {
@@ -264,7 +292,7 @@ body {
 
 .card .input-container {
     position: relative;
-    margin: 0 20px 15px;
+    margin: 0 10px 10px;
 }
 
 .card .input-container input {

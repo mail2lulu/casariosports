@@ -37,6 +37,19 @@
                             </div>
                         </div>
                     </div>
+                    <ion-list>
+                        <div class="input-container">
+                            <label ng-class="{ 'has-errors' : myForm.crpl2.$invalid, 'no-errors' : myForm.crpl2.$valid}">Playing CRPL</label>
+                        </div>
+                        <ion-toggle ion-toggle-text="online;offline" ng-model="customText">
+                            Custom text: <b>{{ customText || false }}</b>
+                        </ion-toggle>
+                        <!-- <div class="button-bar">
+                            <a class="button" ng-class="{'button-positive': isOwnership('Owner')}" ng-click="setOwnership('Owner','')">Yes</a>
+                            <input type="hidden" name="ownership" ng-model="ormData.ownership" required>
+                            <a class="button" ng-class="{'button-positive': isOwnership('Tenant')}" ng-click="setOwnership('Tenant','')">No</a>
+                        </div> -->
+                    </ion-list>
                     <div class="input-container">
                         <div ng-class="{ 'has-errors' : myForm.fullname.$invalid, 'no-errors' : myForm.fullname.$valid}">
                             <input type="text" name="fullname" ng-model="formData.fullname" ng-minlength="5" ng-maxlength="20" required>
@@ -46,31 +59,44 @@
                     <div class="input-container">
                         <div ng-class="{ 'has-errors' : myForm.email.$invalid, 'no-errors' : myForm.email.$valid}">
                             <input type="email" name="email" ng-model="formData.email" required>
-                            <label for="email">email</label>
+                            <label for="email">Email</label>
                         </div>
                     </div>
                     <div class="input-container">
                         <div ng-class="{ 'has-errors' : myForm.mobile.$invalid, 'no-errors' : myForm.mobile.$valid}">
                             <input type="number" name="mobile" ng-model="formData.mobile" ng-minlength="10" ng-maxlength="10" required>
-                            <label for="mobile">mobile</label>
+                            <label for="mobile">Mobile</label>
                         </div>
                     </div>
+                    <div class="button-bar">
+                        <a class="button" ng-class="{'button-positive': isOwnership('Owner')}" ng-click="setOwnership('Owner','')">Owner</a>
+                        <input type="hidden" name="ownership" ng-model="ormData.ownership" required>
+                        <a class="button" ng-class="{'button-positive': isOwnership('Tenant')}" ng-click="setOwnership('Tenant','')">Tenant</a>
+                    </div>
+                    <ion-list>
+                        <div class="input-container">
+                            <label ng-class="{ 'has-errors' : myForm.isTeamOwner.$invalid, 'no-errors' : myForm.isTeamOwner.$valid}">Want to own a Team</label>
+                        </div>
+                        <ion-radio ng-model="formData.isTeamOwner" ng-value="'true'">Yes</ion-radio>
+                        <ion-radio ng-model="formData.isTeamOwner" ng-value="'false'">No</ion-radio>
+                        <input type="hidden" name="isTeamOwner" ng-model="formData.isTeamOwner" required>
+                    </ion-list>
                     <div class="input-container">
                         <div ng-class="{ 'has-errors' : myForm.cluster.$invalid, 'no-errors' : myForm.cluster.$valid}">
                             <input type="text" name="cluster" ng-model="formData.cluster" ng-minlength="4" ng-maxlength="20" required>
-                            <label for="cluster">cluster</label>
+                            <label for="cluster">Cluster</label>
                         </div>
                     </div>
                     <div class="input-container">
                         <div ng-class="{ 'has-errors' : myForm.wing.$invalid, 'no-errors' : myForm.wing.$valid}">
                             <input type="text" name="wing" ng-model="formData.wing" ng-minlength="1" ng-maxlength="1" required>
-                            <label for="wing">wing</label>
+                            <label for="wing">Wing</label>
                         </div>
                     </div>
                     <div class="input-container">
                         <div ng-class="{ 'has-errors' : myForm.flat.$invalid, 'no-errors' : myForm.flat.$valid}">
-                            <input type="text" name="flat" ng-model="formData.flat" ng-minlength="3" ng-maxlength="4" required>
-                            <label for="flat">flat</label>
+                            <input type="number" name="flat" ng-model="formData.flat" ng-minlength="3" ng-maxlength="4" required>
+                            <label for="flat">Flat</label>
                         </div>
                     </div>
                     <div id="form-error">
@@ -81,6 +107,9 @@
                                 </ul>
                             </li>
                         </ul>
+                    </div>
+                    <div>
+                        {{formData}}
                     </div>
                     <div class="button-container">
                         <button><span>Next</span></button>

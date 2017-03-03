@@ -66,7 +66,7 @@ p {
 ==================================*/
 .app-icon {
     background-color: #fff;
-    background: url('../img/crown-1.jpg') center;
+    /*background: url('../img/crown-1.jpg') center;*/
     background-size: cover;
     border-radius: 50%;
     height: 125px;
@@ -76,7 +76,7 @@ p {
 
 .social-login {
     position: fixed;
-    bottom: 0;
+    /*bottom: 0;*/
 }
 /*  ///////// BO Errors ///////////  */
 .error-container {

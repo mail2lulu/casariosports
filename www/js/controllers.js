@@ -200,6 +200,10 @@ angular.module('starter.controllers', [])
 
 .controller('FormCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
 
+
+
+
+
     $('.toggle').on('click', function() {
         $('.container').stop().addClass('active');
     });
@@ -273,6 +277,9 @@ angular.module('starter.controllers', [])
     }
     //////////// BO file upload //////////////
 
+    $scope.ownershipChange = function(callee) {
+        console.log("ownershipChange:: ", $scope.formData.ownership);
+    }
     $scope.logUserData = function(callee) {
         console.log("log User Data callee :: ", callee);
         /** BO User details track */
@@ -297,6 +304,14 @@ angular.module('starter.controllers', [])
     }
 
     $scope.formData = myAppConfig.formData;
+
+    $scope.setOwnership = function(type) {
+        console.log("ownership type  :: ", type)
+        $scope.formData.ownership = type;
+    };
+    $scope.isOwnership = function(type) {
+        return type === $scope.formData.ownership;
+    };
 
     // console.log("$scope.formData :: ", $scope.formData);
     $scope.saveForm = function(form) {
