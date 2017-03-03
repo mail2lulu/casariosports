@@ -10,7 +10,8 @@ create teams
 var myAppConfig = {
         vars: {
             appName: "App Name"
-        },user: {
+        },
+        user: {
             displayName: "Anonymous"
         },
         message: {
@@ -53,6 +54,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
 
         /** Check for user */
         myAppConfig.provider = new firebase.auth.GoogleAuthProvider();
+        console.log("set my app:: ", myAppConfig)
         $rootScope.appConfig = myAppConfig;
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
@@ -65,10 +67,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 crsapp.firebase.loadUserProfile(user.uid).then(snapshot => {
                     const userInfo = snapshot.val();
                     if (userInfo) {
-                         myAppConfig.userInfo = userInfo;
-                         myAppConfig.message.formFill = "Please fill the form";
+                        myAppConfig.userInfo = userInfo;
+                        myAppConfig.message.formFill = "Please fill the form";
                         if (userInfo.mobile) {
-                            $state.go('app.profile');
+                            if (userInfo.userType == 'superadmin') {
+                                $state.go('app.admin');
+                            } else {
+                                $state.go('app.profile');
+                            }
                         } else {
                             $state.go('app.form');
                         }
@@ -78,8 +84,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 });
             } else {
                 console.log("else inside auth changed firebase user :: ", user)
-                // $state.go('app.login');
-                $state.go('app.form');
+                $state.go('app.login');
+                // $state.go('app.form');
             }
         });
     });
@@ -175,6 +181,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 'menuContent': {
                     templateUrl: 'templates/profile.html',
                     controller: 'ProfileCtrl'
+                },
+                'fabContent': {
+                    template: '',
+                    controller: function($timeout) {}
+                }
+            }
+        })
+        .state('app.admin', {
+            url: '/admin-profile',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/admin.html',
+                    controller: 'AdminCtrl'
                 },
                 'fabContent': {
                     template: '',

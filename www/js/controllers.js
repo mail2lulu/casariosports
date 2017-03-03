@@ -4,107 +4,106 @@
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $state, $ionicModal, $ionicPopover, $timeout) {
-    try{
-    // Form data for the login modal
-    $scope.loginData = {};
-    $scope.isExpanded = false;
-    $scope.hasHeaderFabLeft = false;
-    $scope.hasHeaderFabRight = false;
+    try {
+        // Form data for the login modal
+        $scope.loginData = {};
+        $scope.isExpanded = false;
+        $scope.hasHeaderFabLeft = false;
+        $scope.hasHeaderFabRight = false;
 
-    var navIcons = document.getElementsByClassName('ion-navicon');
-    for (var i = 0; i < navIcons.length; i++) {
-        navIcons.addEventListener('click', function() {
-            this.classList.toggle('active');
-        });
-    }
+        var navIcons = document.getElementsByClassName('ion-navicon');
+        for (var i = 0; i < navIcons.length; i++) {
+            navIcons.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        }
 
-    ////////////////////////////////////////
-    // Layout Methods
-    ////////////////////////////////////////
+        ////////////////////////////////////////
+        // Layout Methods
+        ////////////////////////////////////////
 
-    $scope.logout = function() {
-        console.log("inside logout")
-        firebase.auth().signOut().then(function() {
-            console.log("inside logout successful");
-            $state.go('app.login');
-            // Sign-out successful.
-        }, function(error) {
-            // An error happened.
-            console.log("inside logout error")
-            $state.go('app.login');
-        });
-    }
-    $scope.hideNavBar = function() {
-        document.getElementsByTagName('ion-nav-bar')[0].style.display = 'none';
-    };
+        $scope.logout = function() {
+            console.log("inside logout")
+            firebase.auth().signOut().then(function() {
+                console.log("inside logout successful");
+                $state.go('app.login');
+                // Sign-out successful.
+            }, function(error) {
+                // An error happened.
+                console.log("inside logout error")
+                $state.go('app.login');
+            });
+        }
+        $scope.hideNavBar = function() {
+            document.getElementsByTagName('ion-nav-bar')[0].style.display = 'none';
+        };
 
-    $scope.showNavBar = function() {
-        document.getElementsByTagName('ion-nav-bar')[0].style.display = 'block';
-    };
+        $scope.showNavBar = function() {
+            document.getElementsByTagName('ion-nav-bar')[0].style.display = 'block';
+        };
 
-    $scope.noHeader = function() {
-        var content = document.getElementsByTagName('ion-content');
-        for (var i = 0; i < content.length; i++) {
-            if (content[i].classList.contains('has-header')) {
-                content[i].classList.toggle('has-header');
+        $scope.noHeader = function() {
+            var content = document.getElementsByTagName('ion-content');
+            for (var i = 0; i < content.length; i++) {
+                if (content[i].classList.contains('has-header')) {
+                    content[i].classList.toggle('has-header');
+                }
             }
-        }
-    };
+        };
 
-    $scope.setExpanded = function(bool) {
-        $scope.isExpanded = bool;
-    };
+        $scope.setExpanded = function(bool) {
+            $scope.isExpanded = bool;
+        };
 
-    $scope.setHeaderFab = function(location) {
-        var hasHeaderFabLeft = false;
-        var hasHeaderFabRight = false;
+        $scope.setHeaderFab = function(location) {
+            var hasHeaderFabLeft = false;
+            var hasHeaderFabRight = false;
 
-        switch (location) {
-            case 'left':
-                hasHeaderFabLeft = true;
-                break;
-            case 'right':
-                hasHeaderFabRight = true;
-                break;
-        }
-
-        $scope.hasHeaderFabLeft = hasHeaderFabLeft;
-        $scope.hasHeaderFabRight = hasHeaderFabRight;
-    };
-
-    $scope.hasHeader = function() {
-        var content = document.getElementsByTagName('ion-content');
-        for (var i = 0; i < content.length; i++) {
-            if (!content[i].classList.contains('has-header')) {
-                content[i].classList.toggle('has-header');
+            switch (location) {
+                case 'left':
+                    hasHeaderFabLeft = true;
+                    break;
+                case 'right':
+                    hasHeaderFabRight = true;
+                    break;
             }
-        }
 
-    };
+            $scope.hasHeaderFabLeft = hasHeaderFabLeft;
+            $scope.hasHeaderFabRight = hasHeaderFabRight;
+        };
 
-    $scope.hideHeader = function() {
-        $scope.hideNavBar();
-        $scope.noHeader();
-    };
+        $scope.hasHeader = function() {
+            var content = document.getElementsByTagName('ion-content');
+            for (var i = 0; i < content.length; i++) {
+                if (!content[i].classList.contains('has-header')) {
+                    content[i].classList.toggle('has-header');
+                }
+            }
 
-    $scope.showHeader = function() {
-        $scope.showNavBar();
-        $scope.hasHeader();
-    };
+        };
 
-    $scope.clearFabs = function() {
-        var fabs = document.getElementsByClassName('button-fab');
-        if (fabs.length && fabs.length > 1) {
-            fabs[0].remove();
-        }
-    };
-    }catch(error){
-    console.log("catched error:: ", error);
-}
+        $scope.hideHeader = function() {
+            $scope.hideNavBar();
+            $scope.noHeader();
+        };
+
+        $scope.showHeader = function() {
+            $scope.showNavBar();
+            $scope.hasHeader();
+        };
+
+        $scope.clearFabs = function() {
+            var fabs = document.getElementsByClassName('button-fab');
+            if (fabs.length && fabs.length > 1) {
+                fabs[0].remove();
+            }
+        };
+    } catch (error) {
+        console.log("catched error:: ", error);
+    }
 })
 
 .controller('LoginCtrl', function($rootScope, $scope, $state, $timeout, $stateParams, ionicMaterialInk) {
-    try{
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -140,62 +139,85 @@ angular.module('starter.controllers', [])
             });
 
         } //eo fun
-        }catch(error){
-    console.log("catched error:: ", error);
-}
+
 
 })
 
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
-    try{
-    // Set Header
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.$parent.setHeaderFab('left');
+    try {
+        // Set Header
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.$parent.setHeaderFab('left');
 
-    // Delay expansion
-    $timeout(function() {
-        $scope.isExpanded = true;
-        $scope.$parent.setExpanded(true);
-    }, 300);
+        // Delay expansion
+        $timeout(function() {
+            $scope.isExpanded = true;
+            $scope.$parent.setExpanded(true);
+        }, 300);
 
-    // Set Motion
-    ionicMaterialMotion.fadeSlideInRight();
+        // Set Motion
+        ionicMaterialMotion.fadeSlideInRight();
 
-    // Set Ink
-    ionicMaterialInk.displayEffect();
-    }catch(error){
-    console.log("catched error:: ", error);
-}
+        // Set Ink
+        ionicMaterialInk.displayEffect();
+    } catch (error) {
+        console.log("catched error:: ", error);
+    }
 })
 
 .controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-    try{
-    // Set Header
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
+    try {
+        // Set Header
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = false;
+        $scope.$parent.setExpanded(false);
+        $scope.$parent.setHeaderFab(false);
 
-    // Set Motion
-    $timeout(function() {
-        ionicMaterialMotion.slideUp({
-            selector: '.slide-up'
-        });
-    }, 300);
+        // Set Motion
+        $timeout(function() {
+            ionicMaterialMotion.slideUp({
+                selector: '.slide-up'
+            });
+        }, 300);
 
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideInRight({
-            startVelocity: 3000
-        });
-    }, 700);
+        $timeout(function() {
+            ionicMaterialMotion.fadeSlideInRight({
+                startVelocity: 3000
+            });
+        }, 700);
 
-    // Set Ink
-    ionicMaterialInk.displayEffect();
+        // Set Ink
+        ionicMaterialInk.displayEffect();
 
-    console.log('getUsers users emailVerified:', myAppConfig.user.emailVerified);
+        console.log('getUsers users emailVerified:', myAppConfig.user.emailVerified);
+        if (myAppConfig.user.emailVerified) {
+            var fu = crsapp.firebase.getUsers().then(usersData => {
+                const users = usersData.val();
+                console.log('getUsers users:', users);
+                if (!users) {
+                    return;
+                }
+                myAppConfig.users = users;
+
+
+
+            })
+        }
+    } catch (error) {
+        console.log("catched error:: ", error);
+    }
+
+})
+
+.controller('AdminCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+    console.log("inside admin page");
+            $scope.allUsers = [1,2,3];
+            $scope.canPlay = false;
+            $scope.paid = false;
     if (myAppConfig.user.emailVerified) {
+        console.log("verified:: ", myAppConfig.user.emailVerified)
         var fu = crsapp.firebase.getUsers().then(usersData => {
             const users = usersData.val();
             console.log('getUsers users:', users);
@@ -203,197 +225,198 @@ angular.module('starter.controllers', [])
                 return;
             }
             myAppConfig.users = users;
-
-
+            $scope.allUsers = users;
+            // setTimeout(function() {
+            //     $scope.$apply();
+            // })
         })
     }
-    }catch(error){
-    console.log("catched error:: ", error);
-}
 
+    console.log("$scope.airplaneMode", $scope.airplaneMode);
 })
 
 .controller('FormCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-    try{
-    $('.toggle').on('click', function() {
-        $('.container').stop().addClass('active');
-    });
-
-    $('.close').on('click', function() {
-        $('.container').stop().removeClass('active');
-    });
-
-    // Set Header
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
-
-    $timeout(function() {
-        $scope.$parent.hideHeader();
-
-    }, 0);
-
-    // Set Motion
-    $timeout(function() {
-        ionicMaterialMotion.slideUp({
-            selector: '.slide-up'
+    try {
+        $('.toggle').on('click', function() {
+            $('.container').stop().addClass('active');
         });
-    }, 300);
 
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideInRight({
-            startVelocity: 3000
+        $('.close').on('click', function() {
+            $('.container').stop().removeClass('active');
         });
-    }, 700);
 
-    // Set Ink
-    ionicMaterialInk.displayEffect();
+        // Set Header
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = false;
+        $scope.$parent.setExpanded(false);
+        $scope.$parent.setHeaderFab(false);
+
+        $timeout(function() {
+            $scope.$parent.hideHeader();
+
+        }, 0);
+
+        // Set Motion
+        $timeout(function() {
+            ionicMaterialMotion.slideUp({
+                selector: '.slide-up'
+            });
+        }, 300);
+
+        $timeout(function() {
+            ionicMaterialMotion.fadeSlideInRight({
+                startVelocity: 3000
+            });
+        }, 700);
+
+        // Set Ink
+        ionicMaterialInk.displayEffect();
 
 
-    //////////// BO file upload //////////////
+        //////////// BO file upload //////////////
 
-    if (document.getElementById('file')) {
+        if (document.getElementById('file')) {
 
-        document.getElementById('file').addEventListener('change', handleFileSelect, false);
-    }
-    // document.getElementById('file').disabled = true;
-
-    function handleFileSelect(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        var file = evt.target.files[0];
-        var metadata = {
-            'contentType': file.type
-        };
-        console.log('uploadSimplePic called:', file);
-        // Push to child path.
-
-        var fu = crsapp.firebase.uploadSimplePic(file, file.name, "ttts").then(ref => {
-
-            console.log('uploadSimplePic called:', ref);
-
-            if (ref) {
-                console.log('if uploadSimplePic ref:');
-                $scope.formData.smartcard = ref.toString();
-                // appConfig.formData.smartcard = "ref.toString()";
-                console.log('if uploadSimplePic $scope.formData.smartcard:', $scope.formData.smartcard);
-                // $state.go($state.current, {}, { reload: true });
-                $scope.$apply();
-            } else {
-                console.log('ddd uploadSimplePic else ref:', ref);
-            }
-        })
-
-    }
-    //////////// BO file upload //////////////
-
-    $scope.ownershipChange = function(callee) {
-        console.log("ownershipChange:: ", $scope.formData.ownership);
-    }
-    $scope.logUserData = function(callee) {
-        console.log("log User Data callee :: ", callee);
-        /** BO User details track */
-        var dateObj = getDateFolder("", "logUserData");
-        myAppConfig.dateFolder = dateObj.dateStr | "";
-        $scope.formData.callee = callee | "no";
-        $scope.formData.timeStamp = dateObj.timeStamp | "";
-        $scope.formData.dateStr = dateObj.dateStr | "";
-        $scope.formData.mobile = $scope.formData.mobile | 0;
-        $scope.formData.flat = $scope.formData.flat | 0;
-        $scope.formData.wing = $scope.formData.wing | 0;
-        $scope.formData.cluster = $scope.formData.cluster | "";
-
-        var res = crsapp.firebase.logMyUserData(callee, myAppConfig.dateFolder, $scope.formData).then(ref => {
-            if (ref) {
-                console.log('if ref.ref.key:', ref.ref.key);
-            } else {
-                console.log('dddelse ref:', ref);
-            }
-        });
-        /** EO User details track */
-    }
-
-    $scope.formData = myAppConfig.formData;
-
-    $scope.setOwnership = function(type) {
-        console.log("ownership type  :: ", type)
-        $scope.formData.ownership = type;
-    };
-    $scope.isOwnership = function(type) {
-        return type === $scope.formData.ownership;
-    };
-
-    // console.log("$scope.formData :: ", $scope.formData);
-    $scope.saveForm = function(form) {
-        console.log('form.$valid:', form.$valid);
-
-        var dateObj = getDateFolder("", "saveForm");
-        myAppConfig.dateFolder = dateObj.dateStr;
-        this.formData.timeStamp = dateObj.timeStamp;
-        if (form.$valid) {
-            //is a valid form
-            $scope.isSubmitted = true;
-
-            var res2 = crsapp.firebase.saveUserFormData($scope.formData).then(ref => {
-                if (ref) {
-                    console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
-                    $scope.logUserData("successform")
-                        //go to profile after form filled
-
-                } else {
-                    console.log('ddd saveUserFormData else ref:', ref);
-                }
-                $state.go('app.profile');
-            })
-        } else {
-            $scope.logUserData("tryform")
+            document.getElementById('file').addEventListener('change', handleFileSelect, false);
         }
-    };
-    }catch(error){
-    console.log("catched error:: ", error);
-}
+        // document.getElementById('file').disabled = true;
+
+        function handleFileSelect(evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+            var file = evt.target.files[0];
+            var metadata = {
+                'contentType': file.type
+            };
+            console.log('uploadSimplePic called:', file);
+            // Push to child path.
+
+            var fu = crsapp.firebase.uploadSimplePic(file, file.name, "ttts").then(ref => {
+
+                console.log('uploadSimplePic called:', ref);
+
+                if (ref) {
+                    console.log('if uploadSimplePic ref:');
+                    $scope.formData.smartcard = ref.toString();
+                    // appConfig.formData.smartcard = "ref.toString()";
+                    console.log('if uploadSimplePic $scope.formData.smartcard:', $scope.formData.smartcard);
+                    // $state.go($state.current, {}, { reload: true });
+                    $scope.$apply();
+                } else {
+                    console.log('ddd uploadSimplePic else ref:', ref);
+                }
+            })
+
+        }
+        //////////// BO file upload //////////////
+
+        $scope.ownershipChange = function(callee) {
+            console.log("ownershipChange:: ", $scope.formData.ownership);
+        }
+        $scope.logUserData = function(callee) {
+            console.log("log User Data callee :: ", callee);
+            /** BO User details track */
+            var dateObj = getDateFolder("", "logUserData");
+            myAppConfig.dateFolder = dateObj.dateStr | "";
+            $scope.formData.callee = callee | "no";
+            $scope.formData.timeStamp = dateObj.timeStamp | "";
+            $scope.formData.dateStr = dateObj.dateStr | "";
+            $scope.formData.mobile = $scope.formData.mobile | 0;
+            $scope.formData.flat = $scope.formData.flat | 0;
+            $scope.formData.wing = $scope.formData.wing | 0;
+            $scope.formData.cluster = $scope.formData.cluster | "";
+
+            var res = crsapp.firebase.logMyUserData(callee, myAppConfig.dateFolder, $scope.formData).then(ref => {
+                if (ref) {
+                    console.log('if ref.ref.key:', ref.ref.key);
+                } else {
+                    console.log('dddelse ref:', ref);
+                }
+            });
+            /** EO User details track */
+        }
+
+        $scope.formData = myAppConfig.formData;
+
+        $scope.setOwnership = function(type) {
+            console.log("ownership type  :: ", type)
+            $scope.formData.ownership = type;
+        };
+        $scope.isOwnership = function(type) {
+            return type === $scope.formData.ownership;
+        };
+
+        // console.log("$scope.formData :: ", $scope.formData);
+        $scope.saveForm = function(form) {
+            console.log("form data:: ", form)
+            console.log('form.$valid:', form.$valid);
+
+            var dateObj = getDateFolder("", "saveForm");
+            myAppConfig.dateFolder = dateObj.dateStr;
+            this.formData.timeStamp = dateObj.timeStamp;
+            if (form.$valid) {
+                //is a valid form
+                $scope.isSubmitted = true;
+
+                var res2 = crsapp.firebase.saveUserFormData($scope.formData).then(ref => {
+                    if (ref) {
+                        console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
+                        $scope.logUserData("successform")
+                            //go to profile after form filled
+
+                    } else {
+                        console.log('ddd saveUserFormData else ref:', ref);
+                    }
+                    $state.go('app.profile');
+                })
+            } else {
+                $scope.logUserData("tryform")
+            }
+        };
+    } catch (error) {
+        console.log("catched error:: ", error);
+    }
 })
 
 .controller('ActivityCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-    try{
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = true;
-    $scope.$parent.setExpanded(true);
-    $scope.$parent.setHeaderFab('right');
+    try {
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = true;
+        $scope.$parent.setExpanded(true);
+        $scope.$parent.setHeaderFab('right');
 
-    $timeout(function() {
-        ionicMaterialMotion.fadeSlideIn({
-            selector: '.animate-fade-slide-in .item'
-        });
-    }, 200);
+        $timeout(function() {
+            ionicMaterialMotion.fadeSlideIn({
+                selector: '.animate-fade-slide-in .item'
+            });
+        }, 200);
 
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
-    }catch(error){
-    console.log("catched error:: ", error);
-}
+        // Activate ink for controller
+        ionicMaterialInk.displayEffect();
+    } catch (error) {
+        console.log("catched error:: ", error);
+    }
 })
 
 .controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
-    try{
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = true;
-    $scope.$parent.setExpanded(true);
-    $scope.$parent.setHeaderFab(false);
+    try {
+        $scope.$parent.showHeader();
+        $scope.$parent.clearFabs();
+        $scope.isExpanded = true;
+        $scope.$parent.setExpanded(true);
+        $scope.$parent.setHeaderFab(false);
 
-    // Activate ink for controller
-    ionicMaterialInk.displayEffect();
+        // Activate ink for controller
+        ionicMaterialInk.displayEffect();
 
-    ionicMaterialMotion.pushDown({
-        selector: '.push-down'
-    });
-    ionicMaterialMotion.fadeSlideInRight({
-        selector: '.animate-fade-slide-in .item'
-    });
-    }catch(error){
+        ionicMaterialMotion.pushDown({
+            selector: '.push-down'
+        });
+        ionicMaterialMotion.fadeSlideInRight({
+            selector: '.animate-fade-slide-in .item'
+        });
+    } catch (error) {
         console.log("catched error:: ", error);
     }
 });
