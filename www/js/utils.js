@@ -1,3 +1,4 @@
+try{
 function getById(myArray, idVal) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i].id === idVal) {
@@ -129,7 +130,6 @@ function tagProblem(myData) {
 /** BO Shorten URL */
 
 function makeShortNew(url) {
-    //http://qiita.com/niusounds/items/ad6fd61f22f11d136331
     return new Promise((resolve, reject) => {
         gapi.load('client', _ => {
             gapi.client.init({
@@ -161,6 +161,9 @@ function makeShortWorking(longUrl) {
             alert("error: creating short url");
         }
     });
+}
+}catch(error){
+    console.log("catched error:: ", error);
 }
 
 

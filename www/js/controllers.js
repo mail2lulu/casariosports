@@ -1,9 +1,10 @@
 /* global angular, document, window */
-'use strict';
+// 'use strict';
 
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $state, $ionicModal, $ionicPopover, $timeout) {
+    try{
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -97,10 +98,13 @@ angular.module('starter.controllers', [])
             fabs[0].remove();
         }
     };
+    }catch(error){
+    console.log("catched error:: ", error);
+}
 })
 
 .controller('LoginCtrl', function($rootScope, $scope, $state, $timeout, $stateParams, ionicMaterialInk) {
-
+    try{
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
@@ -136,10 +140,14 @@ angular.module('starter.controllers', [])
             });
 
         } //eo fun
+        }catch(error){
+    console.log("catched error:: ", error);
+}
 
 })
 
 .controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+    try{
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -156,9 +164,13 @@ angular.module('starter.controllers', [])
 
     // Set Ink
     ionicMaterialInk.displayEffect();
+    }catch(error){
+    console.log("catched error:: ", error);
+}
 })
 
 .controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+    try{
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -195,15 +207,14 @@ angular.module('starter.controllers', [])
 
         })
     }
+    }catch(error){
+    console.log("catched error:: ", error);
+}
 
 })
 
 .controller('FormCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-
-
-
-
-
+    try{
     $('.toggle').on('click', function() {
         $('.container').stop().addClass('active');
     });
@@ -339,9 +350,13 @@ angular.module('starter.controllers', [])
             $scope.logUserData("tryform")
         }
     };
+    }catch(error){
+    console.log("catched error:: ", error);
+}
 })
 
 .controller('ActivityCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+    try{
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
@@ -356,9 +371,13 @@ angular.module('starter.controllers', [])
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
+    }catch(error){
+    console.log("catched error:: ", error);
+}
 })
 
 .controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+    try{
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
@@ -374,5 +393,7 @@ angular.module('starter.controllers', [])
     ionicMaterialMotion.fadeSlideInRight({
         selector: '.animate-fade-slide-in .item'
     });
-
+    }catch(error){
+        console.log("catched error:: ", error);
+    }
 });
