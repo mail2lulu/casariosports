@@ -1,0 +1,23 @@
+<ion-view view-title="Admin">
+    <ion-content ng-class="{expanded:isExpanded}" overflow-scroll="true">
+        <div class="content has-header">
+            <div class="list xanimate-fade-slide-in-right">
+                <a ng-repeat="user in allUsers" class="item item-avatar item-icon-right">
+
+                    <img src="{{user.profile_picture.toString()}}">
+                    <h2 href="#/app/profile">{{user.full_name}}</h2>
+                    <p>{{user.mobile}}</p>
+                    <p ng-hide="user.mobile">Not filled Form</p>
+                    <i class="icon ion-chatbubble muted"></i>
+                    <div>paid</div>
+                     <ion-checkbox ng-model="canPlay">Play</ion-checkbox>
+                     <ion-checkbox ng-model="paid">Paid</ion-checkbox>
+
+                     {{airplaneMode}}
+                    <div>can play</div>
+                </a>
+                     {{allUsers}}
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
