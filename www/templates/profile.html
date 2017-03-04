@@ -21,7 +21,7 @@
                 <i class="icon ion-key"></i> Admin
             </a>
         </div>
-        <h4 class="content padding double-padding-x">Hello</h4>
+        <h4 class="content padding double-padding-x">Hello<button ui-sref="app.form" class="right">Edit</button></h4>
         <div class="list animate-fade-slide-in-right">
             <a xng-repeat="userInfo in appConfig.userInfo" ui-sref="app.friends" class="item item-avatar item-icon-right">
                 <img src="{{appConfig.userInfo.profile_picture.toString()}}">
