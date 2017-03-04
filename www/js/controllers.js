@@ -213,9 +213,10 @@ angular.module('starter.controllers', [])
 
 .controller('AdminCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
     console.log("inside admin page");
-            $scope.allUsers = [1,2,3];
-            $scope.canPlay = false;
-            $scope.paid = false;
+    $scope.allUsers = [];
+    $scope.canPlay = false;
+    $scope.paid = false;
+    $scope.settings={};
     if (myAppConfig.user.emailVerified) {
         console.log("verified:: ", myAppConfig.user.emailVerified)
         var fu = crsapp.firebase.getUsers().then(usersData => {
@@ -230,9 +231,136 @@ angular.module('starter.controllers', [])
             //     $scope.$apply();
             // })
         })
+        var fu = crsapp.firebase.getSettingsData().then(settingsData => {
+            const settings = settingsData.val();
+            console.log('getsettings settings:', settings);
+            if (!settings) {
+                return;
+            }
+            myAppConfig.settings = settings;
+        })
     }
 
+
     console.log("$scope.airplaneMode", $scope.airplaneMode);
+    $scope.playChange = function(myUser, uid, status) {
+        console.log("paidChange ", myUser);
+        myUser.playStatus = status;
+        var userData = {
+            playStatus: myUser.playStatus
+        }
+
+        var res2 = crsapp.firebase.updateUserData(userData, uid).then(ref => {
+            if (ref) {
+                console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
+            } else {
+                console.log('ddd saveUserFormData else ref:', ref);
+            }
+        })
+    }
+    $scope.paidChange = function(myUser, uid, status) {
+        console.log("paidChange ", myUser);
+        myUser.paymentStatus = status;
+        var userData = {
+            paymentStatus: myUser.paymentStatus
+        }
+
+        var res2 = crsapp.firebase.updateUserData(userData, uid).then(ref => {
+            if (ref) {
+                console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
+            } else {
+                console.log('ddd saveUserFormData else ref:', ref);
+            }
+        })
+    }
+    $scope.changeCapVoteSetting = function() {
+        console.log("$scope.isCaptionVotingEnable", $scope.settings.isCaptionVotingEnable);
+        var settingsData = {
+            isCaptionVotingEnable: myAppConfig.settings.isCaptionVotingEnable
+        }
+        var res2 = crsapp.firebase.setSettingsData(settingsData).then(ref => {
+            if (ref) {
+                console.log('captain enabled ref.ref.key:', ref.ref.key);
+            } else {
+                console.log('ddd saveUserFormData else ref:', ref);
+            }
+        })
+    }
+    $scope.changeMatchSetting = function() {
+        var settingsData = {
+            isMatchEnabled: myAppConfig.settings.isMatchEnabled
+        }
+        var res2 = crsapp.firebase.setSettingsData(settingsData).then(ref => {
+            if (ref) {
+                console.log('captain enabled ref.ref.key:', ref.ref.key);
+            } else {
+                console.log('ddd saveUserFormData else ref:', ref);
+            }
+        })
+    }
+})
+
+.controller('PollCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+    console.log("inside poll page");
+    $scope.allUsers = [];
+    $scope.data = {
+        showDelete: false
+    };
+    var fu = crsapp.firebase.getUsers().then(usersData => {
+        const users = usersData.val();
+        console.log('getUsers users:', users);
+        if (!users) {
+            return;
+        }
+        // $scope.allUsers = users;
+        for (var prop in users) {
+            console.log("prop ", prop)
+            if (users[prop].isTeamOwner) {
+                users[prop].uid = prop;
+                $scope.allUsers.push(users[prop]);
+            }
+        }
+        console.log("$scope.allUsers ", $scope.allUsers)
+    })
+
+    $scope.edit = function(item) {
+        alert('Edit Item: ' + item.id);
+    };
+    $scope.share = function(item) {
+        alert('Share Item: ' + item.id);
+    };
+
+    $scope.moveItem = function(item, fromIndex, toIndex) {
+        console.log("move item", item, fromIndex, toIndex)
+        $scope.allUsers.splice(fromIndex, 1);
+        $scope.allUsers.splice(toIndex, 0, item);
+    };
+
+    $scope.onItemDelete = function(item) {
+        console.log("item delete");
+        $scope.items.splice($scope.items.indexOf(item), 1);
+    };
+
+    $scope.submitVote = function() {
+        for (var i = 0; i < $scope.allUsers.length; i++) {
+            $scope.selectUser($scope.allUsers[i].uid, $scope.allUsers.length - i);
+        }
+    }
+
+    $scope.selectUser = function(uid, rating) {
+        var res2 = crsapp.firebase.updateVote(uid, rating).then(ref => {
+            if (ref) {
+                console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
+            } else {
+                console.log('ddd saveUserFormData else ref:', ref);
+            }
+        })
+    }
+
+    $scope.checkSettings = function() {
+
+    }
+
 })
 
 .controller('FormCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {

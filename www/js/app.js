@@ -70,11 +70,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                         myAppConfig.userInfo = userInfo;
                         myAppConfig.message.formFill = "Please fill the form";
                         if (userInfo.mobile) {
-                            if (userInfo.userType == 'superadmin') {
-                                $state.go('app.admin');
-                            } else {
-                                $state.go('app.profile');
-                            }
+                            $state.go('app.profile');
                         } else {
                             $state.go('app.form');
                         }
@@ -194,6 +190,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 'menuContent': {
                     templateUrl: 'templates/admin.html',
                     controller: 'AdminCtrl'
+                },
+                'fabContent': {
+                    template: '',
+                    controller: function($timeout) {}
+                }
+            }
+        })
+        .state('app.poll', {
+            url: '/poll',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/poll.html',
+                    controller: 'PollCtrl'
                 },
                 'fabContent': {
                     template: '',

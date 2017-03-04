@@ -8,17 +8,20 @@
             </div>
         </div>
         <div class="tabs tabs-dark tabs-icon-top static">
-            <a ui-sref="app.activity" class="tab-item">
-                <i class="icon ion-arrow-graph-up-right"></i> Activity
-            </a>
             <a ui-sref="app.friends" class="tab-item">
                 <i class="icon ion-android-people"></i> Friends
             </a>
             <a ui-sref="app.gallery" class="tab-item">
                 <i class="icon ion-images"></i> Photos
             </a>
+            <a ui-sref="app.poll" class="tab-item">
+                <i class="icon ion-arrow-graph-up-right"></i> Vote
+            </a>
+            <a ui-sref="app.admin" class="tab-item" ng-if="appConfig.userInfo.userType == 'superadmin'">
+                <i class="icon ion-key"></i> Admin
+            </a>
         </div>
-        <h4 class="content padding double-padding-x">Hello</h4>
+        <h4 class="content padding double-padding-x">Hello<button ui-sref="app.form" class="right">Edit</button></h4>
         <div class="list animate-fade-slide-in-right">
             <a xng-repeat="userInfo in appConfig.userInfo" ui-sref="app.friends" class="item item-avatar item-icon-right">
                 <img src="{{appConfig.userInfo.profile_picture.toString()}}">
