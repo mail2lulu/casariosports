@@ -496,6 +496,24 @@ crsapp.Firebase = class {
             .set(value);
     }
 
+    getCaptains() {
+        const userRef = this.database.ref(`/captains`);
+        return userRef.once('value', peopleData => {
+            // Start listening the followed user's posts to populate the home feed.
+            const people = peopleData.val();
+            if (!people) {
+                return;
+            }
+            const updateOperations = Object.keys(people).map(userId => {
+                const user = people[userId];
+                console.log('updateOperations user:', user);
+                return user
+            });
+            console.log('userRef updateOperations:', updateOperations);
+            return Promise.all(updateOperations);
+        });
+    }
+
     /**
      * Adds a comment to a post.
      */

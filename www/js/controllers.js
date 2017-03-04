@@ -247,6 +247,17 @@ angular.module('starter.controllers', [])
         }
     } catch (error) {
         console.log("catched error:: ", error);
+        var fu2 = crsapp.firebase.getMyTournament().then(playersData => {
+            const players = playersData.val();
+            console.log('getplayers players:', players);
+            if (!players) {
+                return;
+            }
+            myAppConfig.tournament = players;
+            myAppConfig.tournament.userPlayStatus = players.playStatus == 1 ? true : false;
+            myAppConfig.tournament.userCaptainStatus = players.captainStatus == 1 ? true : false;
+            myAppConfig.tournament.userPaymentStatus = players.paymentStatus == 1 ? true : false;
+        })
     }
 
 })
@@ -306,9 +317,9 @@ angular.module('starter.controllers', [])
         })
     }
     $scope.changeCapVoteSetting = function() {
-        console.log("$scope.isCaptionVotingEnable", $scope.settings.isCaptionVotingEnable);
+        console.log("$scope.isCaptainVotingEnable", $scope.settings.isCaptainVotingEnable);
         var settingsData = {
-            isCaptionVotingEnable: myAppConfig.settings.isCaptionVotingEnable
+            isCaptainVotingEnable: myAppConfig.settings.isCaptainVotingEnable
         }
         var res2 = crsapp.firebase.setSettingsData(settingsData).then(ref => {
             if (ref) {
@@ -338,21 +349,40 @@ angular.module('starter.controllers', [])
     $scope.data = {
         showDelete: false
     };
-    var fu = crsapp.firebase.getUsers().then(usersData => {
+    // var fu = crsapp.firebase.getUsers().then(usersData => {
+    //     const users = usersData.val();
+    //     console.log('getUsers users:', users);
+    //     if (!users) {
+    //         return;
+    //     }
+    //     // $scope.allUsers = users;
+    //     for (var prop in users) {
+    //         console.log("prop ", prop)
+    //         if (users[prop].isTeamOwner) {
+    //             users[prop].uid = prop;
+    //             $scope.allUsers.push(users[prop]);
+    //         }
+    //     }
+    //     console.log("$scope.allUsers ", $scope.allUsers)
+    // })
+    var fu = crsapp.firebase.getTournamentData().then(usersData => {
         const users = usersData.val();
         console.log('getUsers users:', users);
         if (!users) {
             return;
         }
-        // $scope.allUsers = users;
+        myAppConfig.tournamentData = users;
+        console.log("myAppConfig gl data:: ", myAppConfig.users)
+
         for (var prop in users) {
-            console.log("prop ", prop)
-            if (users[prop].isTeamOwner) {
+            if (users[prop].captainStatus == 1) {
                 users[prop].uid = prop;
                 $scope.allUsers.push(users[prop]);
             }
+
         }
-        console.log("$scope.allUsers ", $scope.allUsers)
+        console.log("$scope.allUsers", $scope.allUsers);
+
     })
 
     $scope.edit = function(item) {
@@ -392,6 +422,48 @@ angular.module('starter.controllers', [])
     $scope.checkSettings = function() {
 
     }
+    $scope.electCaptain = function() {
+        console.log("inside electCaptain");
+        var fu = crsapp.firebase.getCaptains().then(captainsData => {
+            const captains = captainsData.val();
+            console.log('getUsers captains:', captains);
+            if (!captains) {
+                return;
+            }
+            // $scope.allcaptains = captains;
+            for (var captain in captains) {
+                console.log("captain ", captain)
+                if (captains[captain]) {
+                    captains[captain].uid = captain;
+                    var votes = 0;
+                    for (var voter in captains[captain]) {
+                        console.log("voter ", voter)
+                        if (captains[captain][voter] && voter != 'uid') {
+                            console.log("voter data", captains[captain][voter]);
+                            votes = votes + captains[captain][voter];
+                        }
+                    }
+                    captains[captain].votes = votes;
+                    console.log("captains[captain].votes:: ", captains[captain].votes);
+                }
+            }
+
+            myAppConfig.captainVotingData = captains;
+
+            console.log("myAppConfig.captainVotingData ", myAppConfig.captainVotingData);
+
+            console.log("$scope.allUsers ", $scope.allUsers)
+        })
+    }
+    $scope.showResults = function() {
+        for (var captain in myAppConfig.captainVotingData) {
+            console.log("captain ", captain)
+            if (myAppConfig.captainVotingData[captain]) {
+                console.log("voter data", myAppConfig.captainVotingData[captain]);
+            }
+        }
+    }
+
 
 })
 

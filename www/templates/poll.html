@@ -1,4 +1,4 @@
-<ion-view view-title="Poll">
+<ion-view view-title="Poll" cache-view="false">
     <ion-content ng-class="{expanded:isExpanded}" overflow-scroll="true">
         <ion-header-bar class="bar-positive">
             <div class="buttons">
@@ -21,9 +21,9 @@
             </div> -->
             <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
                 <ion-item ng-repeat="item in allUsers" item="item" href="#/item/{{item.id}}" class="item-remove-animate">
-                    <h2>{{item.full_name}}</h2>
-                    <p>{{item.mobile}}</p>
-                    <p>{{item.id}}</p>
+                    <h2>{{appConfig.users[item.uid].full_name}}</h2>
+                    <p>{{appConfig.users[item.uid].mobile}}</p>
+                    <p>{{appConfig.users[item.uid].id}}</p>
                     
                     <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">
                     </ion-delete-button>
@@ -37,6 +37,13 @@
                 </ion-item>
                 <button ng-click="submitVote()" class="button button-positive button-block">Submit</button>
             </ion-list>
+            <div ng-hide="appConfig.settings.isCaptainVotingEnable">
+                <div ng-hide="!(appConfig.userInfo.userType == 'admin')">
+                    Poll is done now press elect button to see final result.
+                    <button class="button button-block button-assertive" ng-click="electCaptain()">Elect Captain</button>
+                    <button class="button button-block button-assertive" ng-click="showResults()">show Results</button>
+                </div>
+            </div>
         </div>
     </ion-content>
 </ion-view>
