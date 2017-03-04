@@ -197,6 +197,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 }
             }
         })
+        .state('app.poll', {
+            url: '/poll',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/poll.html',
+                    controller: 'PollCtrl'
+                },
+                'fabContent': {
+                    template: '',
+                    controller: function($timeout) {}
+                }
+            }
+        })
         .state('app.form', {
             url: '/form',
             views: {

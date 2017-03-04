@@ -100,7 +100,6 @@ crsapp.Firebase = class {
                 return;
             }
             const updateOperations = Object.keys(people).map(userId => {
-                people[userId].userId = userId;
                 const user = people[userId];
                 console.log('updateOperations user:', user);
                 return user
@@ -109,6 +108,7 @@ crsapp.Firebase = class {
             return Promise.all(updateOperations);
         });
     }
+
     getUserFormStatus(uid) {
         const userRef = this.database.ref(`/people/${uid}`);
         return userRef.once('value', peopleData => {
@@ -391,6 +391,30 @@ crsapp.Firebase = class {
         return ref.push(updateData)
     }
 
+    // settings
+    setSettingsData(updateData) {
+        console.log("updateData::",updateData)
+        return this.database.ref(`settings/crpl2`).update(updateData);
+    }
+    
+    getSettingsData(updateData) {
+        const userRef = this.database.ref(`/settings/crpl2`);
+        return userRef.once('value', peopleData => {
+            // Start listening the followed user's posts to populate the home feed.
+            const people = peopleData.val();
+            if (!people) {
+                return;
+            }
+            const updateOperations = Object.keys(people).map(userId => {
+                const user = people[userId];
+                console.log('updateOperations user:', user);
+                return user
+            });
+            console.log('userRef updateOperations:', updateOperations);
+            return Promise.all(updateOperations);
+        });
+    }
+
     /**
      * Saves or updates public user data in Firebase (such as image URL, display name...).
      */
@@ -451,6 +475,12 @@ crsapp.Firebase = class {
     updateLike(postId, value) {
         return this.database.ref(`likes/${postId}/${this.auth.currentUser.uid}`)
             .set(value ? firebase.database.ServerValue.TIMESTAMP : null);
+    }
+
+    // update vote for captain
+    updateVote(captainId, value) {
+        return this.database.ref(`captains/${captainId}/${this.auth.currentUser.uid}`)
+            .set(value);
     }
 
     /**
