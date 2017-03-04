@@ -68,6 +68,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                     const userInfo = snapshot.val();
                     if (userInfo) {
                         myAppConfig.userInfo = userInfo;
+                        // BO load users global settings
+                        var fu = crsapp.firebase.getSettingsData().then(settingsData => {
+                            const settings = settingsData.val();
+                            console.log('getsettings settings:', settings);
+                            if (!settings) {
+                                return;
+                            }
+                            myAppConfig.settings = settings;
+                        })
+                        // EO load users global settings
                         myAppConfig.message.formFill = "Please fill the form";
                         if (userInfo.mobile) {
                             $state.go('app.profile');

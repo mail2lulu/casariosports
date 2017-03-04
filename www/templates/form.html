@@ -38,17 +38,12 @@
                         </div>
                     </div>
                     <ion-list>
-                        <div class="input-container">
+                       <!--  <div class="input-container">
                             <label ng-class="{ 'has-errors' : myForm.crpl2.$invalid, 'no-errors' : myForm.crpl2.$valid}">Playing CRPL</label>
                         </div>
                         <ion-toggle ion-toggle-text="online;offline" ng-model="customText">
                             Custom text: <b>{{ customText || false }}</b>
-                        </ion-toggle>
-                        <!-- <div class="button-bar">
-                            <a class="button" ng-class="{'button-positive': isOwnership('Owner')}" ng-click="setOwnership('Owner','')">Yes</a>
-                            <input type="hidden" name="ownership" ng-model="ormData.ownership" required>
-                            <a class="button" ng-class="{'button-positive': isOwnership('Tenant')}" ng-click="setOwnership('Tenant','')">No</a>
-                        </div> -->
+                        </ion-toggle> -->
                     </ion-list>
                     <div class="input-container">
                         <div ng-class="{ 'has-errors' : myForm.fullname.$invalid, 'no-errors' : myForm.fullname.$valid}">
@@ -73,14 +68,14 @@
                         <input type="hidden" name="ownership" ng-model="formData.ownership" required>
                         <a class="button" ng-class="{'button-positive': isOwnership('Tenant')}" ng-click="setOwnership('Tenant','')">Tenant</a>
                     </div>
-                    <ion-list>
+                    <!-- <ion-list>
                         <div class="input-container">
                             <label ng-class="{ 'has-errors' : myForm.isTeamOwner.$invalid, 'no-errors' : myForm.isTeamOwner.$valid}">Want to own a Team</label>
                         </div>
                         <ion-radio ng-model="formData.isTeamOwner" ng-value="'true'">Yes</ion-radio>
                         <ion-radio ng-model="formData.isTeamOwner" ng-value="'false'">No</ion-radio>
                         <input type="hidden" name="isTeamOwner" ng-model="formData.isTeamOwner" required>
-                    </ion-list>
+                    </ion-list> -->
                     <div class="input-container">
                         <div ng-class="{ 'has-errors' : myForm.cluster.$invalid, 'no-errors' : myForm.cluster.$valid}">
                             <input type="text" name="cluster" ng-model="formData.cluster" ng-minlength="4" ng-maxlength="20" required>

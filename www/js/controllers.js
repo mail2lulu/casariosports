@@ -166,7 +166,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('ProfileCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
     try {
         // Set Header
         $scope.$parent.showHeader();
@@ -174,6 +174,8 @@ angular.module('starter.controllers', [])
         $scope.isExpanded = false;
         $scope.$parent.setExpanded(false);
         $scope.$parent.setHeaderFab(false);
+
+        $scope.settings = {}
 
         // Set Motion
         $timeout(function() {
@@ -200,9 +202,37 @@ angular.module('starter.controllers', [])
                     return;
                 }
                 myAppConfig.users = users;
-
-
-
+            })
+            var fu2 = crsapp.firebase.getMyTournament().then(usersData => {
+                const users = usersData.val();
+                console.log('getUsers users:', users);
+                if (!users) {
+                    return;
+                }
+                myAppConfig.tournament = users;
+                myAppConfig.tournament.userPlayStatus = users.playStatus == 1 ? true : false;
+                myAppConfig.tournament.userCaptainStatus = users.captainStatus == 1 ? true : false;
+            })
+        }
+        $scope.editProfile = function() {
+            $state.go('app.form');
+        }
+        $scope.changePlayStatus = function() {
+            console.log("playStatus:: ", myAppConfig.tournament.playStatus);
+            var userData = {
+                playStatus: myAppConfig.tournament.userPlayStatus ? 1 : 0
+            }
+            var res2 = crsapp.firebase.saveTournamentData(userData, myAppConfig.user.uid).then(ref => {
+                console.log('User updated data ref:', ref);
+            })
+        }
+        $scope.changeCaptainStatus = function() {
+            console.log("captainStatus:: ", myAppConfig.tournament.captainStatus);
+            var userData = {
+                captainStatus: myAppConfig.tournament.userCaptainStatus ? 1 : 0
+            }
+            var res2 = crsapp.firebase.saveTournamentData(userData, myAppConfig.user.uid).then(ref => {
+                console.log('User updated data ref:', ref);
             })
         }
     } catch (error) {
@@ -213,64 +243,56 @@ angular.module('starter.controllers', [])
 
 .controller('AdminCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
     console.log("inside admin page");
-    $scope.allUsers = [];
+    $scope.allPlayingUsers = [];
     $scope.canPlay = false;
     $scope.paid = false;
-    $scope.settings={};
+    $scope.settings = {};
     if (myAppConfig.user.emailVerified) {
         console.log("verified:: ", myAppConfig.user.emailVerified)
-        var fu = crsapp.firebase.getUsers().then(usersData => {
+        var fu = crsapp.firebase.getTournamentData().then(usersData => {
             const users = usersData.val();
             console.log('getUsers users:', users);
             if (!users) {
                 return;
             }
-            myAppConfig.users = users;
-            $scope.allUsers = users;
-            // setTimeout(function() {
-            //     $scope.$apply();
-            // })
-        })
-        var fu = crsapp.firebase.getSettingsData().then(settingsData => {
-            const settings = settingsData.val();
-            console.log('getsettings settings:', settings);
-            if (!settings) {
-                return;
+            myAppConfig.tournamentData = users;
+            console.log("myAppConfig gl data:: ", myAppConfig.users)
+
+            for (var prop in users) {
+                console.log("prop ", prop)
+                users[prop].uid = prop;
+                users[prop].adminPlayStatus = users[prop].playStatus == 2 ? true : false;
+                $scope.allPlayingUsers.push(users[prop]);
+
             }
-            myAppConfig.settings = settings;
+
         })
     }
 
 
     console.log("$scope.airplaneMode", $scope.airplaneMode);
-    $scope.playChange = function(myUser, uid, status) {
-        console.log("paidChange ", myUser);
-        myUser.playStatus = status;
+    $scope.playChange = function(myUser) {
+        console.log("playChange ", myUser);
+        var uid = myUser.uid;
+        myUser.playStatus = myUser.adminPlayStatus ? 2 : 3
         var userData = {
-            playStatus: myUser.playStatus
+            playStatus: myUser.adminPlayStatus ? 2 : 3
         }
 
-        var res2 = crsapp.firebase.updateUserData(userData, uid).then(ref => {
-            if (ref) {
-                console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
-            } else {
-                console.log('ddd saveUserFormData else ref:', ref);
-            }
+        var res2 = crsapp.firebase.saveTournamentData(userData, uid).then(ref => {
+            console.log('updated data ref:', ref);
         })
     }
-    $scope.paidChange = function(myUser, uid, status) {
-        console.log("paidChange ", myUser);
-        myUser.paymentStatus = status;
+    $scope.paymentChange = function(myUser) {
+        console.log("paymentChange ", myUser);
+        var uid = myUser.uid;
+        myUser.paymentStatus = myUser.adminPaymentStatus ? 2 : 3
         var userData = {
-            paymentStatus: myUser.paymentStatus
+            paymentStatus: myUser.adminPaymentStatus ? 2 : 3
         }
 
-        var res2 = crsapp.firebase.updateUserData(userData, uid).then(ref => {
-            if (ref) {
-                console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
-            } else {
-                console.log('ddd saveUserFormData else ref:', ref);
-            }
+        var res2 = crsapp.firebase.saveTournamentData(userData, uid).then(ref => {
+            console.log('updated data ref:', ref);
         })
     }
     $scope.changeCapVoteSetting = function() {

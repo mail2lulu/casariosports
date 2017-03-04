@@ -12,17 +12,21 @@
                         enable match
                     </ion-toggle>
                 </div>
-                <div ng-repeat="(key,user) in allUsers" class="item item-avatar item-icon-right">
-                    <img src="{{user.profile_picture.toString()}}">
-                    <h2 href="#/app/profile">{{user.full_name}}</h2>
-                    <p>{{user.mobile}}</p>
-                    <p ng-hide="user.mobile">Not filled Form</p>
-                    <button class="button button-positive button-small" ng-show="!user.playStatus">NA</button>
-                    <button class="button button-positive button-small" ng-click="playChange(user, key, 2)" ng-show="user.playStatus == 1">Allow</button>
-                    <button class="button button-positive button-small" ng-click="playChange(user, key, 1)" ng-show="user.playStatus == 2">Disallow</button>
-                    <button class="button button-positive button-small" ng-show="!user.paymentStatus">not paid</button>
-                    <button class="button button-positive button-small" ng-click="paidChange(user, key, 2)" ng-show="user.paymentStatus == 1">paid</button>
-                    <button class="button button-positive button-small" ng-click="paidChange(user, key, 1)" ng-show="user.paymentStatus == 2">unpaid</button>
+                <div ng-repeat="user in allPlayingUsers" class="item item-avatar item-icon-right">
+                    <img src="{{appConfig.users[user.uid].profile_picture.toString()}}">
+                    <h2 href="#/app/profile">{{appConfig.users[user.uid].full_name}}</h2>
+                    <p>{{appConfig.users[user.uid].mobile}}</p>
+                    <p ng-hide="appConfig.users[user.uid].mobile">Not filled Form</p>
+                    <ion-toggle ng-model="user.adminPlayStatus" ng-change="playChange(user)">
+                        play <span ng-if="user.playStatus == 1">Waiting</span>
+                        <span ng-if="user.playStatus == 2">approved</span>
+                        <span ng-if="user.playStatus == 3">rejected</span>
+                    </ion-toggle>
+                    <ion-toggle ng-model="user.adminPaymentStatus" ng-change="paymentChange(user)">
+                        payment <span ng-if="user.paymentStatus == 1">Waiting</span>
+                        <span ng-if="user.paymentStatus == 2">approved</span>
+                        <span ng-if="user.paymentStatus == 3">rejected</span>
+                    </ion-toggle>
                 </div>
             </div>
         </div>

@@ -396,7 +396,7 @@ crsapp.Firebase = class {
         console.log("updateData::",updateData)
         return this.database.ref(`settings/crpl2`).update(updateData);
     }
-    
+
     getSettingsData(updateData) {
         const userRef = this.database.ref(`/settings/crpl2`);
         return userRef.once('value', peopleData => {
@@ -448,6 +448,11 @@ crsapp.Firebase = class {
         return this.database.ref(`people/${this.auth.currentUser.uid}`).update(formData);
     }
 
+    saveTournamentData(formData, uid) {
+        return this.database.ref(`tournaments/crpl2/${uid}`).update(formData);
+    }
+
+    // Individual user update by admin
     updateUserData(formData, uid) {
         return this.database.ref(`people/${uid}`).update(formData);
     }
@@ -457,6 +462,14 @@ crsapp.Firebase = class {
      */
     getPostData(postId) {
         return this.database.ref(`/posts/${postId}`).once('value');
+    } 
+
+    getMyTournament() {
+        return this.database.ref(`/tournaments/crpl2/${this.auth.currentUser.uid}`).once('value');
+    }
+
+    getTournamentData() {
+        return this.database.ref(`/tournaments/crpl2`).once('value');
     }
 
     /**

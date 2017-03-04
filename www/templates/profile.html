@@ -21,7 +21,37 @@
                 <i class="icon ion-key"></i> Admin
             </a>
         </div>
-        <h4 class="content padding double-padding-x">Hello<button ui-sref="app.form" class="right">Edit</button></h4>
+        <h4 class="content padding double-padding-x">Hello</h4>
+        <button ng-click="editProfile()" class="right">Edit</button>
+        <div ng-if="appConfig.settings.isMatchEnabled">
+            <ion-list ng-hide="appConfig.tournament.playStatus != 2 || appConfig.tournament.playStatus != 3">
+                <ion-toggle ng-model="appConfig.tournament.userPlayStatus" ng-change="changePlayStatus()">
+                    Playing CRPL
+                </ion-toggle>
+            </ion-list>
+            <div ng-if="appConfig.tournament.playStatus == 2">
+                Congrats! you can play
+            </div>
+            <div ng-if="appConfig.tournament.playStatus == 3">
+                Oops! please contact organisers
+            </div>
+
+            <ion-list ng-hide="appConfig.tournament.captainStatus != 2 || appConfig.tournament.captainStatus != 3">
+                <ion-toggle ng-model="appConfig.tournament.userCaptainStatus" ng-change="changeCaptainStatus()">
+                    Want to own a team
+                </ion-toggle>
+            </ion-list>
+            <div ng-if="appConfig.tournament.captainStatus == 2">
+                Congrats! you can now own a team
+            </div>
+            <div ng-if="appConfig.tournament.captainStatus == 3">
+                Your are rejected for owning a team
+            </div>
+        </div>
+        <div ng-if="!appConfig.settings.isMatchEnabled">
+            <div ng-if="appConfig.tournament.playStatus">You are playing CRPL</div>
+            <div ng-if="">You have opted for caption</div>
+        </div>
         <div class="list animate-fade-slide-in-right">
             <a xng-repeat="userInfo in appConfig.userInfo" ui-sref="app.friends" class="item item-avatar item-icon-right">
                 <img src="{{appConfig.userInfo.profile_picture.toString()}}">
@@ -30,7 +60,6 @@
                 <p ng-hide="appConfig.userInfo.mobile">{{appConfig.message.formFill}}</p>
                 <i class="icon ion-chatbubble muted"></i>
             </a>
-           
         </div>
     </ion-content>
 </ion-view>
