@@ -203,15 +203,16 @@ angular.module('starter.controllers', [])
                 }
                 myAppConfig.users = users;
             })
-            var fu2 = crsapp.firebase.getMyTournament().then(usersData => {
-                const users = usersData.val();
-                console.log('getUsers users:', users);
-                if (!users) {
+            var fu2 = crsapp.firebase.getMyTournament().then(playersData => {
+                const players = playersData.val();
+                console.log('getplayers players:', players);
+                if (!players) {
                     return;
                 }
-                myAppConfig.tournament = users;
-                myAppConfig.tournament.userPlayStatus = users.playStatus == 1 ? true : false;
-                myAppConfig.tournament.userCaptainStatus = users.captainStatus == 1 ? true : false;
+                myAppConfig.tournament = players;
+                myAppConfig.tournament.userPlayStatus = players.playStatus == 1 ? true : false;
+                myAppConfig.tournament.userCaptainStatus = players.captainStatus == 1 ? true : false;
+                myAppConfig.tournament.userPaymentStatus = players.paymentStatus == 1 ? true : false;
             })
         }
         $scope.editProfile = function() {
@@ -230,6 +231,15 @@ angular.module('starter.controllers', [])
             console.log("captainStatus:: ", myAppConfig.tournament.captainStatus);
             var userData = {
                 captainStatus: myAppConfig.tournament.userCaptainStatus ? 1 : 0
+            }
+            var res2 = crsapp.firebase.saveTournamentData(userData, myAppConfig.user.uid).then(ref => {
+                console.log('User updated data ref:', ref);
+            })
+        }
+        $scope.changePaymentStatus = function() {
+            console.log("paymentStatus:: ", myAppConfig.tournament.paymentStatus);
+            var userData = {
+                paymentStatus: myAppConfig.tournament.userPaymentStatus ? 1 : 0
             }
             var res2 = crsapp.firebase.saveTournamentData(userData, myAppConfig.user.uid).then(ref => {
                 console.log('User updated data ref:', ref);

@@ -24,7 +24,7 @@
         <h4 class="content padding double-padding-x">Hello</h4>
         <button ng-click="editProfile()" class="right">Edit</button>
         <div ng-if="appConfig.settings.isMatchEnabled">
-            <ion-list ng-hide="appConfig.tournament.playStatus != 2 || appConfig.tournament.playStatus != 3">
+            <ion-list ng-hide="appConfig.tournament.playStatus > 1">
                 <ion-toggle ng-model="appConfig.tournament.userPlayStatus" ng-change="changePlayStatus()">
                     Playing CRPL
                 </ion-toggle>
@@ -33,10 +33,10 @@
                 Congrats! you can play
             </div>
             <div ng-if="appConfig.tournament.playStatus == 3">
-                Oops! please contact organisers
+                Oops! please contact organisers to play
             </div>
 
-            <ion-list ng-hide="appConfig.tournament.captainStatus != 2 || appConfig.tournament.captainStatus != 3">
+            <ion-list ng-hide="appConfig.tournament.captainStatus > 1">
                 <ion-toggle ng-model="appConfig.tournament.userCaptainStatus" ng-change="changeCaptainStatus()">
                     Want to own a team
                 </ion-toggle>
@@ -47,6 +47,18 @@
             <div ng-if="appConfig.tournament.captainStatus == 3">
                 Your are rejected for owning a team
             </div>
+            <ion-list ng-hide="appConfig.tournament.paymentStatus > 1">
+                <ion-toggle ng-model="appConfig.tournament.userPaymentStatus" ng-change="changePaymentStatus()">
+                    Have you paid?
+                </ion-toggle>
+            </ion-list>
+            <div ng-if="appConfig.tournament.paymentStatus == 2">
+                Thanks, Your payment has been received.
+            </div>
+            <div ng-if="appConfig.tournament.paymentStatus == 3">
+                Your payment has not been received.
+            </div>
+
         </div>
         <div ng-if="!appConfig.settings.isMatchEnabled">
             <div ng-if="appConfig.tournament.playStatus">You are playing CRPL</div>
