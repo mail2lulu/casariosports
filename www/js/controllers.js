@@ -349,22 +349,6 @@ angular.module('starter.controllers', [])
     $scope.data = {
         showDelete: false
     };
-    // var fu = crsapp.firebase.getUsers().then(usersData => {
-    //     const users = usersData.val();
-    //     console.log('getUsers users:', users);
-    //     if (!users) {
-    //         return;
-    //     }
-    //     // $scope.allUsers = users;
-    //     for (var prop in users) {
-    //         console.log("prop ", prop)
-    //         if (users[prop].isTeamOwner) {
-    //             users[prop].uid = prop;
-    //             $scope.allUsers.push(users[prop]);
-    //         }
-    //     }
-    //     console.log("$scope.allUsers ", $scope.allUsers)
-    // })
     var fu = crsapp.firebase.getTournamentData().then(usersData => {
         const users = usersData.val();
         console.log('getUsers users:', users);
@@ -405,6 +389,10 @@ angular.module('starter.controllers', [])
 
     $scope.submitVote = function() {
         for (var i = 0; i < $scope.allUsers.length; i++) {
+            /**
+            TODO: Check for serial for vote
+            */
+
             $scope.selectUser($scope.allUsers[i].uid, $scope.allUsers.length - i);
         }
     }
@@ -477,6 +465,8 @@ angular.module('starter.controllers', [])
             $('.container').stop().removeClass('active');
         });
 
+        $scope.sizes = [38, 40, 42, 44]
+
         // Set Header
         $scope.$parent.clearFabs();
         $scope.isExpanded = false;
@@ -523,7 +513,7 @@ angular.module('starter.controllers', [])
             console.log('uploadSimplePic called:', file);
             // Push to child path.
 
-            var fu = crsapp.firebase.uploadSimplePic(file, file.name, "ttts").then(ref => {
+            var fu = crsapp.firebase.uploadSimplePic(file, "smartcard", "ttts").then(ref => {
 
                 console.log('uploadSimplePic called:', ref);
 
@@ -569,7 +559,7 @@ angular.module('starter.controllers', [])
         }
 
         $scope.formData = myAppConfig.formData;
-
+        console.log("$scope.formData  ", $scope.formData);
         $scope.setOwnership = function(type) {
             console.log("ownership type  :: ", type)
             $scope.formData.ownership = type;
@@ -592,17 +582,20 @@ angular.module('starter.controllers', [])
 
                 var res2 = crsapp.firebase.saveUserFormData($scope.formData).then(ref => {
                     if (ref) {
-                        console.log('if saveUserFormData ref.ref.key:', ref.ref.key);
-                        $scope.logUserData("successform")
-                            //go to profile after form filled
+                        console.log('if saveUserFormData ref.ref.key:');
+                        //$scope.logUserData("successform")
+                        //go to profile after form filled
+                        console.log("form saved")
 
                     } else {
                         console.log('ddd saveUserFormData else ref:', ref);
                     }
                     $state.go('app.profile');
+                    alert("Your data saved")
                 })
             } else {
-                $scope.logUserData("tryform")
+                console.log("form else:: form.$valid")
+                    // $scope.logUserData("tryform")
             }
         };
     } catch (error) {

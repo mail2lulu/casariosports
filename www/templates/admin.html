@@ -13,8 +13,8 @@
                     </ion-toggle>
                 </div>
                 <div ng-repeat="user in allPlayingUsers" class="item item-avatar item-icon-right">
-                    <img src="{{appConfig.users[user.uid].profile_picture.toString()}}">
-                    <h2 href="#/app/profile">{{appConfig.users[user.uid].full_name}}</h2>
+                    <img src="{{appConfig.users[user.uid].profile_picture.toString()}}"> u{{appConfig.users}}
+                    <h2 href="#/app/profile">{{appConfig.users[user.uid].full_name}}</h2> id{{user.uid}}
                     <p>{{appConfig.users[user.uid].mobile}}</p>
                     <p ng-hide="appConfig.users[user.uid].mobile">Not filled Form</p>
                     <ion-toggle ng-model="user.adminPlayStatus" ng-change="playChange(user)">

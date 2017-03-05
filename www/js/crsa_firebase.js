@@ -117,7 +117,7 @@ crsapp.Firebase = class {
             if (!people) {
                 return;
             }
-            
+
             console.log('userRef people:', people);
             return Promise.all(people);
         });
@@ -393,7 +393,7 @@ crsapp.Firebase = class {
 
     // settings
     setSettingsData(updateData) {
-        console.log("updateData::",updateData)
+        console.log("updateData::", updateData)
         return this.database.ref(`settings/crpl2`).update(updateData);
     }
 
@@ -462,7 +462,7 @@ crsapp.Firebase = class {
      */
     getPostData(postId) {
         return this.database.ref(`/posts/${postId}`).once('value');
-    } 
+    }
 
     getMyTournament() {
         return this.database.ref(`/tournaments/crpl2/${this.auth.currentUser.uid}`).once('value');

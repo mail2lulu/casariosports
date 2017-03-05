@@ -6,13 +6,6 @@
 
             https://codepen.io/Iulius90/pen/QwaOwL
             -->
-            <div class="hero slide-up" style="background-image: url('img/profile-1.jpg');">
-                <div class="content">
-                    <div class="avatar" ng-style="{'background-image': 'url(' + appConfig.user.photoURL + ')'}"></div>
-                    <h3><a class="light">{{appConfig.user.displayName}}</a></h3>
-                    <h4>Always in Camera</h4>
-                </div>
-            </div>
             <script id="error-list.html" type="text/ng-template">
                 <div class="error" ng-message="required">
                     <i class="ion-information-circled"></i> This field is required!
@@ -33,18 +26,10 @@
                             <img style="max-height: 100px;" id="smartCardImg" src="{{formData.smartcard}}">
                             <div ng-class="{ 'has-errors' : myForm.smartcard.$invalid, 'no-errors' : myForm.smartcard.$valid}">
                                 <input disabled="true" type="text" name="smartcard" ng-model="formData.smartcard" ng-minlength="50" required>
-                                <label for="smartcard">Upload smart card</label>
+                                <label ng-hide="myForm.smartcard.$valid" for="smartcard">Upload smart card</label>
                             </div>
                         </div>
                     </div>
-                    <ion-list>
-                       <!--  <div class="input-container">
-                            <label ng-class="{ 'has-errors' : myForm.crpl2.$invalid, 'no-errors' : myForm.crpl2.$valid}">Playing CRPL</label>
-                        </div>
-                        <ion-toggle ion-toggle-text="online;offline" ng-model="customText">
-                            Custom text: <b>{{ customText || false }}</b>
-                        </ion-toggle> -->
-                    </ion-list>
                     <div class="input-container">
                         <div ng-class="{ 'has-errors' : myForm.fullname.$invalid, 'no-errors' : myForm.fullname.$valid}">
                             <input type="text" name="fullname" ng-model="formData.fullname" ng-minlength="5" ng-maxlength="20" required>
@@ -68,14 +53,38 @@
                         <input type="hidden" name="ownership" ng-model="formData.ownership" required>
                         <a class="button" ng-class="{'button-positive': isOwnership('Tenant')}" ng-click="setOwnership('Tenant','')">Tenant</a>
                     </div>
-                    <!-- <ion-list>
-                        <div class="input-container">
-                            <label ng-class="{ 'has-errors' : myForm.isTeamOwner.$invalid, 'no-errors' : myForm.isTeamOwner.$valid}">Want to own a Team</label>
+                    <ion-list>
+                        <ion-checkbox ng-model="formData.tppl2016">PPL 2016</ion-checkbox>
+                        <ion-checkbox ng-model="formData.tcrpl2016">CRPL 2016</ion-checkbox>
+                        <ion-checkbox ng-model="formData.tccl2016">CCL 2016</ion-checkbox>
+                        <ion-checkbox ng-model="formData.tppl2017">PPL 2017</ion-checkbox>
+                    </ion-list>
+                    <div class="input-container">
+                        <div ng-class="{ 'has-errors' : myForm.batting.$invalid, 'no-errors' : myForm.batting.$valid}">
+                            <input type="number" name="batting" ng-model="formData.batting" ng-min="1" ng-max="10" required>
+                            <label for="batting">Batting rating 10-1(higher better)</label>
                         </div>
-                        <ion-radio ng-model="formData.isTeamOwner" ng-value="'true'">Yes</ion-radio>
-                        <ion-radio ng-model="formData.isTeamOwner" ng-value="'false'">No</ion-radio>
-                        <input type="hidden" name="isTeamOwner" ng-model="formData.isTeamOwner" required>
-                    </ion-list> -->
+                    </div>
+                    <div class="input-container">
+                        <div ng-class="{ 'has-errors' : myForm.bowling.$invalid, 'no-errors' : myForm.bowling.$valid}">
+                            <input type="number" name="bowling" ng-model="formData.bowling" ng-min="1" ng-max="10" required>
+                            <label for="bowling">Bowling rating 10-1(higher better)</label>
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <div ng-class="{ 'has-errors' : myForm.keeping.$invalid, 'no-errors' : myForm.keeping.$valid}">
+                            <input type="number" name="keeping" ng-model="formData.keeping" ng-min="1" ng-max="10" required>
+                            <label for="keeping">Keeping rating 10-1(higher better)</label>
+                        </div>
+                    </div>
+                    <div class="input-container tshirt">
+                        <!-- {{formData.tshirtSize}} -->
+                        <div ng-class="{ 'has-errors' : myForm.tshirtSize.$invalid, 'no-errors' : myForm.tshirtSize.$valid}">
+                            <label for="tshirtSize">T-Shirt Size</label>
+                            <select ng-model="formData.tshirtSize" ng-options="someObject for someObject in sizes ">
+                            </select>
+                        </div>
+                    </div>
                     <div class="input-container">
                         <div ng-class="{ 'has-errors' : myForm.cluster.$invalid, 'no-errors' : myForm.cluster.$valid}">
                             <input type="text" name="cluster" ng-model="formData.cluster" ng-minlength="4" ng-maxlength="20" required>
@@ -103,11 +112,12 @@
                             </li>
                         </ul>
                     </div>
-                    <div>
-                        {{formData}}
-                    </div>
+                    <!-- <div>
+    {{formData}}
+</div>
+ -->
                     <div class="button-container">
-                        <button><span>Next</span></button>
+                        <button><span>Save</span></button>
                     </div>
                 </form>
             </div>

@@ -12,19 +12,13 @@
             </div>
         </ion-header-bar>
         <div class="content has-header">
-            <!-- <div class="list xanimate-fade-slide-in-right">
-                <a ng-repeat="(key,user) in allUsers" href="#/app/profile" class="item item-avatar item-icon-right" ng-show="user.isTeamOwner" ng-click="selectUser(user, key)">
-                    <img src="{{user.profile_picture.toString()}}">
-                    <h2>{{user.full_name}}</h2>
-                    <p>{{user.mobile}}</p>
-                </a>
-            </div> -->
             <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
                 <ion-item ng-repeat="item in allUsers" item="item" href="#/item/{{item.id}}" class="item-remove-animate">
+                    <h2 ng-hide="false">{{item}}</h2>
+                    <!-- <h2 ng-hide="false">{{appConfig.users[item.uid]}}</h2> b -->
                     <h2>{{appConfig.users[item.uid].full_name}}</h2>
                     <p>{{appConfig.users[item.uid].mobile}}</p>
                     <p>{{appConfig.users[item.uid].id}}</p>
-                    
                     <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">
                     </ion-delete-button>
                     <ion-option-button class="button-assertive" ng-click="edit(item)">

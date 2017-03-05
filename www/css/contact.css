@@ -61,24 +61,27 @@ body {
 
 
 /*** form styling **/
+
 .card .list .input-container:first-child {
     /* margin-bottom: 0px; */
     /*background-color: aquamarine;*/
     padding-top: 29px;
 }
+
 .item-radio {
     /*padding-top:  10px;*/
 }
+
 .card .input-container label {
     width: 100%;
 }
 
 .button-bar {
     box-shadow: none;
-    width: 50%;
+    /*width: 50%;*/
 }
 
-.button-bar > .button{
+.button-bar > .button {
     border: 1px solid #cfcfcf;
     height: 25px;
     line-height: 25px;
@@ -86,11 +89,14 @@ body {
 }
 
 .button-bar > .button:last-child {
-  border-radius: 0px 20px 20px 0px !important;
+    border-radius: 0px 20px 20px 0px !important;
 }
+
 .button-bar > .button:first-child {
     border-radius: 20px 0px 0px 20px !important;
 }
+
+
 /* Pen Title */
 
 .pen-title {
@@ -293,6 +299,35 @@ body {
 .card .input-container {
     position: relative;
     margin: 0 10px 10px;
+}
+
+.tshirt label {
+    position: inherit !important;
+}
+
+select {
+    text-align: center;
+    text-align-last: center;
+    /* webkit*/
+}
+
+option {
+    text-align: left;
+    /* reset to left*/
+}
+
+.card .input-container select {
+    outline: none;
+    z-index: 1;
+    position: relative;
+    background: none;
+    width: 50%;
+    height: 39px;
+    /* border: 0; */
+    /* color: #212121; */
+    font-size: 14px;
+    font-weight: 400;
+    /* background-color: whitesmoke; */
 }
 
 .card .input-container input {

@@ -1,15 +1,21 @@
 /* General
 ==================================*/
+
 h1 {
     color: #fff;
     text-shadow: 0 2px 0px #000;
     font-size: 42px;
-    box-shadow: 50px 50px 50px 50px rgba(0, 0, 0, 0.06);
+    /*box-shadow: 50px 50px 50px 50px rgba(0, 0, 0, 0.06);*/
+}
+
+.profile .settings {
+    padding: 2px;
 }
 
 
 /* Utilities
 ==================================*/
+
 .title-bordered {
     border-top: solid 2px #bbb;
     padding-top: 30px;
@@ -27,6 +33,7 @@ p {
 
 /* Menu
 ==================================*/
+
 .menu .bar.bar-header.expanded {
     transition: all .5s ease-in-out;
 }
@@ -64,6 +71,7 @@ p {
 
 /* Login
 ==================================*/
+
 .app-icon {
     background-color: #fff;
     /*background: url('../img/crown-1.jpg') center;*/
@@ -77,10 +85,14 @@ p {
 .social-login {
     position: fixed;
     /*bottom: 0;*/
+    padding: 10%;
 }
+
+
 /*  ///////// BO Errors ///////////  */
+
 .error-container {
-  margin: 5px 0;
+    margin: 5px 0;
 }
 
 .error-container:last-child {
@@ -88,29 +100,31 @@ p {
 }
 
 .error {
-  padding: 10px 16px;
-  font-family: "Arial Black", Gadget, sans-serif;
-  font-size: 11px;
-  text-transform: uppercase;
-  color: #555;
-  vertical-align: middle;
+    padding: 10px 16px;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #555;
+    vertical-align: middle;
 }
 
 .error i {
-  font-size: 24px;
-  color: #B83E2C;  
-  vertical-align: middle;
+    font-size: 24px;
+    color: #B83E2C;
+    vertical-align: middle;
 }
 
 .last-error-container > .error {
-  padding: 10px 16px 0;
+    padding: 10px 16px 0;
 }
 
 .has-errors {
-  border-bottom: 3px solid #B83E2C;
+    border-bottom: 3px solid #B83E2C;
 }
 
 .no-errors {
-  border-bottom: 3px solid green;
+    border-bottom: 3px solid green;
 }
+
+
 /*  ///////// EO Errors ///////////  */

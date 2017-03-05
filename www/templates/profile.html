@@ -1,10 +1,10 @@
-<ion-view view-title="Profile" cache-view="false">
+<ion-view class="profile" view-title="Profile" cache-view="false">
     <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="true">
         <div class="hero slide-up" style="background-image: url('img/profile-1.jpg');">
             <div class="content">
                 <div class="avatar" ng-style="{'background-image': 'url(' + appConfig.user.photoURL + ')'}"></div>
                 <h3><a class="light">{{appConfig.user.displayName}}</a></h3>
-                <h4>Always in Camera</h4>
+                <h4>&nbsp;</h4>
             </div>
         </div>
         <div class="tabs tabs-dark tabs-icon-top static">
@@ -21,10 +21,11 @@
                 <i class="icon ion-key"></i> Admin
             </a>
         </div>
-        <h4 class="content padding double-padding-x">Hello</h4>
-        <button ng-click="editProfile()" class="right">Edit</button>
-        <div ng-if="appConfig.settings.isMatchEnabled">
-            <ion-list ng-hide="appConfig.tournament.playStatus > 1">
+        <!-- <h4 class="content padding double-padding-x">Hello</h4> -->
+        <!-- <button ng-click="editProfile()" class="right">Edit</button> -->
+        <button id="fab-gallery" class="button button-fab button-fab-bottom-right button-energized-900" ng-click='editProfile()'><i class='icon ion-edit'></i></button>
+        <div class="settings" ng-if="appConfig.settings.isMatchEnabled">
+            <ion-list ng-hide="appConfig.tournament.playStatus> 1">
                 <ion-toggle ng-model="appConfig.tournament.userPlayStatus" ng-change="changePlayStatus()">
                     Playing CRPL
                 </ion-toggle>
@@ -68,7 +69,7 @@
                 <h2>{{appConfig.userInfo.full_name}}</h2>
                 <p>{{appConfig.userInfo.mobile}}</p>
                 <p ng-hide="appConfig.userInfo.mobile">{{appConfig.message.formFill}}</p>
-                <i class="icon ion-chatbubble muted"></i>
+                <!-- <i class="icon ion-chatbubble muted"></i> -->
             </a>
         </div>
     </ion-content>

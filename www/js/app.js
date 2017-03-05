@@ -9,7 +9,7 @@ create teams
 
 var myAppConfig = {
         vars: {
-            appName: "App Name"
+            appName: "Casa Rio Sports"
         },
         user: {
             displayName: "Anonymous"
@@ -52,6 +52,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
             StatusBar.styleDefault();
         }
 
+
         /** Check for user */
         myAppConfig.provider = new firebase.auth.GoogleAuthProvider();
         console.log("set my app:: ", myAppConfig)
@@ -66,18 +67,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 //todo: get if form is not filled 
                 crsapp.firebase.loadUserProfile(user.uid).then(snapshot => {
                     const userInfo = snapshot.val();
+                    console.log("if inside auth changed firebase userInfo :: ", userInfo)
                     if (userInfo) {
                         myAppConfig.userInfo = userInfo;
+                        myAppConfig.formData = userInfo;
                         // BO load users global settings
                         var fu = crsapp.firebase.getSettingsData().then(settingsData => {
-                            const settings = settingsData.val();
-                            console.log('getsettings settings:', settings);
-                            if (!settings) {
-                                return;
-                            }
-                            myAppConfig.settings = settings;
-                        })
-                        // EO load users global settings
+                                const settings = settingsData.val();
+                                console.log('getsettings settings:', settings);
+                                if (!settings) {
+                                    return;
+                                }
+                                myAppConfig.settings = settings;
+                            })
+                            // EO load users global settings
                         myAppConfig.message.formFill = "Please fill the form";
                         if (userInfo.mobile) {
                             $state.go('app.profile');
@@ -143,7 +146,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 template: '<button id="fab-friends" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-chatbubbles"></i></button>',
                 controller: function($timeout) {
                     $timeout(function() {
-                        document.getElementById('fab-friends').classList.toggle('on');
+                        // document.getElementById('fab-friends').classList.toggle('on');
                     }, 900);
                 }
             }
@@ -190,7 +193,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 },
                 'fabContent': {
                     template: '',
-                    controller: function($timeout) {}
+                    controller: function($timeout) {
+
+                    }
                 }
             }
         })
