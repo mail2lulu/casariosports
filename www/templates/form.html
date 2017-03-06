@@ -53,6 +53,9 @@
                         <input type="hidden" name="ownership" ng-model="formData.ownership" required>
                         <a class="button" ng-class="{'button-positive': isOwnership('Tenant')}" ng-click="setOwnership('Tenant','')">Tenant</a>
                     </div>
+                    <div class="input-container">
+                        <label>Tournaments Played:</label>
+                    </div>
                     <ion-list>
                         <ion-checkbox ng-model="formData.tppl2016">PPL 2016</ion-checkbox>
                         <ion-checkbox ng-model="formData.tcrpl2016">CRPL 2016</ion-checkbox>
@@ -78,23 +81,26 @@
                         </div>
                     </div>
                     <div class="input-container tshirt">
-                        <!-- {{formData.tshirtSize}} -->
                         <div ng-class="{ 'has-errors' : myForm.tshirtSize.$invalid, 'no-errors' : myForm.tshirtSize.$valid}">
                             <label for="tshirtSize">T-Shirt Size</label>
                             <select ng-model="formData.tshirtSize" ng-options="someObject for someObject in sizes ">
                             </select>
                         </div>
                     </div>
-                    <div class="input-container">
+                    <div class="input-container tshirt">
+                        <input type="hidden" name="cluster" ng-model="formData.cluster" ng-minlength="4" ng-maxlength="20" required>
                         <div ng-class="{ 'has-errors' : myForm.cluster.$invalid, 'no-errors' : myForm.cluster.$valid}">
-                            <input type="text" name="cluster" ng-model="formData.cluster" ng-minlength="4" ng-maxlength="20" required>
                             <label for="cluster">Cluster</label>
+                            <select ng-model="formData.cluster" ng-options="someObject for someObject in clusters ">
+                            </select>
                         </div>
                     </div>
-                    <div class="input-container">
+                    <div class="input-container tshirt">
+                        <input type="hidden" name="wing" ng-model="formData.wing" ng-minlength="1" ng-maxlength="1" required>
                         <div ng-class="{ 'has-errors' : myForm.wing.$invalid, 'no-errors' : myForm.wing.$valid}">
-                            <input type="text" name="wing" ng-model="formData.wing" ng-minlength="1" ng-maxlength="1" required>
                             <label for="wing">Wing</label>
+                            <select ng-model="formData.wing" ng-options="someObject for someObject in wings ">
+                            </select>
                         </div>
                     </div>
                     <div class="input-container">

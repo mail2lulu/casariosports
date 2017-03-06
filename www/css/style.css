@@ -119,11 +119,11 @@ p {
 }
 
 .has-errors {
-    border-bottom: 3px solid #B83E2C;
+    border-bottom: 1px solid #B83E2C;
 }
 
 .no-errors {
-    border-bottom: 3px solid green;
+    border-bottom: 1px solid green;
 }
 
 
