@@ -26,12 +26,12 @@ angular.module('starter.controllers', [])
             console.log("inside logout")
             firebase.auth().signOut().then(function() {
                 console.log("inside logout successful");
-                $state.go('app.login');
+
                 // Sign-out successful.
             }, function(error) {
                 // An error happened.
                 console.log("inside logout error")
-                $state.go('app.login');
+                $state.go("app.login", {}, { location: true });
             });
         }
         $scope.hideNavBar = function() {
@@ -166,7 +166,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('ProfileCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('ProfileCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $location) {
     try {
         // Set Header
         $scope.$parent.showHeader();
@@ -176,6 +176,7 @@ angular.module('starter.controllers', [])
         $scope.$parent.setHeaderFab(false);
 
         $scope.settings = {}
+        // $state.go("app", {}, { location: true });
 
         // Set Motion
         $timeout(function() {
@@ -216,7 +217,8 @@ angular.module('starter.controllers', [])
             })
         }
         $scope.editProfile = function() {
-            $state.go('app.form');
+            $state.go("app.form", {}, { location: true });
+            // $location.path("/app.form/" + thing.id).replace().reload(false)
         }
         $scope.changePlayStatus = function() {
             console.log("playStatus:: ", myAppConfig.tournament.playStatus);
@@ -363,10 +365,8 @@ angular.module('starter.controllers', [])
                 users[prop].uid = prop;
                 $scope.allUsers.push(users[prop]);
             }
-
         }
         console.log("$scope.allUsers", $scope.allUsers);
-
     })
 
     $scope.edit = function(item) {
@@ -384,7 +384,7 @@ angular.module('starter.controllers', [])
 
     $scope.onItemDelete = function(item) {
         console.log("item delete");
-        $scope.items.splice($scope.items.indexOf(item), 1);
+        $scope.allUsers.splice($scope.allUsers.indexOf(item), 1);
     };
 
     $scope.submitVote = function() {
@@ -392,7 +392,6 @@ angular.module('starter.controllers', [])
             /**
             TODO: Check for serial for vote
             */
-
             $scope.selectUser($scope.allUsers[i].uid, $scope.allUsers.length - i);
         }
     }
@@ -538,7 +537,6 @@ angular.module('starter.controllers', [])
                     $scope.formData.smartcard = ref.toString();
                     // appConfig.formData.smartcard = "ref.toString()";
                     console.log('if uploadSimplePic $scope.formData.smartcard:', $scope.formData.smartcard);
-                    // $state.go($state.current, {}, { reload: true });
                     $scope.$apply();
                 } else {
                     console.log('ddd uploadSimplePic else ref:', ref);
@@ -606,7 +604,7 @@ angular.module('starter.controllers', [])
                     } else {
                         console.log('ddd saveUserFormData else ref:', ref);
                     }
-                    $state.go('app.profile');
+                    $state.go("app.profile", {}, { location: true });
                     alert("Your data saved")
                 })
             } else {
