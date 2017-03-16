@@ -2817,6 +2817,10 @@ function tapClickGateKeeper(e) {
     return;
   }
 
+if(e.target.tagName == 'SELECT') {
+     return true;
+   }
+   console.log("edit ionic js pkp")
   // do not allow through any click events that were not created by ionic.tap
   if ((ionic.scroll.isScrolling && ionic.tap.containsOrIsTextInput(e.target)) ||
       (!e.isIonicTap && !ionic.tap.requiresNativeClick(e.target))) {

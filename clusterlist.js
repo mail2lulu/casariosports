@@ -1,14 +1,14 @@
-var clusters = ['ADRIATICA',
+VAR CLUSTERS = ['ADRIATICA',
     'AMAZONA', 'ANTARCTICA',
     'AQUA', 'ARABIANA',
     'ARCTICA', 'ATLANTICA',
-    'Beverelee', 'CASPIANA', 'COLUMBIA',
-    'Dionna', 'Erwina', 'Exotica', 'GARDENIA',
-    'GENEVIA', 'Genevieve', 'GIARDINO', 'Irvetta',
-    'MAGDELENA', 'MARINA', 'MEDITERRANEA', 'Morgana',
-    'Muriel', 'NAUTICA', 'NYASIA', 'OCEANIA', 'PACIFICA',
-    'PERSIANA', 'Rhine', 'Rilletta', 'RIVER DALE',
+    'BEVERELEE', 'CASPIANA', 'COLUMBIA',
+    'DIONNA', 'ERWINA', 'EXOTICA', 'GARDENIA',
+    'GENEVIA', 'GENEVIEVE', 'GIARDINO', 'IRVETTA',
+    'MAGDELENA', 'MARINA', 'MEDITERRANEA', 'MORGANA',
+    'MURIEL', 'NAUTICA', 'NYASIA', 'OCEANIA', 'PACIFICA',
+    'PERSIANA', 'RHINE', 'RILLETTA', 'RIVER DALE',
     'RIVER RETREAT', 'RIVER VIEW',
     'RIVERSCAPE', 'VICTORIA',
-    'VIVA', 'Viviana', 'VOLGA'
+    'VIVA', 'VIVIANA', 'VOLGA'
 ]

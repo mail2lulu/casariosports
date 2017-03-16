@@ -41,7 +41,7 @@ var myAppConfig = {
     // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'ionMdInput', 'ngIOS9UIWebViewPatch'])
 
-.run(function($ionicPlatform, $rootScope, $state) {
+.run(function($ionicPlatform, $rootScope, $state, $location) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -52,6 +52,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+        $rootScope.$location = $location;
 
 
         /** Check for user */
@@ -84,18 +85,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                             // EO load users global settings
                         myAppConfig.message.formFill = "Please fill the form";
                         if (userInfo.mobile) {
-                            $state.go('app.profile');
+                             $state.go("app.profile", {}, { location: true } );
                         } else {
-                            $state.go('app.form');
+                            $state.go("app.form", {}, { location: true } );
                         }
                     } else {
-                        $state.go('app.form');
+                        $state.go("app.form", {}, { location: true } );
                     }
                 });
             } else {
                 console.log("else inside auth changed firebase user :: ", user)
-                $state.go('app.login');
-                // $state.go('app.form');
+                $state.go("app.login", {}, { location: true } );
             }
         });
     });
@@ -129,7 +129,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 template: '<button id="fab-activity" class="button button-fab button-fab-top-right expanded button-energized-900 flap"><i class="icon ion-paper-airplane"></i></button>',
                 controller: function($timeout) {
                     $timeout(function() {
-                        document.getElementById('fab-activity').classList.toggle('on');
+                        // document.getElementById('fab-activity').classList.toggle('on');
                     }, 200);
                 }
             }
@@ -165,7 +165,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                 template: '<button id="fab-gallery" class="button button-fab button-fab-top-right expanded button-energized-900 drop"><i class="icon ion-heart"></i></button>',
                 controller: function($timeout) {
                     $timeout(function() {
-                        document.getElementById('fab-gallery').classList.toggle('on');
+                        // document.getElementById('fab-gallery').classList.toggle('on');
                     }, 600);
                 }
             }

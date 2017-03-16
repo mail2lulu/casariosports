@@ -33,6 +33,18 @@
             };
         })
 
+    .directive('select', function() { //same as "ngSelect"
+        return {
+            restrict: 'E',
+            scope: false,
+            link: function(scope, ele) {
+                ele.on('touchmove touchstart', function(e) {
+                    e.stopPropagation();
+                })
+            }
+        }
+    })
+
     .directive('ngMax', function() {
             return {
                 restrict: 'A',

@@ -346,6 +346,7 @@ option {
     font-size: 14px;
     font-weight: 400;
     /* background-color: whitesmoke; */
+    text-transform: uppercase;
 }
 
 .card .input-container input {

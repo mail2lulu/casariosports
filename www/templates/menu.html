@@ -25,10 +25,10 @@
                 <ion-item ng-click="logout()" nav-clear menu-close>
                     Logout
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.profile">
+                <ion-item ng-if="appConfig.userInfo.mobile" nav-clear menu-close ui-sref="app.profile">
                     Profile
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.friends">
+                <ion-item ng-if="appConfig.userInfo.mobile" nav-clear menu-close ui-sref="app.friends">
                     Friends
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.gallery">
