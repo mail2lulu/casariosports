@@ -62,6 +62,22 @@ body {
 
 /*** form styling **/
 
+.fileupload input[type="text"]:disabled {
+    background: #dddddd;
+    display: none;
+}
+
+.fileupload .input-container label {
+    /*text-align: right;*/
+    /*top: -25px !important;*/
+    background-color: rgba(70, 68, 78, 0.59);
+    color: white !important;
+}
+
+.fileupload .input-container .no-errors {
+    width: 102%
+}
+
 .card .list .input-container:first-child {
     /* margin-bottom: 0px; */
     /*background-color: aquamarine;*/
@@ -79,6 +95,7 @@ body {
 .button-bar {
     box-shadow: none;
     /*width: 50%;*/
+    min-height: 40px;
 }
 
 .button-bar > .button {

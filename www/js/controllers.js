@@ -517,28 +517,36 @@ angular.module('starter.controllers', [])
 
             document.getElementById('file').addEventListener('change', handleFileSelect, false);
         }
+        if (document.getElementById('file2')) {
+
+            document.getElementById('file2').addEventListener('change', handleFileSelect, false);
+        }
         // document.getElementById('file').disabled = true;
 
         function handleFileSelect(evt) {
+            var filename = "smartcard"
+            if (evt.target.id == "file2") {
+                filename = "selfie"
+            }
+
             evt.stopPropagation();
             evt.preventDefault();
             var file = evt.target.files[0];
             var metadata = {
                 'contentType': file.type
             };
+            console.log('uploadSimplePic evt:', evt);
             console.log('uploadSimplePic called:', file);
             // Push to child path.
 
-            var fu = crsapp.firebase.uploadSimplePic(file, "smartcard", "ttts").then(ref => {
+            var fu = crsapp.firebase.uploadSimplePic(file, filename, "ttts").then(ref => {
 
                 console.log('uploadSimplePic called:', ref);
 
                 if (ref) {
                     console.log('if uploadSimplePic ref:');
-                    $scope.formData.smartcard = ref.toString();
-                    // appConfig.formData.smartcard = "ref.toString()";
-                    console.log('if uploadSimplePic $scope.formData.smartcard:', $scope.formData.smartcard);
-                    // $state.go($state.current, {}, { reload: true });
+                    $scope.formData[filename] = ref.toString();
+                    console.log('if uploadSimplePic filename :', $scope.formData[filename]);
                     $scope.$apply();
                 } else {
                     console.log('ddd uploadSimplePic else ref:', ref);
@@ -599,10 +607,8 @@ angular.module('starter.controllers', [])
                 var res2 = crsapp.firebase.saveUserFormData($scope.formData).then(ref => {
                     if (ref) {
                         console.log('if saveUserFormData ref.ref.key:');
-                        //$scope.logUserData("successform")
                         //go to profile after form filled
                         console.log("form saved")
-
                     } else {
                         console.log('ddd saveUserFormData else ref:', ref);
                     }

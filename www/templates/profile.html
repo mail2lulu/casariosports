@@ -14,63 +14,73 @@
             <a ui-sref="app.gallery" class="tab-item">
                 <i class="icon ion-images"></i> Photos
             </a>
-            <a ui-sref="app.poll" class="tab-item">
+            <!-- <a ui-sref="app.poll" class="tab-item">
                 <i class="icon ion-arrow-graph-up-right"></i> Vote
             </a>
+             -->
             <a ui-sref="app.admin" class="tab-item" ng-if="appConfig.userInfo.userType == 'admin'">
                 <i class="icon ion-key"></i> Admin
             </a>
         </div>
         <!-- <h4 class="content padding double-padding-x">Hello</h4> -->
         <!-- <button ng-click="editProfile()" class="right">Edit</button> -->
-        <button id="fab-gallery" class="button button-fab button-fab-bottom-right button-energized-900" ng-click='editProfile()'><i class='icon ion-edit'></i></button>
         <div class="settings" ng-if="appConfig.settings.isMatchEnabled">
-            <ion-list ng-hide="appConfig.tournament.playStatus> 1">
-                <ion-toggle ng-model="appConfig.tournament.userPlayStatus" ng-change="changePlayStatus()">
-                    Playing CRPL
-                </ion-toggle>
-            </ion-list>
-            <div ng-if="appConfig.tournament.playStatus == 2">
+            <!-- <ion-list ng-hide="appConfig.tournament.playStatus> 1">
+    <ion-toggle ng-model="appConfig.tournament.userPlayStatus" ng-change="changePlayStatus()">
+        Playing CRPL
+    </ion-toggle>
+</ion-list>
+ -->
+            <!--  <div ng-if="appConfig.tournament.playStatus == 2">
                 Congrats! you can play
             </div>
             <div ng-if="appConfig.tournament.playStatus == 3">
                 Oops! please contact organisers to play
-            </div>
-            <ion-list ng-hide="appConfig.tournament.captainStatus > 1">
+            </div> -->
+            <!-- <ion-list ng-hide="appConfig.tournament.captainStatus > 1">
                 <ion-toggle ng-model="appConfig.tournament.userCaptainStatus" ng-change="changeCaptainStatus()">
                     Want to own a team
                 </ion-toggle>
-            </ion-list>
-            <div ng-if="appConfig.tournament.captainStatus == 2">
+            </ion-list> -->
+            <!-- <div ng-if="appConfig.tournament.captainStatus == 2">
                 Congrats! you can now own a team
             </div>
             <div ng-if="appConfig.tournament.captainStatus == 3">
                 Your are rejected for owning a team
-            </div>
-            <ion-list ng-hide="appConfig.tournament.paymentStatus > 1">
+            </div> -->
+            <!-- <ion-list ng-hide="appConfig.tournament.paymentStatus > 1">
                 <ion-toggle ng-model="appConfig.tournament.userPaymentStatus" ng-change="changePaymentStatus()">
                     Have you paid?
                 </ion-toggle>
-            </ion-list>
-            <div ng-if="appConfig.tournament.paymentStatus == 2">
+            </ion-list> -->
+            <!--  <div ng-if="appConfig.tournament.paymentStatus == 2">
                 Thanks, Your payment has been received.
             </div>
             <div ng-if="appConfig.tournament.paymentStatus == 3">
                 Your payment has not been received.
-            </div>
+            </div> -->
         </div>
-        <div ng-if="!appConfig.settings.isMatchEnabled">
-            <div ng-if="appConfig.tournament.playStatus">You are playing CRPL</div>
-            <div ng-if="">You have opted for caption</div>
-        </div>
-        <div class="list animate-fade-slide-in-right">
+        <!-- <div ng-if="!appConfig.settings.isMatchEnabled">
+    <div ng-if="appConfig.tournament.playStatus">You are playing CRPL</div>
+    <div ng-if="">You have opted for caption</div>
+</div>
+ -->
+        <div class="list xanimate-fade-slide-in-right">
             <a xng-repeat="userInfo in appConfig.userInfo" ui-sref="app.friends" class="item item-avatar item-icon-right">
                 <img src="{{appConfig.userInfo.profile_picture.toString()}}">
                 <h2>{{appConfig.userInfo.full_name}}</h2>
                 <p>{{appConfig.userInfo.mobile}}</p>
                 <p ng-hide="appConfig.userInfo.mobile">{{appConfig.message.formFill}}</p>
+                <img style="width: 100%;" id="selfieImg" src="{{appConfig.userInfo.selfie}}">
                 <!-- <i class="icon ion-chatbubble muted"></i> -->
             </a>
+        </div>
+        <div class="list xanimate-fade-slide-in-right">
+            <a xng-repeat="userInfo in appConfig.userInfo" ui-sref="app.friends" class="item item-avatar item-icon-right">
+                <img src="{{appConfig.userInfo.profile_picture.toString()}}">
+                <img style="width: 100%;" id="smartCardImg" src="{{appConfig.userInfo.smartcard}}">
+            </a>
+            <button id="fab-gallery" class="button button-fab button-fab-bottom-right button-energized-900" ng-click='editProfile()'><i class='icon ion-edit'></i></button>
         </div>
     </ion-content>
 </ion-view>

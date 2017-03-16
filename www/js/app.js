@@ -23,6 +23,7 @@ var myAppConfig = {
             flat: "",
             wing: "",
             smartcard: "",
+            selfie: "",
             mobile: "",
             fullname: "",
             sportsname: "",
@@ -242,5 +243,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
         });
 
     // if none of the above states are matched, use this as the fallback
-    //$urlRouterProvider.otherwise('/app/login');
+    $urlRouterProvider.otherwise('/app/login');
 });

@@ -539,7 +539,7 @@ crsapp.Firebase = class {
             const newPostKey = this.database.ref('/posts').push().key;
 
             // Start the pic file upload to Firebase Storage.
-            const picRef = this.storage.ref(`${this.auth.currentUser.uid}/smartcard/${fileName}`);
+            const picRef = this.storage.ref(`${this.auth.currentUser.uid}/images/${fileName}`);
             const metadata = {
                 contentType: pic.type
             };
@@ -557,7 +557,7 @@ crsapp.Firebase = class {
             return Promise.all([picUploadTask]).then(urls => {
                 // to its fanned out posts lists (user's posts and home post).
                 const update = {};
-                update[`/people/${this.auth.currentUser.uid}/smartcard`] = urls[0];
+                update[`/people/${this.auth.currentUser.uid}/images`] = urls[0];
                 return this.database.ref().update(update).then(() => urls[0]);
             });
         }
