@@ -1,0 +1,36 @@
+<ion-view view-title="Admin" cache-view="false">
+    <ion-content ng-class="{expanded:isExpanded}" overflow-scroll="true">
+        <div class="content has-header">
+            <div class="list xanimate-fade-slide-in-right">
+                <!-- <div>
+                    <ion-toggle ng-model="appConfig.settings.isCaptainVotingEnable" ng-change="changeCapVoteSetting()">
+                        enable captain selection
+                    </ion-toggle>
+                </div>
+                <div>
+                    <ion-toggle ng-model="appConfig.settings.isMatchEnabled" ng-change="changeMatchSetting()">
+                        enable match
+                    </ion-toggle>
+                </div> -->
+                <div ng-repeat="user in allPlayingUsers" class="item item-avatar item-icon-right">
+                    <img src="{{appConfig.users[user.uid].profile_picture.toString()}}">
+                    <!-- u{{appConfig.users}} -->
+                    <h2 href="#/app/profile">{{appConfig.users[user.uid].full_name}}</h2>
+                    <span xng-hide="true">{{user.uid}}</span>
+                    <!-- <p>{{appConfig.users[user.uid].mobile}}</p> -->
+                    <p ng-hide="appConfig.users[user.uid].mobile">Not filled Form</p>
+                    <!-- <ion-toggle ng-model="user.adminPlayStatus" ng-change="playChange(user)">
+                        play <span ng-if="user.playStatus == 1">Waiting</span>
+                        <span ng-if="user.playStatus == 2">approved</span>
+                        <span ng-if="user.playStatus == 3">rejected</span>
+                    </ion-toggle> -->
+                   <!--  <ion-toggle ng-model="user.adminPaymentStatus" ng-change="paymentChange(user)">
+                        payment <span ng-if="user.paymentStatus == 1">Waiting</span>
+                        <span ng-if="user.paymentStatus == 2">approved</span>
+                        <span ng-if="user.paymentStatus == 3">rejected</span>
+                    </ion-toggle> -->
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

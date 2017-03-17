@@ -119,7 +119,7 @@ crsapp.Firebase = class {
             }
 
             console.log('userRef people:', people);
-            return Promise.all(people);
+            return people;
         });
     }
 

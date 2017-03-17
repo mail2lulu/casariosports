@@ -2,106 +2,164 @@
 // 'use strict';
 
 angular.module('starter.controllers', [])
-
-.controller('AppCtrl', function($scope, $state, $ionicModal, $ionicPopover, $timeout) {
-    try {
-        // Form data for the login modal
-        $scope.loginData = {};
-        $scope.isExpanded = false;
-        $scope.hasHeaderFabLeft = false;
-        $scope.hasHeaderFabRight = false;
-
-        var navIcons = document.getElementsByClassName('ion-navicon');
-        for (var i = 0; i < navIcons.length; i++) {
-            navIcons.addEventListener('click', function() {
-                this.classList.toggle('active');
+    .filter("emptyToEnd", function() {
+        /**
+            Moves all 0 based records to last 
+        */
+        return function(array, key) {
+            if (array.length) {
+                console.log(" key :: ", key);
+            }
+            if (!angular.isArray(array)) return;
+            var present = array.filter(function(item) {
+                return item[key] != 0;
             });
-        }
-
-        ////////////////////////////////////////
-        // Layout Methods
-        ////////////////////////////////////////
-
-        $scope.logout = function() {
-            console.log("inside logout")
-            firebase.auth().signOut().then(function() {
-                console.log("inside logout successful");
-
-                // Sign-out successful.
-            }, function(error) {
-                // An error happened.
-                console.log("inside logout error")
-                $state.go("app.login", {}, { location: true });
+            var empty = array.filter(function(item) {
+                return item[key] == 0;
             });
+            return present.concat(empty);
+        };
+    })
+    .controller('AppCtrl', function($scope, $state, $ionicModal, $ionicPopover, $timeout) {
+        try {
+            // Form data for the login modal
+            $scope.loginData = {};
+            $scope.isExpanded = false;
+            $scope.hasHeaderFabLeft = false;
+            $scope.hasHeaderFabRight = false;
+
+            var navIcons = document.getElementsByClassName('ion-navicon');
+            for (var i = 0; i < navIcons.length; i++) {
+                navIcons.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            }
+
+            ////////////////////////////////////////
+            // Layout Methods
+            ////////////////////////////////////////
+
+            $scope.logout = function() {
+                console.log("inside logout")
+                firebase.auth().signOut().then(function() {
+                    console.log("inside logout successful");
+
+                    // Sign-out successful.
+                }, function(error) {
+                    // An error happened.
+                    console.log("inside logout error")
+                    $state.go("app.login", {}, { location: true });
+                });
+            }
+            $scope.hideNavBar = function() {
+                document.getElementsByTagName('ion-nav-bar')[0].style.display = 'none';
+            };
+
+            $scope.showNavBar = function() {
+                document.getElementsByTagName('ion-nav-bar')[0].style.display = 'block';
+            };
+
+            $scope.noHeader = function() {
+                var content = document.getElementsByTagName('ion-content');
+                for (var i = 0; i < content.length; i++) {
+                    if (content[i].classList.contains('has-header')) {
+                        content[i].classList.toggle('has-header');
+                    }
+                }
+            };
+
+            $scope.setExpanded = function(bool) {
+                $scope.isExpanded = bool;
+            };
+
+            $scope.setHeaderFab = function(location) {
+                var hasHeaderFabLeft = false;
+                var hasHeaderFabRight = false;
+
+                switch (location) {
+                    case 'left':
+                        hasHeaderFabLeft = true;
+                        break;
+                    case 'right':
+                        hasHeaderFabRight = true;
+                        break;
+                }
+
+                $scope.hasHeaderFabLeft = hasHeaderFabLeft;
+                $scope.hasHeaderFabRight = hasHeaderFabRight;
+            };
+
+            $scope.hasHeader = function() {
+                var content = document.getElementsByTagName('ion-content');
+                for (var i = 0; i < content.length; i++) {
+                    if (!content[i].classList.contains('has-header')) {
+                        content[i].classList.toggle('has-header');
+                    }
+                }
+
+            };
+
+            $scope.hideHeader = function() {
+                $scope.hideNavBar();
+                $scope.noHeader();
+            };
+
+            $scope.showHeader = function() {
+                $scope.showNavBar();
+                $scope.hasHeader();
+            };
+
+            $scope.clearFabs = function() {
+                var fabs = document.getElementsByClassName('button-fab');
+                if (fabs.length && fabs.length > 1) {
+                    fabs[0].remove();
+                }
+            };
+
+            ///////////// BO image modal //////
+            $ionicModal.fromTemplateUrl('image-modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function(modal) {
+                $scope.modal = modal;
+            });
+
+            $scope.openModal = function() {
+                $scope.modal.show();
+            };
+
+            $scope.closeModal = function() {
+                $scope.modal.hide();
+            };
+
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function() {
+                $scope.modal.remove();
+            });
+            // Execute action on hide modal
+            $scope.$on('modal.hide', function() {
+                // Execute action
+            });
+            // Execute action on remove modal
+            $scope.$on('modal.removed', function() {
+                // Execute action
+            });
+            $scope.$on('modal.shown', function() {
+                console.log('Modal is shown!');
+            });
+
+            $scope.imageSrc = '';
+
+            $scope.showImage = function(src) {
+                $scope.imageSrc = src;
+                $scope.openModal();
+            };
+            ///////////// EO image modal //////
+
+        } catch (error) {
+            console.log("catched error:: ", error);
         }
-        $scope.hideNavBar = function() {
-            document.getElementsByTagName('ion-nav-bar')[0].style.display = 'none';
-        };
-
-        $scope.showNavBar = function() {
-            document.getElementsByTagName('ion-nav-bar')[0].style.display = 'block';
-        };
-
-        $scope.noHeader = function() {
-            var content = document.getElementsByTagName('ion-content');
-            for (var i = 0; i < content.length; i++) {
-                if (content[i].classList.contains('has-header')) {
-                    content[i].classList.toggle('has-header');
-                }
-            }
-        };
-
-        $scope.setExpanded = function(bool) {
-            $scope.isExpanded = bool;
-        };
-
-        $scope.setHeaderFab = function(location) {
-            var hasHeaderFabLeft = false;
-            var hasHeaderFabRight = false;
-
-            switch (location) {
-                case 'left':
-                    hasHeaderFabLeft = true;
-                    break;
-                case 'right':
-                    hasHeaderFabRight = true;
-                    break;
-            }
-
-            $scope.hasHeaderFabLeft = hasHeaderFabLeft;
-            $scope.hasHeaderFabRight = hasHeaderFabRight;
-        };
-
-        $scope.hasHeader = function() {
-            var content = document.getElementsByTagName('ion-content');
-            for (var i = 0; i < content.length; i++) {
-                if (!content[i].classList.contains('has-header')) {
-                    content[i].classList.toggle('has-header');
-                }
-            }
-
-        };
-
-        $scope.hideHeader = function() {
-            $scope.hideNavBar();
-            $scope.noHeader();
-        };
-
-        $scope.showHeader = function() {
-            $scope.showNavBar();
-            $scope.hasHeader();
-        };
-
-        $scope.clearFabs = function() {
-            var fabs = document.getElementsByClassName('button-fab');
-            if (fabs.length && fabs.length > 1) {
-                fabs[0].remove();
-            }
-        };
-    } catch (error) {
-        console.log("catched error:: ", error);
-    }
-})
+    })
 
 .controller('LoginCtrl', function($rootScope, $scope, $state, $timeout, $stateParams, ionicMaterialInk) {
     $scope.$parent.clearFabs();
@@ -127,7 +185,7 @@ angular.module('starter.controllers', [])
 
                 // ...
             }).catch(function(error) {
-                console.log("inside auth error")
+                console.log("inside auth error :: ", error)
                     // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -166,7 +224,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('ProfileCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $location) {
+.controller('ProfileCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $location, $ionicModal, $ionicHistory) {
     try {
         // Set Header
         $scope.$parent.showHeader();
@@ -174,7 +232,7 @@ angular.module('starter.controllers', [])
         $scope.isExpanded = false;
         $scope.$parent.setExpanded(false);
         $scope.$parent.setHeaderFab(false);
-
+        console.log('ProfileCtrl myAppConfig :: ', myAppConfig);
         $scope.settings = {}
             // $state.go("app", {}, { location: true });
 
@@ -247,6 +305,15 @@ angular.module('starter.controllers', [])
                 console.log('User updated data ref:', ref);
             })
         }
+        $scope.gotoAdmin = function() {
+            console.log("gotoAdmin:: ");
+            $ionicHistory.clearCache();
+            $state.go("app.admin", {}, { reload: true, location: true });
+        }
+
+
+
+
     } catch (error) {
         console.log("catched error:: ", error);
         var fu2 = crsapp.firebase.getMyTournament().then(playersData => {
@@ -264,36 +331,65 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('AdminCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('AdminCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $ionicHistory, $state) {
     console.log("inside admin page");
     $scope.allPlayingUsers = [];
     $scope.canPlay = false;
     $scope.paid = false;
     $scope.settings = {};
+
+
+
+    /////////// BO sorting and filter fun ////////////    
+    myAppConfig.sortingTimeKey = "time";
+    $scope.sortType = 'full_name'; // set the default sort type
+    $scope.sortReverse = true; // set the default sort order
+    $scope.searchFilter = ''; // set the default search/filter term
+
+    $scope.onSortClick = function(problemValue) {
+        $scope.sortType = problemValue;
+        $scope.sortReverse = !$scope.sortReverse;
+    };
+
+    $scope.hideName = false;
+
+    $scope.colors2 = { Blue: true, Orange: true };
+    /////////// EO sorting and filter fun //////////// 
+
+
+
+    // Set Motion
+    $timeout(function() {
+        ionicMaterialMotion.slideUp({
+            selector: '.slide-up'
+        });
+    }, 300);
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideInRight({
+            startVelocity: 3000
+        });
+    }, 700);
+
+    // Set Ink
+    ionicMaterialInk.displayEffect();
+
     if (myAppConfig.user.emailVerified) {
         console.log("verified:: ", myAppConfig.user.emailVerified)
-        var fu = crsapp.firebase.getTournamentData().then(usersData => {
-            const users = usersData.val();
-            console.log('getUsers users:', users);
-            if (!users) {
-                return;
-            }
-            myAppConfig.tournamentData = users;
-            console.log("myAppConfig gl data:: ", myAppConfig.users)
 
-            for (var prop in users) {
-                console.log("prop ", prop)
-                users[prop].uid = prop;
-                users[prop].adminPlayStatus = users[prop].playStatus == 2 ? true : false;
-                $scope.allPlayingUsers.push(users[prop]);
+        var users = myAppConfig.users;
+        for (var prop in users) {
+            console.log("prop ", prop)
+                // users[prop].uid = prop;
+                // users[prop].adminPlayStatus = users[prop].playStatus == 2 ? true : false;
+            $scope.allPlayingUsers.push(users[prop]);
+        }
 
-            }
-
-        })
+        console.log("$scope.allPlayingUsers", $scope.allPlayingUsers);
+        $ionicHistory.clearCache();
     }
 
 
-    console.log("$scope.airplaneMode", $scope.airplaneMode);
     $scope.playChange = function(myUser) {
         console.log("playChange ", myUser);
         var uid = myUser.uid;
@@ -343,6 +439,43 @@ angular.module('starter.controllers', [])
             }
         })
     }
+    $scope.onUserClick = function(clickUser, me) {
+
+        console.log("onUserClick");
+        myAppConfig.currUser = clickUser;
+        $state.go("app.user", {}, { location: true });
+
+    }
+})
+
+.controller('UserCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+    console.log("inside UserCtrl page");
+
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+    console.log('ProfileCtrl myAppConfig :: ', myAppConfig);
+    $scope.settings = {}
+        // $state.go("app", {}, { location: true });
+
+    // Set Motion
+    $timeout(function() {
+        ionicMaterialMotion.slideUp({
+            selector: '.slide-up'
+        });
+    }, 300);
+
+    $timeout(function() {
+        ionicMaterialMotion.fadeSlideInRight({
+            startVelocity: 3000
+        });
+    }, 700);
+
+    // Set Ink
+    ionicMaterialInk.displayEffect();
+
 })
 
 .controller('PollCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {

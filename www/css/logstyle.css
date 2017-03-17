@@ -1,0 +1,168 @@
+/* Empty. Add your own CSS if you like */
+
+.log-item .item-content {
+    padding: 0px;
+}
+
+.log-list .msg-icon {
+    font-size: initial;
+}
+
+.log-list .item {
+    padding: 2px;
+}
+
+.row .subheader-main {
+    line-height: 40px;
+}
+ /*BO table css*/
+ @import "http://fonts.googleapis.com/css?family=Montserrat:300,400,700";
+
+/** BO Color codes for different status catagories*/
+.rwd-table .success{
+  background-color: #70c370;
+}
+.rwd-table .hasSchool{
+  background-color: #fF9999;
+}
+.rwd-table .hasStudentID{
+  background-color: #b9b8b3;
+}
+.rwd-table .noStudentID{
+  background-color: #b9b8b3;
+}
+.rwd-table .lastError{
+  background-color: #fF9999;
+}
+
+.rwd-table .solved{
+  background-color: #d2e48d;
+  color: #635959;
+}
+.rwd-table .calledBefore{
+  background-color: #fb3700;
+}
+.rwd-table .calledNow{
+  background-color: #289c31;
+}
+.rwd-table .calledAgain{
+  background-color: red;
+}
+/** BO Color codes for different status catagories*/
+
+
+.rwd-table {
+  margin: 1em 0.5em;
+  min-width: 300px;
+  width: 100%;
+}
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.rwd-table th {
+  display: none;
+}
+.rwd-table td.ellip {
+  /*hide extra text*/
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.rwd-table td {
+  display: block;
+  max-width: 400px;
+  vertical-align: middle;
+}
+.rwd-table td:first-child {
+  padding-top: .5em;
+}
+.rwd-table td:last-child {
+  padding-bottom: .5em;
+}
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 6.5em;
+  display: inline-block;
+}
+@media (min-width: 480px) {
+  .rwd-table td:before {
+    display: none;
+  }
+}
+.rwd-table th, .rwd-table td {
+  text-align: left;
+}
+@media (min-width: 480px) {
+  .rwd-table th, .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  .rwd-table th:first-child, .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child, .rwd-table td:last-child {
+    padding-right: 0;
+  }
+}
+
+.rwd-table.details {
+	background: #34495E;
+  	color: #fff;
+}
+.rwd-table {
+  background: #34495E;
+  color: white;
+  border-radius: .4em;
+  overflow: hidden;
+}
+.rwd-table tr {
+  border-color: #8092a2;
+}
+.rwd-table th, .rwd-table td {
+  margin: .5em 1em;
+}
+@media (min-width: 480px) {
+  .rwd-table th, .rwd-table td {
+    padding: 0.5em !important;
+  } .rwd-table th.max-width1, .rwd-table td.max-width1 {
+    max-width: 100px;
+  }
+
+}
+.rwd-table th
+{
+  border-right: 1px solid;
+  border-color: dimgrey;
+}
+.rwd-table th, .rwd-table td:before {
+  color: #dd5;  
+}
+
+
+ /*EO table css*/
+.selectable{
+    -webkit-user-select: auto;
+}
+ .btn-inline
+ {
+  background-color: #8a8a8a;
+  text-align: center;
+  color: #dadada;
+  border-radius: 5%;
+ }
+
+ .list .item-radio input:checked ~ .item-content {
+  /*background-color: #557cba;  */
+  color: white;
+}
+.list .item-radio .item-content    {
+  background-color: #0a9dc7 !important;
+  color: white;
+  padding: 10px;
+}
+.list .item-radio .radio-icon    {
+  color: white;
+  padding: 5px 10px;
+}

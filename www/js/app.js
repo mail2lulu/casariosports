@@ -17,6 +17,9 @@ var myAppConfig = {
         message: {
             formFill: ""
         },
+        userInfo: {
+            default: "default data"
+        },
 
         formData: {
             cluster: "",
@@ -41,7 +44,7 @@ var myAppConfig = {
     // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'ionMdInput', 'ngIOS9UIWebViewPatch'])
 
-.run(function($ionicPlatform, $rootScope, $state, $location) {
+.run(function($ionicPlatform, $rootScope, $state, $location, $ionicHistory) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -60,9 +63,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
         console.log("set my app:: ", myAppConfig)
         $rootScope.appConfig = myAppConfig;
         firebase.auth().onAuthStateChanged(function(user) {
+            console.log("11 if inside auth changed firebase user :: ", user)
             if (user) {
                 // User is signed in.
-                console.log("if inside auth changed firebase user :: ", user)
+                console.log("22 if inside auth changed firebase user :: ", user)
                 myAppConfig.user = user;
                 myAppConfig.formData.email = user.email;
                 myAppConfig.formData.fullname = user.displayName;
@@ -85,17 +89,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
                             // EO load users global settings
                         myAppConfig.message.formFill = "Please fill the form";
                         if (userInfo.mobile) {
-                             $state.go("app.profile", {}, { location: true } );
+                            $ionicHistory.clearCache();
+                            $state.go("app.profile", {}, { location: true });
+                            // $state.go("app.profile", {}, { reload: true, location: true });
                         } else {
-                            $state.go("app.form", {}, { location: true } );
+                            $state.go("app.form", {}, { location: true });
                         }
+
                     } else {
-                        $state.go("app.form", {}, { location: true } );
+                        $state.go("app.form", {}, { location: true });
                     }
                 });
             } else {
                 console.log("else inside auth changed firebase user :: ", user)
-                $state.go("app.login", {}, { location: true } );
+                $state.go("app.login", {}, { location: true });
             }
         });
     });
@@ -186,21 +193,40 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     })
 
     .state('app.profile', {
-            url: '/profile',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/profile.html',
-                    controller: 'ProfileCtrl'
-                },
-                'fabContent': {
-                    template: '',
-                    controller: function($timeout) {
+        url: '/profile',
+        cache: false,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/profile.html',
+                controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '',
+                controller: function($timeout) {
 
-                    }
                 }
             }
-        })
-        .state('app.admin', {
+        }
+    })
+
+    .state('app.user', {
+        url: '/user',
+        cache: false,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/user.html',
+                controller: 'UserCtrl'
+            },
+            'fabContent': {
+                template: '',
+                controller: function($timeout) {
+
+                }
+            }
+        }
+    })
+
+    .state('app.admin', {
             url: '/admin-profile',
             views: {
                 'menuContent': {

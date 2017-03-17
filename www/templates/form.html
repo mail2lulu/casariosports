@@ -23,7 +23,7 @@
                     <div class="mdl-card__supporting-text mdl-color-text--grey-600 fileupload" id="messagesDiv">
                         <input type="file" id="file" name="file" />
                         <div class="input-container">
-                            <img style="width:100%;" id="smartCardImg" src="{{formData.smartcard}}">
+                            <img id="smartCardImg" src="{{formData.smartcard}}">
                             <div ng-class="{ 'has-errors' : myForm.smartcard.$invalid, 'no-errors' : myForm.smartcard.$valid}">
                                 <input disabled="true" type="text" name="smartcard" ng-model="formData.smartcard" ng-minlength="50" required>
                                 <label xng-hide="myForm.smartcard.$valid" for="smartcard">Smart card</label>
@@ -31,10 +31,9 @@
                         </div>
                     </div>
                     <div class="mdl-card__supporting-text mdl-color-text--grey-600 fileupload" id="messagesDiv2">
-                        <input type="file" id="file2" name="file2" />
+                        <input type="file" id="fil2" name="file2" />
                         <div class="input-container">
-                            <img style="width:100
-%;" id="selfieImg" src="{{formData.selfie}}">
+                            <img id="selfieImg" src="{{formData.selfie}}">
                             <div ng-class="{ 'has-errors' : myForm.selfie.$invalid, 'no-errors' : myForm.selfie.$valid}">
                                 <input disabled="true" type="text" name="selfie" ng-model="formData.selfie" ng-minlength="50" required>
                                 <label xng-hide="myForm.selfie.$valid" for="selfie">Latest selfie(Portrait Size)</label>
@@ -66,68 +65,68 @@
                     </div>
                     <div class="input-container">
                         <div ng-class="{ 'has-errors' : myForm.sportsname.$invalid, 'no-errors' : myForm.sportsname.$valid}">
-                            <input type="text" name="sportsname" ng-model="formData.sportsname" ng-minlength="3" ng-maxlength="12" required>
+                            <input type="text" name="sportsname" ng-model="formData.sportsname" ng-minlength="1" ng-maxlength="12" required>
                             <label for="sportsname">TShirt Name(Sports Name)</label>
                         </div>
                     </div>
                     <!--
-<div class="input-container">
-    <label>Tournaments Played:</label>
-</div>
-<ion-list>
-    <ion-checkbox ng-model="formData.tppl2016">PPL 2016</ion-checkbox>
-    <ion-checkbox ng-model="formData.tcrpl2016">CRPL 2016</ion-checkbox>
-    <ion-checkbox ng-model="formData.tccl2016">CCL 2016</ion-checkbox>
-    <ion-checkbox ng-model="formData.tppl2017">PPL 2017</ion-checkbox>
-</ion-list>
-<div class="input-container">
-    <div ng-class="{ 'has-errors' : myForm.batting.$invalid, 'no-errors' : myForm.batting.$valid}">
-        <input type="number" name="batting" ng-model="formData.batting" ng-min="1" ng-max="10" required>
-        <label for="batting">Batting rating 10-1(higher better)</label>
-    </div>
-</div>
-<div class="input-container">
-    <div ng-class="{ 'has-errors' : myForm.bowling.$invalid, 'no-errors' : myForm.bowling.$valid}">
-        <input type="number" name="bowling" ng-model="formData.bowling" ng-min="1" ng-max="10" required>
-        <label for="bowling">Bowling rating 10-1(higher better)</label>
-    </div>
-</div>
-<div class="input-container">
-    <div ng-class="{ 'has-errors' : myForm.keeping.$invalid, 'no-errors' : myForm.keeping.$valid}">
-        <input type="number" name="keeping" ng-model="formData.keeping" ng-min="1" ng-max="10" required>
-        <label for="keeping">Keeping rating 10-1(higher better)</label>
-    </div>
-</div>
-<div class="input-container tshirt">
-    <div ng-class="{ 'has-errors' : myForm.tshirtSize.$invalid, 'no-errors' : myForm.tshirtSize.$valid}">
-        <label for="tshirtSize">T-Shirt Size</label>
-        <select ng-model="formData.tshirtSize" ng-options="someObject for someObject in sizes ">
-        </select>
-    </div>
-</div>
-<div class="input-container tshirt">
-    <input type="hidden" name="cluster" ng-model="formData.cluster" ng-minlength="4" ng-maxlength="20" required>
-    <div ng-class="{ 'has-errors' : myForm.cluster.$invalid, 'no-errors' : myForm.cluster.$valid}">
-        <label for="cluster">Cluster</label>
-        <select ng-model="formData.cluster" ng-options="someObject for someObject in clusters ">
-        </select>
-    </div>
-</div>
-<div class="input-container tshirt">
-    <input type="hidden" name="wing" ng-model="formData.wing" ng-minlength="1" ng-maxlength="1" required>
-    <div ng-class="{ 'has-errors' : myForm.wing.$invalid, 'no-errors' : myForm.wing.$valid}">
-        <label for="wing">Wing</label>
-        <select ng-model="formData.wing" ng-options="someObject for someObject in wings ">
-        </select>
-    </div>
-</div>
-<div class="input-container">
-    <div ng-class="{ 'has-errors' : myForm.flat.$invalid, 'no-errors' : myForm.flat.$valid}">
-        <input type="number" name="flat" ng-model="formData.flat" ng-minlength="3" ng-maxlength="4" required>
-        <label for="flat">Flat</label>
-    </div>
-</div>
- -->
+                    <div class="input-container">
+                        <label>Tournaments Played:</label>
+                    </div>
+                    <ion-list>
+                        <ion-checkbox ng-model="formData.tppl2016">PPL 2016</ion-checkbox>
+                        <ion-checkbox ng-model="formData.tcrpl2016">CRPL 2016</ion-checkbox>
+                        <ion-checkbox ng-model="formData.tccl2016">CCL 2016</ion-checkbox>
+                        <ion-checkbox ng-model="formData.tppl2017">PPL 2017</ion-checkbox>
+                    </ion-list>
+                    <div class="input-container">
+                        <div ng-class="{ 'has-errors' : myForm.batting.$invalid, 'no-errors' : myForm.batting.$valid}">
+                            <input type="number" name="batting" ng-model="formData.batting" ng-min="1" ng-max="10" required>
+                            <label for="batting">Batting rating 10-1(higher better)</label>
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <div ng-class="{ 'has-errors' : myForm.bowling.$invalid, 'no-errors' : myForm.bowling.$valid}">
+                            <input type="number" name="bowling" ng-model="formData.bowling" ng-min="1" ng-max="10" required>
+                            <label for="bowling">Bowling rating 10-1(higher better)</label>
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <div ng-class="{ 'has-errors' : myForm.keeping.$invalid, 'no-errors' : myForm.keeping.$valid}">
+                            <input type="number" name="keeping" ng-model="formData.keeping" ng-min="1" ng-max="10" required>
+                            <label for="keeping">Keeping rating 10-1(higher better)</label>
+                        </div>
+                    </div>
+                    <div class="input-container tshirt">
+                        <div ng-class="{ 'has-errors' : myForm.tshirtSize.$invalid, 'no-errors' : myForm.tshirtSize.$valid}">
+                            <label for="tshirtSize">T-Shirt Size</label>
+                            <select ng-model="formData.tshirtSize" ng-options="someObject for someObject in sizes ">
+                            </select>
+                        </div>
+                    </div>
+                     -->
+                    <div class="input-container tshirt">
+                        <input type="hidden" name="cluster" ng-model="formData.cluster" ng-minlength="4" ng-maxlength="20" required>
+                        <div ng-class="{ 'has-errors' : myForm.cluster.$invalid, 'no-errors' : myForm.cluster.$valid}">
+                            <label for="cluster">Cluster</label>
+                            <select ng-model="formData.cluster" ng-options="someObject for someObject in clusters ">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-container tshirt">
+                        <input type="hidden" name="wing" ng-model="formData.wing" ng-minlength="1" ng-maxlength="1" required>
+                        <div ng-class="{ 'has-errors' : myForm.wing.$invalid, 'no-errors' : myForm.wing.$valid}">
+                            <label for="wing">Wing</label>
+                            <select ng-model="formData.wing" ng-options="someObject for someObject in wings ">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <div ng-class="{ 'has-errors' : myForm.flat.$invalid, 'no-errors' : myForm.flat.$valid}">
+                            <input type="number" name="flat" ng-model="formData.flat" ng-minlength="3" ng-maxlength="4" required>
+                            <label for="flat">Flat</label>
+                        </div>
+                    </div>
                     <div id="form-error">
                         <ul>
                             <li ng-repeat="(key, errors) in myForm.$error track by $index"> <strong>{{ key }}</strong> errors
@@ -138,9 +137,9 @@
                         </ul>
                     </div>
                     <!-- <div>
-    {{formData}}
-</div>
- -->
+                    {{formData}}
+                    </div>
+                 -->
                     <div class="button-container">
                         <button><span>Save</span></button>
                     </div>

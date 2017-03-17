@@ -68,10 +68,11 @@ body {
 }
 
 .fileupload .input-container label {
-    /*text-align: right;*/
-    /*top: -25px !important;*/
-    background-color: rgba(70, 68, 78, 0.59);
-    color: white !important;
+    /*text-align: right; */
+    /* top: -25px !important; */
+    /* background-color: rgba(70, 68, 78, 0.59); */
+    /*color: black !important;*/
+    left: 80px !important;
 }
 
 .fileupload .input-container .no-errors {
@@ -378,7 +379,10 @@ option {
     -webkit-transform: translate(-12%, -50%) scale(0.75);
     transform: translate(-12%, -50%) scale(0.75);
 }
-
+.card img {
+    width: 20%;
+    float: left;
+}
 .card .input-container label {
     position: absolute;
     top: 0;

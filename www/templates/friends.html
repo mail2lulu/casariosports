@@ -3,7 +3,7 @@
         <div class="content has-header">
             <div class="list xanimate-fade-slide-in-right">
                 <a ng-repeat="user in appConfig.users" href="#/app/profile" class="item item-avatar item-icon-right">
-                    <img src="{{user.profile_picture.toString()}}">
+                    <img src="{{user.profile_picture}}">
                     <h2>{{user.full_name}}</h2>
                     <p>{{user.mobile}}</p>
                     <p ng-hide="user.mobile">Not filled Form</p>

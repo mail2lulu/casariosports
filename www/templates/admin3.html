@@ -1,0 +1,14 @@
+<ion-view view-title="Admin" cache-view="false">
+    <ion-content ng-class="{expanded:isExpanded}" overflow-scroll="true">
+        <div class="content has-header">
+            <div class="list animate-fade-slide-in-right">
+                <div ng-repeat="user in allPlayingUsers" class="item item-avatar item-icon-right">
+                    <img src="{{appConfig.users[user.uid].profile_picture}}">
+                     <!-- <span xng-hide="true">{{user.uid}}</span> -->
+                    <h2 href="#/app/profile">{{appConfig.users[user.uid].full_name}}</h2>
+                    <p ng-hide="appConfig.users[user.uid].mobile">Not filled Form</p>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
