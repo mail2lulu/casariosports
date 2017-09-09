@@ -1,4 +1,4 @@
-<ion-view view-title="Admin" cache-view="false">
+<ion-view view-title="Players" cache-view="false">
     <ion-content ng-class="{expanded:isExpanded}" overflow-scroll="true">
         <div class="content">
             <table class="rwd-table details">
@@ -15,26 +15,26 @@
                 <!-- header -->
                 <tr>
                     <th ng-hide="SN" class="my-tooltip"> SN </th>
-
-                    <th ng-hide="{{hideName}}"><a href="" ng-click="onSortClick('full_name')"> Name
-                <span ng-show="sortType == 'full_name' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'full_name' && sortReverse"  class="fa fa-caret-up"></span> </a> </th>
-
-                    <th ng-hide="{{hideSportsName}}"><a href="" ng-click="onSortClick('sportsname')"> Sports Name
+                    <th ng-hide="{{hideName}}"><a href="" ng-click="onSortClick('fullname')"> Name
+                <span ng-show="sortType == 'fullname' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'fullname' && sortReverse"  class="fa fa-caret-up"></span> </a> </th>
+                    <th ng-hide="{{hideSportsName}}"><a href="" ng-click="onSortClick('sportsname')"> Mobile
                 <span ng-show="sortType == 'sportsname' && !sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'sportsname' && sortReverse"  class="fa fa-caret-up"></span> </a> </th>
-
                     <th ng-hide="{{hideCluster}}"><a href="" ng-click="onSortClick('cluster')"> Cluster
                 <span ng-show="sortType == 'cluster' && !sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'cluster' && sortReverse"  class="fa fa-caret-up"></span> </a> </th>
-
+                    <th ng-hide="{{hideComments}}"><a href="" ng-click="onSortClick('comments')"> Comments
+                <span ng-show="sortType == 'comments' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'comments' && sortReverse"  class="fa fa-caret-up"></span> </a> </th>
                 </tr>
                 <!-- content -->
                 <tr ng-class="group.className" ng-click="onUserClick(user,this)" ng-repeat="user in (allPlayingUsers | orderBy:sortType:sortReverse | emptyToEnd:sortType | filter:searchFilter)">
                     <td>{{$index+1}}</td>
-                    <td ng-hide="hideName">{{user.full_name}}</td>
-                    <td ng-hide="hideName">{{user.sportsname}}</td>
+                    <td ng-hide="hideName">{{user.fullname || user.full_name}}</td>
+                    <td ng-hide="hideName">{{user.mobile}}</td>
                     <td ng-hide="hideName">{{user.cluster}}</td>
+                    <td ng-hide="hideName">{{user.comments}}</td>
                     <!-- <td ng-hide="hideTime" class="">{{group.groupTime | date:'medium'}}</td> -->
                 </tr>
             </table>

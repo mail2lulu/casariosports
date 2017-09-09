@@ -342,7 +342,7 @@ angular.module('starter.controllers', [])
 
     /////////// BO sorting and filter fun ////////////    
     myAppConfig.sortingTimeKey = "time";
-    $scope.sortType = 'full_name'; // set the default sort type
+    $scope.sortType = 'fullname'; // set the default sort type
     $scope.sortReverse = true; // set the default sort order
     $scope.searchFilter = ''; // set the default search/filter term
 
@@ -380,11 +380,12 @@ angular.module('starter.controllers', [])
         var users = myAppConfig.users;
         for (var prop in users) {
             console.log("prop ", prop)
-                // users[prop].uid = prop;
-                // users[prop].adminPlayStatus = users[prop].playStatus == 2 ? true : false;
+            users[prop].uid = prop;
+            // users[prop].adminPlayStatus = users[prop].playStatus == 2 ? true : false;
             $scope.allPlayingUsers.push(users[prop]);
         }
 
+        console.log("$scope.allPlayingUsers length :", $scope.allPlayingUsers.length);
         console.log("$scope.allPlayingUsers", $scope.allPlayingUsers);
         $ionicHistory.clearCache();
     }
@@ -779,23 +780,66 @@ angular.module('starter.controllers', [])
 })
 
 .controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
-    try {
-        $scope.$parent.showHeader();
-        $scope.$parent.clearFabs();
-        $scope.isExpanded = true;
-        $scope.$parent.setExpanded(true);
-        $scope.$parent.setHeaderFab(false);
+        try {
+            $scope.$parent.showHeader();
+            $scope.$parent.clearFabs();
+            $scope.isExpanded = true;
+            $scope.$parent.setExpanded(true);
+            $scope.$parent.setHeaderFab(false);
 
-        // Activate ink for controller
-        ionicMaterialInk.displayEffect();
+            // Activate ink for controller
+            ionicMaterialInk.displayEffect();
 
-        ionicMaterialMotion.pushDown({
-            selector: '.push-down'
-        });
-        ionicMaterialMotion.fadeSlideInRight({
-            selector: '.animate-fade-slide-in .item'
-        });
-    } catch (error) {
-        console.log("catched error:: ", error);
-    }
-});
+            ionicMaterialMotion.pushDown({
+                selector: '.push-down'
+            });
+            ionicMaterialMotion.fadeSlideInRight({
+                selector: '.animate-fade-slide-in .item'
+            });
+        } catch (error) {
+            console.log("catched error:: ", error);
+        }
+    })
+    .controller('PlayerpicsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicHistory) {
+        try {
+            $scope.$parent.showHeader();
+            $scope.$parent.clearFabs();
+            $scope.isExpanded = true;
+            $scope.$parent.setExpanded(true);
+            $scope.$parent.setHeaderFab(false);
+
+
+            // Activate ink for controller
+            ionicMaterialInk.displayEffect();
+
+            ionicMaterialMotion.pushDown({
+                selector: '.push-down'
+            });
+            ionicMaterialMotion.fadeSlideInRight({
+                selector: '.animate-fade-slide-in .item'
+            });
+
+
+            $scope.allPlayingUsers = [];
+            $scope.sortType = 'fullname';
+
+            if (myAppConfig.user.emailVerified) {
+                console.log("verified:: ", myAppConfig.user.emailVerified)
+
+                var users = myAppConfig.users;
+                for (var prop in users) {
+                    console.log("prop ", prop)
+                    users[prop].uid = prop;
+                    if (users[prop].selfie) {
+                        $scope.allPlayingUsers.push(users[prop]);
+                    }
+                }
+                console.log("$scope.allPlayingUsers length :", $scope.allPlayingUsers.length);
+                console.log("$scope.allPlayingUsers", $scope.allPlayingUsers);
+                $ionicHistory.clearCache();
+            }
+
+        } catch (error) {
+            console.log("catched error:: ", error);
+        }
+    });

@@ -1,0 +1,31 @@
+<ion-view class="playerpics" view-title="Player Photos">
+    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in" overflow-scroll="true">
+        <div class="row" ng-repeat="user in (allPlayingUsers | orderBy:sortType)" ng-if="$index % 4 === 0">
+            <div class="col col-25" ng-if="$index < allPlayingUsers.length">
+                <!-- <img ng-src="{{allPlayingUsers[$index].selfie}}" width="100%" /> -->
+                <div class="ink dark-bg">
+                    <h2>{{allPlayingUsers[$index].sportsname}}</h2>
+                    <img class="full-image" ng-src="{{allPlayingUsers[$index].selfie}}">
+                </div>
+            </div>
+            <div class="col col-25" ng-if="$index + 1 < allPlayingUsers.length">
+                <div class="ink dark-bg">
+                    <h2>{{allPlayingUsers[$index+1].sportsname}}</h2>
+                    <img class="full-image" ng-src="{{allPlayingUsers[$index+1].selfie}}">
+                </div>
+            </div>
+            <div class="col col-25" ng-if="$index + 2 < allPlayingUsers.length">
+                <div class="ink dark-bg">
+                    <h2>{{allPlayingUsers[$index+2].sportsname}}</h2>
+                    <img class="full-image" ng-src="{{allPlayingUsers[$index+2].selfie}}">
+                </div>
+            </div>
+            <div class="col col-25" ng-if="$index + 3 < allPlayingUsers.length">
+                <div class="ink dark-bg">
+                    <h2>{{allPlayingUsers[$index+3].sportsname}}</h2>
+                    <img class="full-image" ng-src="{{allPlayingUsers[$index+3].selfie}}">
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

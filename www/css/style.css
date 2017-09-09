@@ -1,6 +1,32 @@
 /* Fullscreen image
 ==================================*/
 
+.playerpics .dark-bg h2,
+.playerpics .item.dark-bg h2 {
+    font-size: 12px;
+    text-align: center;
+    /* padding-top: 8px; */
+    line-height: 14px;
+    margin: 5px 0px;
+}
+
+.playerpics .title {
+    position: relative;
+    font-size: 10px;
+    bottom: 30px;
+    padding: 5px;
+    background: gray;
+    color: whitesmoke;
+}
+
+.playerpics img {
+    /*max-height: 50px;*/
+}
+
+.card.card-gallery img {
+    width: 100%;
+}
+
 .transparent {
     background: transparent !important;
 }
@@ -49,10 +75,10 @@
 }
 
 .input-group .form-control {
-   /*padding-top: 8px;*/
+    /*padding-top: 8px;*/
     border-radius: 5px;
-
 }
+
 .item-avatar > img:first-child {
     top: 7px;
 }

@@ -1,42 +1,24 @@
-<ion-view class="profile" view-title="Profile" cache-view="false">
+<ion-view class="profile" view-title="Player" cache-view="false">
     <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="true">
-        <div class="hero slide-up" style="background-image: url('img/profile-1.jpg');">
-            <div class="content">
-                <div class="avatar" ng-style="{'background-image': 'url(' + appConfig.currUser.selfie || appConfig.user.photoURL + ')'}"></div>
-                <h3><a class="light">{{ appConfig.currUser.sportsname || appConfig.currUser.displayName}}</a></h3>
-                <h4>{{appConfig.currUser.mobile}}</h4>
-            </div>
-        </div>
-        <div class="tabs tabs-dark tabs-icon-top static">
-            <a ui-sref="app.friends" class="tab-item">
-                <i class="icon ion-android-people"></i> Friends
-            </a>
-            <a ui-sref="app.gallery" class="tab-item">
-                <i class="icon ion-images"></i> Photos
-            </a>
-            <!-- <a ui-sref="app.poll" class="tab-item">
-                <i class="icon ion-arrow-graph-up-right"></i> Vote
-            </a>
-             -->
-            <a xng-click="gotoAdmin()" ui-sref="app.admin" class="tab-item" ng-if="appConfig.currUser.userType == 'admin'">
-                <i class="icon ion-key"></i> Admin
-            </a>
-        </div>
         <div class="list xanimate-fade-slide-in-right">
             <div class="row">
-                <div class="col"><img ng-click="showImage(appConfig.currUser.selfie)" style="width: 100%;" id="selfieImg" src="{{appConfig.currUser.selfie}}"></div>
-                <div class="col"><img ng-click="showImage(appConfig.currUser.smartcard)" style="width: 100%;" id="smartCardImg" src="{{appConfig.currUser.smartcard}}"></div>
+                <div class="col">{{appConfig.currUser.fullname}} ({{appConfig.currUser.sportsname}})</div>
             </div>
             <div class="row">
                 <div class="col">{{appConfig.currUser.cluster}} {{appConfig.currUser.wing}} {{appConfig.currUser.flat}}</div>
                 <div class="col">{{appConfig.currUser.ownership}}</div>
             </div>
-             <div class="row">
-                
+            <div class="row">
                 <div class="col">{{appConfig.currUser.email}}</div>
+                <div class="col">{{appConfig.currUser.mobile}}</div>
             </div>
-
+            <div class="row">
+                <div style="background-color: gainsboro;" class="col">{{appConfig.currUser.comments}}</div>
+            </div>
+            <div class="row">
+                <div class="col"><img ng-click="showImage(appConfig.currUser.selfie)" style="width: 100%;" id="selfieImg" src="{{appConfig.currUser.selfie}}"></div>
+                <div class="col"><img ng-click="showImage(appConfig.currUser.smartcard)" style="width: 100%;" id="smartCardImg" src="{{appConfig.currUser.smartcard}}"></div>
+            </div>
         </div>
-        
     </ion-content>
 </ion-view>
