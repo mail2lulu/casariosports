@@ -218,3 +218,7 @@ p {
 
 
 /*  ///////// EO Errors ///////////  */
+.popup-container .popup {
+    background-color: white !important;
+  }
+  

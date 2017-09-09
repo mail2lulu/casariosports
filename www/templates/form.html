@@ -1,75 +1,79 @@
 <ion-view view-title="About You">
-    <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="true">
-        <div id="container" class="container">
-            <!-- https://codepen.io/andytran/pen/RPBdgM 
+  <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="true">
+    <div id="container" class="container">
+      <!-- https://codepen.io/andytran/pen/RPBdgM 
             https://codepen.io/adam2326/pen/VYMOdx
 
             https://codepen.io/Iulius90/pen/QwaOwL
             -->
-            <script id="error-list.html" type="text/ng-template">
-                <div class="error" ng-message="required">
-                    <i class="ion-information-circled"></i> This field is required!
-                </div>
-                <div class="error" ng-message="minlength">
-                    <i class="ion-information-circled"></i> Minimum length of this field is 5 characters!
-                </div>
-                <div class="error" ng-message="maxlength">
-                    <i class="ion-information-circled"></i> Maximum length of this field is 20 characters!
-                </div>
-            </script>
-            <div class="card ">
-                <!-- <h1 class="title">Register</h1> -->
-                <form name="myForm" ng-submit="saveForm(myForm)" novalidate>
-                    <div class="mdl-card__supporting-text mdl-color-text--grey-600 fileupload" id="messagesDiv">
-                        <input type="file" id="file" name="file" />
-                        <div class="input-container">
-                            <img id="smartCardImg" src="{{formData.smartcard}}">
-                            <div ng-class="{ 'has-errors' : myForm.smartcard.$invalid, 'no-errors' : myForm.smartcard.$valid}">
-                                <input disabled="true" type="text" name="smartcard" ng-model="formData.smartcard" ng-minlength="50" required>
-                                <label xng-hide="myForm.smartcard.$valid" for="smartcard">Smart card</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mdl-card__supporting-text mdl-color-text--grey-600 fileupload" id="messagesDiv2">
-                        <input type="file" id="file2" name="file2" />
-                        <div class="input-container">
-                            <img id="selfieImg" src="{{formData.selfie}}">
-                            <div ng-class="{ 'has-errors' : myForm.selfie.$invalid, 'no-errors' : myForm.selfie.$valid}">
-                                <input disabled="true" type="text" name="selfie" ng-model="formData.selfie" ng-minlength="50" required>
-                                <label xng-hide="myForm.selfie.$valid" for="selfie">Latest selfie(Portrait Size)</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <div ng-class="{ 'has-errors' : myForm.fullname.$invalid, 'no-errors' : myForm.fullname.$valid}">
-                            <input type="text" name="fullname" ng-model="formData.fullname" ng-minlength="5" ng-maxlength="20" required>
-                            <label for="fullname">Name</label>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <div ng-class="{ 'has-errors' : myForm.email.$invalid, 'no-errors' : myForm.email.$valid}">
-                            <input type="email" name="email" ng-model="formData.email" required>
-                            <label for="email">Email</label>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <div ng-class="{ 'has-errors' : myForm.mobile.$invalid, 'no-errors' : myForm.mobile.$valid}">
-                            <input type="number" name="mobile" ng-model="formData.mobile" ng-minlength="10" ng-maxlength="10" required>
-                            <label for="mobile">Mobile</label>
-                        </div>
-                    </div>
-                    <div class="button-bar">
-                        <a class="button" ng-class="{'button-positive': isOwnership('Owner')}" ng-click="setOwnership('Owner','')">Owner</a>
-                        <input type="hidden" name="ownership" ng-model="formData.ownership" required>
-                        <a class="button" ng-class="{'button-positive': isOwnership('Tenant')}" ng-click="setOwnership('Tenant','')">Tenant</a>
-                    </div>
-                    <div class="input-container">
-                        <div ng-class="{ 'has-errors' : myForm.sportsname.$invalid, 'no-errors' : myForm.sportsname.$valid}">
-                            <input type="text" name="sportsname" ng-model="formData.sportsname" ng-minlength="1" ng-maxlength="12" required>
-                            <label for="sportsname">TShirt Name(Sports Name)</label>
-                        </div>
-                    </div>
-                    <!--
+      <script id="error-list.html" type="text/ng-template">
+        <div class="error" ng-message="required">
+          <i class="ion-information-circled"></i> This field is required!
+        </div>
+        <div class="error" ng-message="minlength">
+          <i class="ion-information-circled"></i> Minimum length of this field is 5 characters!
+        </div>
+        <div class="error" ng-message="maxlength">
+          <i class="ion-information-circled"></i> Maximum length of this field is 20 characters!
+        </div>
+      </script>
+      <div class="card ">
+        <!-- <h1 class="title">Register</h1> -->
+        <form name="myForm" ng-submit="saveForm(myForm)" novalidate>
+          <div class="mdl-card__supporting-text mdl-color-text--grey-600 fileupload" id="messagesDiv">
+            <input type="file" id="file" name="file" />
+            <div class="input-container">
+              <img id="smartCardImg" src="{{formData.smartcard}}">
+              <div ng-class="{ 'has-errors' : myForm.smartcard.$invalid, 'no-errors' : myForm.smartcard.$valid}">
+                <input disabled="true" type="text" name="smartcard" ng-model="formData.smartcard" ng-minlength="50" required>
+                <label xng-hide="myForm.smartcard.$valid" for="smartcard">Smart card</label>
+              </div>
+            </div>
+          </div>
+          <div class="mdl-card__supporting-text mdl-color-text--grey-600 fileupload" id="messagesDiv2">
+            <input type="file" id="file2" name="file2" />
+            <div class="input-container">
+              <img id="selfieImg" src="{{formData.selfie}}">
+              <div ng-class="{ 'has-errors' : myForm.selfie.$invalid, 'no-errors' : myForm.selfie.$valid}">
+                <input disabled="true" type="text" name="selfie" ng-model="formData.selfie" ng-minlength="50" required>
+                <label xng-hide="myForm.selfie.$valid" for="selfie">Latest selfie(Portrait Size)</label>
+              </div>
+            </div>
+          </div>
+          <div class="input-container">
+            <div ng-class="{ 'has-errors' : myForm.fullname.$invalid, 'no-errors' : myForm.fullname.$valid}">
+              <input type="text" name="fullname" ng-model="formData.fullname" ng-minlength="5" ng-maxlength="20" required>
+              <label for="fullname">Name</label>
+            </div>
+          </div>
+          <div class="input-container">
+            <div ng-class="{ 'has-errors' : myForm.email.$invalid, 'no-errors' : myForm.email.$valid}">
+              <input type="email" name="email" ng-model="formData.email" required>
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div class="input-container">
+            <div ng-class="{ 'has-errors' : myForm.mobile.$invalid, 'no-errors' : myForm.mobile.$valid}">
+              <input type="number" name="mobile" ng-model="formData.mobile" ng-minlength="10" ng-maxlength="10" required>
+              <label for="mobile">Mobile</label>
+            </div>
+          </div>
+
+          <ion-toggle ion-toggle-text="online;offline" ng-model="formData.ccl2017">
+            <b>{{ formData.ccl2017 ? "Want to play CCL 2017?" : "Not playing CCL 2017" }}</b>
+          </ion-toggle>
+          <div class="button-bar">
+            <a class="button" ng-class="{'button-positive': isOwnership('Owner')}" ng-click="setOwnership('Owner','')">Owner</a>
+            <input type="hidden" name="ownership" ng-model="formData.ownership" required>
+            <a class="button" ng-class="{'button-positive': isOwnership('Tenant')}" ng-click="setOwnership('Tenant','')">Tenant</a>
+          </div>
+          <div class="input-container">
+            <div ng-class="{ 'has-errors' : myForm.sportsname.$invalid, 'no-errors' : myForm.sportsname.$valid}">
+              <input type="text" name="sportsname" ng-model="formData.sportsname" ng-minlength="1" ng-maxlength="12" required>
+              <label for="sportsname">TShirt Name(Sports Name)</label>
+            </div>
+          </div>
+          <!--
                     <div class="input-container">
                         <label>Tournaments Played:</label>
                     </div>
@@ -105,49 +109,51 @@
                         </div>
                     </div>
                      -->
-                    <div class="input-container tshirt">
-                        <input type="hidden" name="cluster" ng-model="formData.cluster" ng-minlength="4" ng-maxlength="20" required>
-                        <div ng-class="{ 'has-errors' : myForm.cluster.$invalid, 'no-errors' : myForm.cluster.$valid}">
-                            <label for="cluster">Cluster</label>
-                            <select ng-model="formData.cluster" ng-options="someObject for someObject in clusters ">
+          <div class="input-container tshirt">
+            <input type="hidden" name="cluster" ng-model="formData.cluster" ng-minlength="4" ng-maxlength="20" required>
+            <div ng-class="{ 'has-errors' : myForm.cluster.$invalid, 'no-errors' : myForm.cluster.$valid}">
+              <label for="cluster">Cluster</label>
+              <select ng-model="formData.cluster" ng-options="someObject for someObject in clusters ">
                             </select>
-                        </div>
-                    </div>
-                    <div class="input-container tshirt">
-                        <input type="hidden" name="wing" ng-model="formData.wing" ng-minlength="1" ng-maxlength="1" required>
-                        <div ng-class="{ 'has-errors' : myForm.wing.$invalid, 'no-errors' : myForm.wing.$valid}">
-                            <label for="wing">Wing</label>
-                            <select ng-model="formData.wing" ng-options="someObject for someObject in wings ">
+            </div>
+          </div>
+          <div class="input-container tshirt">
+            <input type="hidden" name="wing" ng-model="formData.wing" ng-minlength="1" ng-maxlength="1" required>
+            <div ng-class="{ 'has-errors' : myForm.wing.$invalid, 'no-errors' : myForm.wing.$valid}">
+              <label for="wing">Wing</label>
+              <select ng-model="formData.wing" ng-options="someObject for someObject in wings ">
                             </select>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <div ng-class="{ 'has-errors' : myForm.flat.$invalid, 'no-errors' : myForm.flat.$valid}">
-                            <input type="number" name="flat" ng-model="formData.flat" ng-minlength="3" ng-maxlength="4" required>
-                            <label for="flat">Flat</label>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <textarea style="width: 100%;background-color: aliceblue;" rows="4" placeholder="Comments" name="comments" id="comments" ng-model="formData.comments">
+            </div>
+          </div>
+          <div class="input-container">
+            <div ng-class="{ 'has-errors' : myForm.flat.$invalid, 'no-errors' : myForm.flat.$valid}">
+              <input type="number" name="flat" ng-model="formData.flat" ng-minlength="3" ng-maxlength="4" required>
+              <label for="flat">Flat</label>
+            </div>
+          </div>
+          <div class="input-container">
+            <textarea style="width: 100%;background-color: aliceblue;" rows="4" placeholder="Comments" name="comments" id="comments"
+              ng-model="formData.comments">
                         </textarea>
-                    </div>
-                    <div id="form-error">
-                        <ul>
-                            <li ng-repeat="(key, errors) in myForm.$error track by $index"> <strong>{{ key }}</strong> errors
-                                <ul>
-                                    <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- <div>
+          </div>
+          <input type="checkbox" name="checkbox" value="check" ng-model="formData.agreeTerms" id="agree" /> I have read and agree to the Terms and Conditions
+          <div id="form-error">
+            <ul>
+              <li ng-repeat="(key, errors) in myForm.$error track by $index"> <strong>{{ key }}</strong> errors
+                <ul>
+                  <li ng-repeat="e in errors">{{ e.$name }} has an error: <strong>{{ key }}</strong>.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <!-- <div>
                     {{formData}}
                     </div>
                  -->
-                    <div class="button-container">
-                        <button><span>Save</span></button>
-                    </div>
-                </form>
-            </div>
-    </ion-content>
+          <div class="button-container">
+            <button><span>Save</span></button>
+          </div>
+        </form>
+      </div>
+  </ion-content>
 </ion-view>

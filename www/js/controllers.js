@@ -169,6 +169,7 @@ angular.module('starter.controllers', [])
     ionicMaterialInk.displayEffect();
 
     $scope.googleLogin = function() {
+        console.log('on google Login 1: ');
             /** TODO: check if logged in in background */
 
             // googleLogin
@@ -704,6 +705,7 @@ angular.module('starter.controllers', [])
             $scope.formData.flat = $scope.formData.flat | 0;
             $scope.formData.wing = $scope.formData.wing | 0;
             $scope.formData.cluster = $scope.formData.cluster | "";
+            $scope.formData.ccl2017 = $scope.formData.ccl2017 | false;
 
             var res = crsapp.firebase.logMyUserData(callee, myAppConfig.dateFolder, $scope.formData).then(ref => {
                 if (ref) {
@@ -733,9 +735,17 @@ angular.module('starter.controllers', [])
             var dateObj = getDateFolder("", "saveForm");
             myAppConfig.dateFolder = dateObj.dateStr;
             this.formData.timeStamp = dateObj.timeStamp;
+            
             if (form.$valid) {
                 //is a valid form
                 $scope.isSubmitted = true;
+                if (!this.formData.ccl2017) {
+                    alert("you have not registered yourself for playing CCL 2017.")
+                }
+                if (!this.formData.agreeTerms) {
+                    alert("Please indicate that you have read and agree to the Terms and Conditions");
+                    return;
+                }
 
                 var res2 = crsapp.firebase.saveUserFormData($scope.formData).then(ref => {
                     if (ref) {

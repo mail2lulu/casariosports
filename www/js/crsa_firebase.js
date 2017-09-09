@@ -101,7 +101,7 @@ crsapp.Firebase = class {
             }
             const updateOperations = Object.keys(people).map(userId => {
                 const user = people[userId];
-                console.log('updateOperations user:', user);
+                // console.log('updateOperations user:', user);
                 return user
             });
             console.log('userRef updateOperations:', updateOperations);
@@ -407,7 +407,7 @@ crsapp.Firebase = class {
             }
             const updateOperations = Object.keys(people).map(userId => {
                 const user = people[userId];
-                console.log('updateOperations user:', user);
+                // console.log('updateOperations user:', user);
                 return user
             });
             console.log('userRef updateOperations:', updateOperations);
@@ -445,6 +445,7 @@ crsapp.Firebase = class {
          * Saves or updates public user data in Firebase (such as image URL, display name...).
          */
     saveUserFormData(formData) {
+        console.log('formData: ', formData);
         return this.database.ref(`people/${this.auth.currentUser.uid}`).update(formData);
     }
 
@@ -506,7 +507,7 @@ crsapp.Firebase = class {
             }
             const updateOperations = Object.keys(people).map(userId => {
                 const user = people[userId];
-                console.log('updateOperations user:', user);
+                // console.log('updateOperations user:', user);
                 return user
             });
             console.log('userRef updateOperations:', updateOperations);
