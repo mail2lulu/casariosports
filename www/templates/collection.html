@@ -1,6 +1,8 @@
 <ion-view view-title="Players" cache-view="false">
   <ion-content ng-class="{expanded:isExpanded}" overflow-scroll="true">
     <div class="content">
+
+      <div>Summrized payment per collector will apear here. Till then use player search to get the collector details.</div>
       <table class="rwd-table details">
         <tr>
           <td>
@@ -32,7 +34,7 @@
                 <span ng-show="sortType == 'comments' && sortReverse"  class="fa fa-caret-up"></span> </a> </th>
         </tr>
         <!-- content -->
-        <tr ng-class="group.className" ng-click="onUserClick(user,this)" ng-repeat="user in (allPlayingUsers | orderBy:sortType:sortReverse | emptyToEnd:sortType | filter:searchFilter)">
+        <tr ng-class="group.className" ng-click="onUserClick(user,this)" ng-repeat="user in (allPaidUsers | orderBy:sortType:sortReverse | emptyToEnd:sortType | filter:searchFilter)">
           <td>{{$index+1}}</td>
           <td ng-hide="hideName">{{user.fullname || user.full_name}}</td>
           <td ng-hide="hideName">{{user.mobile}}</td>

@@ -313,6 +313,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
           }
         }
       })
+      .state('app.collection', {
+        url: '/collection-profile',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/collection.html',
+            controller: 'CollectionCtrl'
+          },
+          'fabContent': {
+            template: '',
+            controller: function ($timeout) {}
+          }
+        }
+      })
       .state('app.poll', {
         url: '/poll',
         views: {

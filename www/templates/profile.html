@@ -21,8 +21,11 @@
                 <i class="icon ion-arrow-graph-up-right"></i> Vote
             </a>
              -->
-            <a xng-click="gotoAdmin()" ui-sref="app.admin" class="tab-item" ng-if="appConfig.userInfo.userType == 'admin'">
+            <a ui-sref="app.admin" class="tab-item" ng-if="appConfig.userInfo.userType == 'admin'">
                 <i class="icon ion-search"></i> Players
+            </a>
+            <a ui-sref="app.collection" class="tab-item" ng-if="appConfig.userInfo.userType == 'admin'">
+                <i class="icon ion-cash" style="color:yellow;"></i> Collection
             </a>
         </div>
         <div class="list xanimate-fade-slide-in-right">
