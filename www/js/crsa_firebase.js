@@ -108,6 +108,33 @@ crsapp.Firebase = class {
             return Promise.all(updateOperations);
         });
     }
+    getFilteredUsers(childKey, keyValue) {
+        // usersRef.orderByChild(‘email’).equalTo(‘user-i-need-to-find@gmail.com’).once(‘value’)
+        const userFilterRef = this.database.ref(`/people`).orderByChild(childKey);
+        return userFilterRef.once('value', peopleFilterData => {
+            // Start listening the followed user's posts to populate the home feed.
+            const peopleFilter = peopleFilterData.val();
+            console.log('get FilteredUsers peopleFilter: ', peopleFilter);
+            if (!peopleFilter) {
+                return;
+            }
+            const updateFilterOperations = Object.keys(peopleFilter).map(userFilterId => {
+                const userFilter = peopleFilter[userFilterId];
+                // console.log('updateFilterOperations userFilter:', userFilter);
+                console.log('userFilter[childKey]: ', userFilter[childKey]);
+                if (userFilter[childKey]) {
+                    console.log('if some other userFilter: ', childKey);
+                    return userFilter
+                }else{
+                    console.log(' some other userFilter: ');
+                    return null
+                }
+                
+            });
+            console.log('userRef updateFilterOperations:', updateFilterOperations);
+            return Promise.all(updateFilterOperations);
+        });
+    }
 
     getUserFormStatus(uid) {
         const userRef = this.database.ref(`/people/${uid}`);

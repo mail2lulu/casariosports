@@ -253,16 +253,26 @@ angular.module('starter.controllers', [])
         // Set Ink
         ionicMaterialInk.displayEffect();
 
-        console.log('getUsers users emailVerified:', myAppConfig.user.emailVerified);
+        console.log('get Users users emailVerified:', myAppConfig.user.emailVerified);
         if (myAppConfig.user.emailVerified) {
             var fu = crsapp.firebase.getUsers().then(usersData => {
                 const users = usersData.val();
-                console.log('getUsers users:', users);
+                console.log('get Users users:', users);
                 if (!users) {
                     return;
                 }
                 myAppConfig.users = users;
             })
+            var fu_CCL2017 = crsapp.firebase.getFilteredUsers("ccl2017","true").then(usersData => {
+                const filteredUsers = usersData.val();
+                console.log('get Users filteredUsers :', filteredUsers);
+                if (!filteredUsers) {
+                    return;
+                }
+                myAppConfig.filteredUsers = filteredUsers;
+            })
+
+
             var fu2 = crsapp.firebase.getMyTournament().then(playersData => {
                 const players = playersData.val();
                 console.log('getplayers players:', players);
@@ -488,7 +498,7 @@ angular.module('starter.controllers', [])
     };
     var fu = crsapp.firebase.getTournamentData().then(usersData => {
         const users = usersData.val();
-        console.log('getUsers users:', users);
+        console.log('get Users users:', users);
         if (!users) {
             return;
         }
@@ -548,7 +558,7 @@ angular.module('starter.controllers', [])
         console.log("inside electCaptain");
         var fu = crsapp.firebase.getCaptains().then(captainsData => {
             const captains = captainsData.val();
-            console.log('getUsers captains:', captains);
+            console.log('get Users captains:', captains);
             if (!captains) {
                 return;
             }
@@ -742,11 +752,6 @@ angular.module('starter.controllers', [])
                 if (!this.formData.ccl2017) {
                     alert("you have not registered yourself for playing CCL 2017.")
                 }
-                if (!this.formData.agreeTerms) {
-                    alert("Please indicate that you have read and agree to the Terms and Conditions");
-                    return;
-                }
-
                 var res2 = crsapp.firebase.saveUserFormData($scope.formData).then(ref => {
                     if (ref) {
                         console.log('if saveUserFormData ref.ref.key:');
