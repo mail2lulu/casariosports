@@ -59,7 +59,7 @@
             </div>
           </div>
 
-          <ion-toggle ion-toggle-text="online;offline" ng-model="formData.ccl2017">
+          <ion-toggle ion-toggle-text="online;offline" ng-disabled="formData.ccl2017" ng-model="formData.ccl2017">
             <b>{{ formData.ccl2017 ? "Want to play CCL 2017?" : "Not playing CCL 2017" }}</b>
           </ion-toggle>
           <div class="button-bar">

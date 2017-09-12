@@ -394,27 +394,27 @@ angular.module('starter.controllers', [])
     /////////// EO sorting and filter fun //////////// 
 
 
-    
+
 
     if (myAppConfig.user.emailVerified) {
-        console.log("verified:: ", myAppConfig.user.emailVerified)
-  
-        var users = myAppConfig.users;
-        for (var prop in users) {
-          console.log("prop ", prop)
-          var user = users[prop];
-          user.uid = prop;
-          console.log('user: ', user);
-          if (user.ccl2017Payment) {
-  
-            $scope.allPaidUsers.push(user);
-          }
+      console.log("verified:: ", myAppConfig.user.emailVerified)
+
+      var users = myAppConfig.users;
+      for (var prop in users) {
+        console.log("prop ", prop)
+        var user = users[prop];
+        user.uid = prop;
+        console.log('user: ', user);
+        if (user.ccl2017Payment) {
+
+          $scope.allPaidUsers.push(user);
         }
-  
-        console.log("$scope.allPaidUsers length :", $scope.allPaidUsers.length);
-        console.log("$scope.allPaidUsers", $scope.allPaidUsers);
-        $ionicHistory.clearCache();
       }
+
+      console.log("$scope.allPaidUsers length :", $scope.allPaidUsers.length);
+      console.log("$scope.allPaidUsers", $scope.allPaidUsers);
+      $ionicHistory.clearCache();
+    }
 
 
   })
@@ -997,7 +997,9 @@ angular.module('starter.controllers', [])
           console.log("prop ", prop)
           users[prop].uid = prop;
           if (users[prop].selfie) {
-            $scope.allPlayingUsers.push(users[prop]);
+            if (users[prop].ccl2017) {
+              $scope.allPlayingUsers.push(users[prop]);
+            }
           }
         }
         console.log("$scope.allPlayingUsers length :", $scope.allPlayingUsers.length);
