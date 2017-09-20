@@ -1,15 +1,15 @@
 <ion-view view-title="Login" align-title="left">
-    <ion-content style="background: url(img/login-1.jpg) center; background-size: cover;">
-        <div class="hero no-header flat">
-            <div class="content">
-                <!-- <div class="app-icon"></div> -->
-                <h1>{{appConfig.vars.appName}}</h1>
-            </div>
-        </div>
-        <!-- Splash screen -->
-        <!-- <div id="firebaseui-auth-container"></div> -->
-        <!-- <a class="fp-skip" ui-sref="app.profile">skip sign in</a> -->
-        <!--  <div class="list">
+  <ion-content style="background: url(img/login-1.jpg) center; background-size: cover;">
+    <div class="hero no-header flat">
+      <div class="content">
+        <!-- <div class="app-icon"></div> -->
+        <h1>{{appConfig.vars.appName}}</h1>
+      </div>
+    </div>
+    <!-- Splash screen -->
+    <!-- <div id="firebaseui-auth-container"></div> -->
+    <!-- <a class="fp-skip" ui-sref="app.profile">skip sign in</a> -->
+    <!--  <div class="list">
             <ion-md-input placeholder="Username" highlight-color="balanced" type="text"></ion-md-input>
             <ion-md-input placeholder="Password" highlight-color="energized" type="password"></ion-md-input>
         </div>
@@ -17,12 +17,14 @@
             <button ui-sref="app.profile" class="button button-full button-assertive ink">Login</button>
             <a class="fp-sign-out mdl-navigation__link fp-signed-in-only"><i class="material-icons">exit_to_app</i> Sign Out</a>
         </div> -->
-        <!-- <div id="firebaseui-auth-container"></div> -->
-        <div class="button-bar social-login">
-            <button ng-click="googleLogin()" class="button button-small button-border icon-left ion-social-google button-assertive-900">Login</button>
-            <!--  <button class="button button-small button-border icon-left ion-social-twitter button-calm-900">Twitter</button>
+    <!-- <div id="firebaseui-auth-container"></div> -->
+    <div class="button-bar social-login">
+      <!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div> -->
+
+      <button ng-click="googleLogin()" class="button button-small button-border icon-left ion-social-google button-assertive-900">Login</button>
+      <!--  <button class="button button-small button-border icon-left ion-social-twitter button-calm-900">Twitter</button>
             <button class="button button-small button-border icon-left ion-social-facebook button-positive-900">Facebook</button> -->
-            <img src="">
-        </div>
-    </ion-content>
+      <img src="">
+    </div>
+  </ion-content>
 </ion-view>

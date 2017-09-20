@@ -169,11 +169,9 @@ angular.module('starter.controllers', [])
       $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
+    myAppConfig.loginCtrl = $scope;
 
-    $scope.googleLogin = function () {
-      console.log('on google Login 1: ');
-      /** TODO: check if logged in in background */
-
+    function oldPopupSign() {
       // googleLogin
       firebase.auth().signInWithPopup(myAppConfig.provider).then(function (result) {
         console.log("inside auth firebase")
@@ -198,6 +196,36 @@ angular.module('starter.controllers', [])
         var credential = error.credential;
         // ...
       });
+    }
+
+    $scope.onSignIn = function (profile) {
+      console.log('profile: ', profile);
+      console.log('onSignIn ctrl: ');
+      var user = {};
+      console.log("11 if inside auth changed firebase user :: ", user)
+     
+
+    }
+
+    function oldPopupSign2(params) {
+
+      let provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+      firebase.auth().signInWithRedirect(provider);
+      firebase.auth().getRedirectResult().then(function (authData) {
+        console.log('authData: ', authData);
+        // this.navCtrl.push(TabsPage);
+      }).catch(function (error) {
+        console.log('error: ', error);
+        console.log(error);
+      });
+    }
+    $scope.googleLogin = function () {
+      console.log('on google Login 1: ');
+      /** TODO: check if logged in in background */
+
+      // oldPopupSign2()
+      oldPopupSign()
 
     } //eo fun
 
@@ -227,7 +255,7 @@ angular.module('starter.controllers', [])
     }
   })
 
-  .controller('ProfileCtrl', function ($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk, $location, $ionicModal, $ionicHistory) {
+  .controller('ProfileCtrl', function ($scope, $state, $stateParams, $timeout, $filter, ionicMaterialMotion, ionicMaterialInk, $location, $ionicModal, $ionicHistory) {
     try {
       // Set Header
       $scope.$parent.showHeader();
@@ -273,22 +301,33 @@ angular.module('starter.controllers', [])
       console.log('get Users users emailVerified:', myAppConfig.user.emailVerified);
       if (myAppConfig.user.emailVerified) {
         var fu = crsapp.firebase.getUsers().then(usersData => {
+          const allUsers = [];
+          const playingUsers = [];
           const users = usersData.val();
           console.log('get Users users:', users);
           if (!users) {
             return;
           }
           myAppConfig.users = users;
-        })
-        var fu_CCL2017 = crsapp.firebase.getFilteredUsers("ccl2017", "true").then(usersData => {
-          const filteredUsers = usersData.val();
-          console.log('get Users filteredUsers :', filteredUsers);
-          if (!filteredUsers) {
-            return;
-          }
-          myAppConfig.filteredUsers = filteredUsers;
-        })
 
+          /**
+           * update sheet if admin
+           */
+          for (var prop in users) {
+            // console.log("ddddd prop ", prop)
+            var user = users[prop];
+            user.uid = prop;
+            if (user.ccl2017) {
+              console.log('ddddd user: ', user);
+              playingUsers.push(user);
+            }
+            allUsers.push(user);
+
+          }
+          myAppConfig.allPlayingUsers = playingUsers;
+          console.log('ddddd playingUsers: ', playingUsers);
+          setSheetData(allUsers);
+        })
 
         var fu2 = crsapp.firebase.getMyTournament().then(playersData => {
           const players = playersData.val();
@@ -344,6 +383,11 @@ angular.module('starter.controllers', [])
         });
       }
 
+
+      $scope.updateSheet = function (callee) {
+        console.log('update Sheet callee: ', callee);
+        // window.LoadUI("updateSheet")
+      };
 
 
 
@@ -413,6 +457,7 @@ angular.module('starter.controllers', [])
 
       console.log("$scope.allPaidUsers length :", $scope.allPaidUsers.length);
       console.log("$scope.allPaidUsers", $scope.allPaidUsers);
+      // setSheetData($scope.allPaidUsers);
       $ionicHistory.clearCache();
     }
 
@@ -534,9 +579,8 @@ angular.module('starter.controllers', [])
           $scope.allPlayingUsers.push(user);
         }
       }
-
-      console.log("$scope.allPlayingUsers length :", $scope.allPlayingUsers.length);
-      console.log("$scope.allPlayingUsers", $scope.allPlayingUsers);
+      console.log("$scope.all PlayingUsers length :", $scope.allPlayingUsers.length);
+      console.log("$scope.all PlayingUsers", $scope.allPlayingUsers);
       $ionicHistory.clearCache();
     }
 

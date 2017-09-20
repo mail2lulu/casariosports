@@ -103,6 +103,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
 
       /** Check for user */
       myAppConfig.provider = new firebase.auth.GoogleAuthProvider();
+      console.log('myAppConfig.provider: ', myAppConfig.provider);
       console.log("set my app:: ", myAppConfig)
       $rootScope.appConfig = myAppConfig;
       firebase.auth().onAuthStateChanged(function (user) {
@@ -114,6 +115,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
           myAppConfig.formData.email = user.email;
           myAppConfig.formData.fullname = user.displayName;
           //todo: get if form is not filled 
+          console.log('uid user.uid: ', user.uid);
           crsapp.firebase.loadUserProfile(user.uid).then(snapshot => {
             const userInfo = snapshot.val();
             console.log("if inside auth changed firebase userInfo :: ", userInfo)

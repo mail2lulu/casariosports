@@ -1,0 +1,61 @@
+<script src="libs/firebase/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBYVYYdP1UyhLlGeavG-BGi_te_5mbpowg",
+    authDomain: "casariosportsapp.firebaseapp.com",
+    databaseURL: "https://casariosportsapp.firebaseio.com",
+    projectId: "casariosportsapp",
+    storageBucket: "casariosportsapp.appspot.com",
+    messagingSenderId: "686170479566"
+  };
+  firebase.initializeApp(config);
+
+  var CLIENT_ID = '686170479566-9t5rdf5hujoh1vjcg3rt1074djcrcfun.apps.googleusercontent.com';
+  var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+  var YOUR_API_KEY = 'AIzaSyBYVYYdP1UyhLlGeavG-BGi_te_5mbpowg'
+  var GoogleAuth;
+  var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+
+  var provider = new firebase.auth.GoogleAuthProvider();
+
+  function loginMe(params) {
+    console.log('params: ', params);
+    firebase.auth().signInWithPopup(provider).then(function (result) {
+      console.log('result: ', result);
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+    }).catch(function (error) {
+      console.log('error: ', error);
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
+  }
+
+  function handleClientLoad(params) {
+    console.log('params: ', params);
+    loginMe(params)
+  }
+
+</script>
+
+<button id="sign-in-or-out-button" style="margin-left: 25px">Sign In/Authorize</button>
+<button id="revoke-access-button" style="display: none; margin-left: 25px">Revoke access</button>
+
+<div id="auth-status" style="display: inline; padding-left: 25px"></div>
+<hr>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
+
+
+</script>

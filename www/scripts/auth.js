@@ -39,6 +39,7 @@ friendlyPix.Auth = class {
     // Firebase SDK
     this.database = firebase.database();
     this.auth = firebase.auth();
+    console.log('this.auth: ', this.auth);
     this._waitForAuthPromiseResolver = new $.Deferred();
 
     $(document).ready(() => {

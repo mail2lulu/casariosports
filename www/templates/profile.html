@@ -1,49 +1,57 @@
 <ion-view class="profile" view-title="Profile" cache-view="false">
-    <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="true">
-        <div class="hero slide-up" style="background-image: url('img/profile-1.jpg');">
-            <div class="content">
-                <div class="avatar" ng-style="{'background-image': 'url(' + appConfig.user.photoURL + ')'}"></div>
-                <h3><a class="light">{{ appConfig.userInfo.sportsname || appConfig.user.displayName}}</a></h3>
-                <h4>{{appConfig.userInfo.mobile}}</h4>
-            </div>
+  <ion-content ng-class="{expanded:$scope.isExpanded}" overflow-scroll="true">
+    <div class="hero slide-up" style="background-image: url('img/profile-1.jpg');">
+      <div class="content">
+        <div class="avatar" ng-style="{'background-image': 'url(' + appConfig.user.photoURL + ')'}"></div>
+        <h3><a class="light">{{ appConfig.userInfo.sportsname || appConfig.user.displayName}}</a></h3>
+        <h4>{{appConfig.userInfo.mobile}}</h4>
+        <div ng-if="appConfig.userInfo.userType == 'admin'" class="input-group">
+          <p>Update Google Sheet</p>
+          <!--Add buttons to initiate auth sequence and sign out-->
+          <button id="authorize-button" style="display: none;">Authorize</button>
+          <button id="signout-button" style="display: none;">Sign Out</button>
+          <pre id="content"></pre>
+          <button ng-click="updateSheet()" class=""><i class="fa fa-search"></i></button>
         </div>
-        <div class="tabs tabs-dark tabs-icon-top static">
-            <a ui-sref="app.friends" class="tab-item">
+      </div>
+    </div>
+    <div class="tabs tabs-dark tabs-icon-top static">
+      <a ui-sref="app.friends" class="tab-item">
                 <i class="icon ion-android-people"></i> Friends
             </a>
-            <a ui-sref="app.gallery" class="tab-item">
+      <a ui-sref="app.gallery" class="tab-item">
                 <i class="icon ion-images"></i> Gallery
             </a>
-            <a ui-sref="app.playerpics" class="tab-item">
+      <a ui-sref="app.playerpics" class="tab-item">
                 <i class="icon ion-images"></i> Player Photos
             </a>
-            <!-- <a ui-sref="app.poll" class="tab-item">
+      <!-- <a ui-sref="app.poll" class="tab-item">
                 <i class="icon ion-arrow-graph-up-right"></i> Vote
             </a>
              -->
-            <a ui-sref="app.admin" class="tab-item" ng-if="appConfig.userInfo.userType == 'admin'">
+      <a ui-sref="app.admin" class="tab-item" ng-if="appConfig.userInfo.userType == 'admin'">
                 <i class="icon ion-search"></i> Players
             </a>
-            <a ui-sref="app.collection" class="tab-item" ng-if="appConfig.userInfo.userType == 'admin'">
+      <a ui-sref="app.collection" class="tab-item" ng-if="appConfig.userInfo.userType == 'admin'">
                 <i class="icon ion-cash" style="color:yellow;"></i> Collection
             </a>
-        </div>
-        <div class="list xanimate-fade-slide-in-right">
-            <div class="row">
-                <div class="col">{{appConfig.userInfo.cluster}} {{appConfig.userInfo.wing}} {{appConfig.userInfo.flat}}</div>
-                <div class="col">{{appConfig.userInfo.ownership}}</div>
-            </div>
-            <div class="row">
-                <div class="col">{{appConfig.userInfo.email}}</div>
-            </div>
-            <div class="row">
-                <div class="col">Comments: {{appConfig.userInfo.comments}}</div>
-            </div>
-            <div class="row">
-                <div class="col"><img ng-click="showImage(appConfig.userInfo.selfie)" style="width: 100%;" id="selfieImg" src="{{appConfig.userInfo.selfie}}"></div>
-                <div class="col"><img ng-click="showImage(appConfig.userInfo.smartcard)" style="width: 100%;" id="smartCardImg" src="{{appConfig.userInfo.smartcard}}"></div>
-            </div>
-            <button id="fab-gallery" class="button button-fab button-fab-bottom-right button-energized-900" ng-click='editProfile()'><i class='icon ion-edit'></i></button>
-        </div>
-    </ion-content>
+    </div>
+    <div class="list xanimate-fade-slide-in-right">
+      <div class="row">
+        <div class="col">{{appConfig.userInfo.cluster}} {{appConfig.userInfo.wing}} {{appConfig.userInfo.flat}}</div>
+        <div class="col">{{appConfig.userInfo.ownership}}</div>
+      </div>
+      <div class="row">
+        <div class="col">{{appConfig.userInfo.email}}</div>
+      </div>
+      <div class="row">
+        <div class="col">Comments: {{appConfig.userInfo.comments}}</div>
+      </div>
+      <div class="row">
+        <div class="col"><img ng-click="showImage(appConfig.userInfo.selfie)" style="width: 100%;" id="selfieImg" src="{{appConfig.userInfo.selfie}}"></div>
+        <div class="col"><img ng-click="showImage(appConfig.userInfo.smartcard)" style="width: 100%;" id="smartCardImg" src="{{appConfig.userInfo.smartcard}}"></div>
+      </div>
+      <button id="fab-gallery" class="button button-fab button-fab-bottom-right button-energized-900" ng-click='editProfile()'><i class='icon ion-edit'></i></button>
+    </div>
+  </ion-content>
 </ion-view>
