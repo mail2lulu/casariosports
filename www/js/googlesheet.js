@@ -188,6 +188,7 @@ function setSheetData(users) {
     rowArr.push(new Date(regUserObj.timeStamp || "") || "")
     rowArr.push(regUserObj.uid || "")
     rowArr.push(regUserObj.full_name || "")
+    rowArr.push(regUserObj.ccl2017 || "")
     rowArr.push(regUserObj.ccl2017PaidTo || "")
     rowArr.push(regUserObj.cluster || "")
     rowArr.push(regUserObj.wing || "")

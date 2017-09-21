@@ -6,12 +6,12 @@
         <h3><a class="light">{{ appConfig.userInfo.sportsname || appConfig.user.displayName}}</a></h3>
         <h4>{{appConfig.userInfo.mobile}}</h4>
         <div ng-if="appConfig.userInfo.userType == 'admin'" class="input-group">
-          <p>Update Google Sheet</p>
+          <p style="visibility:hidden;">Update Google Sheet</p>
           <!--Add buttons to initiate auth sequence and sign out-->
-          <button id="authorize-button" style="display: none;">Authorize</button>
-          <button id="signout-button" style="display: none;">Sign Out</button>
-          <pre id="content"></pre>
-          <button ng-click="updateSheet()" class=""><i class="fa fa-search"></i></button>
+          <button id="authorize-button" style="display: none;">Authorize Sheet</button>
+          <button id="signout-button" style="display: none;">Sign Out from Sheet</button>
+          <pre style="visibility:hidden;" id="content"></pre>
+          <button style="visibility:hidden;" ng-click="updateSheet()" class=""><i class="fa fa-search"></i></button>
         </div>
       </div>
     </div>
